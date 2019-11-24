@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TextBox1.Text" xml:space="preserve">
+    <value>[event]
+eventname=
+eventnpcname=
+flagsettingtime=
+event_doing=
+dropitem_count=
+dropitem0=
+droptime_count = 1
+droptime0=
+npctime_count=
+npctime0=
+timevariable_count=
+
+----------
+
+	event_name =
+
+Название для Эвента - можно выбрать одно из этих:
+event_bak (squash pumpkin event)
+event_heart (heart event - rock/scissors/paper)
+collector (medal collector event)
+Ты можешь попробовать набрать //summon event_bak или //summon event_heart и тогда ты получишь их. Получив их ты увидишь информацию о эвентах
+
+	eventnpcname=
+
+Название Эвента из npcpos.txt - данная команда активирует респавн мобов данного Эвента. Например:
+bak_event
+bak_heart
+medal
+...на самом дела их намного больше, проверь весь npcpos.txt там где написанно event_name=[] удачи...
+
+	flagsettingtime = 300000
+
+Рассмотрим на самом простом примере - медальки:
+flagsettingtime = 60000
+dropitem0=event_medal 20
+dropitem1=event_glitter_medal 1
+flagsettingtime - задание временного цикла в миллисекундах (60000=60 сек=1 мин)
+С момента старта ивента сервак начинает отсчитывать эти временные циклы.
+В течение данного цикла с мобов во всем мире дропнется 20 обычных медалей, и одна блестящая.
+Причем дроп идет в том порядке как прописан в eventdata.ini - пока не дропнутся все 20 обычных блестящая не упадет, т.е. дроп последовательный и в указанном количестве.
+По окончании цикла счетчик дропитемов обнуляется и всё начинается заново, т.е. - если за данный временной цикл не было выбито 20 простых а потом одна блестящая, то отсчет начнется заново.
+И также если в течение цикла список дропитемов дошел до конца - дроп ивентвещей прекращается до начала следующего цикла и т.д.
+
+	event_doing = 1
+
+Данный параметер отвечает за включение-1/выключение-0 эвента
+
+	dropitem_count = 1
+Этот параметер отвечает за количество итемов падаюших с мобов. Если ты хочешь запустить эвент МЕДАЛЬКИ, то тебе нужно поставить 2 значения dropitem0=medal и dropitem1=glittering_medal. Если же ты хочешь запустить эвент Сердечки, ты должен поставить 9 итемов начинаюшиеся с dropitem0= и заканьчиваюшиеся на dropitem8=, тк счёт начинается с dropitem0.
+
+	dropitem0=heart_1 5
+
+Эвент дроплист, второе значение в этой строчке (5).
+Это число отвечает за процентность дропа итемов (в примере стоит число 5). 100/5 = % дропа. И так, если ты поставишь значение на 5, ты получишь 20% дропа этого итема с мобов.
+
+	npctime_count=1
+
+Этот параметер отвечает за то сколько у тебя стоит таим зон. Он непосредственно связан с параметром npctimeX.
+
+
+	npctime0= 2006/9/14-4:00 ~ 2006/9/22-23:59
+
+Ты можешь задать определённо время появления НПС.. для примера, ты можешь поставить так что у тебя каждый день с 19 до 21:00 будут появлятся эвент мобы... Пример:
+	npctime_count=3
+	npctime0= 2006/9/14-19:00 ~ 2006/9/14-21:00
+	npctime1= 2006/9/15-19:00 ~ 2006/9/15-21:00
+	npctime2= 2006/9/16-19:00 ~ 2006/9/16-21:00
+
+	timevariable_count=0
+
+Не знаю...
+
+
+
+Thx PP</value>
+  </data>
+  <data name="TextBox2.Text" xml:space="preserve">
+    <value>[event]
+eventname=
+eventnpcname=
+flagsettingtime=
+event_doing=
+dropitem_count=
+dropitem0=
+droptime_count = 1
+droptime0=
+npctime_count=
+npctime0=
+timevariable_count=
+
+----------
+
+	event_name =
+
+Name of Event - currently I know only this:
+event_bak (squash pumpkin event)
+event_heart (heart event - rock/scissors/paper)
+collector (medal collector event)
+You can try //summon event_bak and event_heart and you get EM what give you info about that event
+
+	eventnpcname=
+
+Name of Event from npcpos.txt - this tell L2NPC which spawns to activate.
+bak_event
+bak_heart
+medal
+...there are many more, just check npcpos.txt for event and then try to find the event_name= for all events..good luck.
+
+	flagsettingtime = 300000
+
+you got 6 minutes
+and yes you get every letter in order you set in item drop, if you can kill 14 mobs in this time
+ups - set each letter to amount 1
+digit after item - it's amount of items droped
+so - to get all - with your current settings - you must kill 280 mobs within 3 seconds
+(flagtime=3000 - 3000 miliseconds - divide them to 1000 - you get seconds)
+
+	event_doing = 1
+
+This turn event on/off
+
+	dropitem_count = 1
+This tell server how many event items can drop from monsters. If you want run medal event, you need set this to 2 and set dropitem0=medal and dropitem1=glittering_medal. If you want try heart event, you must set it to 9 and set dropitem0-8 for heart_1 - 9.
+
+	dropitem0=heart_1 5
+
+Event Droplist, which items will be dropped during event.
+Someone think .. the number after name of item (in our example 5) is divider. 100/5=how much % chance to get event item dropped. So if you set to 5, you have 20% chance to get event item from mob.
+
+	npctime_count=1
+
+This tell server how many time zones you have when event item can drop from monster. This is counter how many lines with npctimeX you have.
+
+
+	npctime0= 2006/9/14-4:00 ~ 2006/9/22-23:59
+
+You can here specify time when monsters will drop event time.. for example you can set it every day in 19-21:00 so monster drop it only in your peak time.. Example:
+	npctime_count=3
+	npctime0= 2006/9/14-19:00 ~ 2006/9/14-21:00
+	npctime1= 2006/9/15-19:00 ~ 2006/9/15-21:00
+	npctime2= 2006/9/16-19:00 ~ 2006/9/16-21:00
+
+	timevariable_count=0
+
+Dont know...
+
+
+
+Thx PP</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAAAAACoCAAAFgAAACgAAAAgAAAAQAAAAAEACAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAA
+        AADe7/cA3u/vAN7m7wDW3uYA1t7eAMXW3gC9zt4Atc7eAMXO1gCtzt4Avc7WAMXOzgC9xdYAtcXWAMXF
+        zgC9xc4AtcXOAK3FzgC9xcUArb3OAKW9zgC1vcUArb3FAKW9xQCctc4ArbXFAKW1xQC1tb0AnLXFAK21
+        vQCUtcUApbW9AJy1vQCUtb0AnLW1AJStxQClrb0AjK3FAJytvQCUrb0AjK29AJyttQCErb0AlK21AIyt
+        tQCErbUAlKW9AJStrQCMpb0AhKW9AJSltQCMpbUAnKWtAISltQCUpa0Ae6W1AIylrQCcpaUAhKWtAHul
+        rQCUnK0AjJytAIScrQCUnKUAe5ytAIycpQCEnKUAlJycAHucpQCMnJwAhJStAIyUpQCElKUAe5SlAIyU
+        nABzlKUAhJScAHuUnABzlJwAe5SUAISMnAB7jJwAjIyUAHOMnACEjJQAe4yUAHOMlACEjIwAa4yUAHuM
+        jABjjJQAe4SUAHOElACEhIwAa4SUAHuEjABjhJQAc4SMAGuEjAB7hIQAY4SMAHt7jABje5QAWoSEAHN7
+        jABre4wAe3uEAGN7jABze4QAWnuMAGt7hABje4QAc3t7AFp7hABae3sAa3OEAGNzhABac4QAa3N7AFJz
+        hABjc3sAWnN7AGtzcwBSc3sAY3NzAGNrewBaa3sAa2tzAFJrewBja3MASmt7AFprcwBSa3MAY2trAEpr
+        cwBaa2sAUmN7AFpjcwBSY3MASmNzAFpjawBSY2sASmNrAFpjYwBCY2sAUmNjAEJacwBSWmsASlprAEJa
+        awBSWmMAOlprAEpaYwBCWmMAOlpjAEJSawBSUmMAOlJrAEpSYwBCUmMAOlJjAEpSWgBCUloAUlJSADpS
+        WgBKUlIAMVJaAEJSUgBCSloAOkpaADFKWgBCSlIAOkpSADFKUgBCSkoAKUJaADFCUgA6QkoAMUJKAClC
+        SgAxOkoAKTpKADo6QgAhOkoAMTpCABk6SgApOkIAMTo6ABkxSgAhMUIAMTE6ACkxOgAhMToAKTExABAx
+        OgAhKToAISkxABkpMQAZITEAGSEpABAZKQAIGSEAGRkZABAZGQAIEBkACAgQAAAACAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAALDMzMygzMyBPyY6GCQdpbyyAmTotmpmMQYo+NUAoMzMzMzMzMzM4IJh4SYA+PnTIrDhikC1n
+        OAIIfTgsLDMuMzAzMzMzIBw9bil5XidNiml4QovCmmR5TEcZPTMzMzMzKDMzIBp5dSuKNn5JHmuLuZKL
+        oG+psIgyE1s8MjIzMzMxMz0ysng4PWkWYYAnJ06Ct7drgHWLm3UnUW4aGjMoMzAnUUysECkTFlWWbkxI
+        Jxx1uWZ1pmuLe1aZQR+YlU4oMydBNLEdD2y4qxtUJFtNSW23kjWAXoZNe4Ruv40gTicuJj/BylRfzYwL
+        f8xbNhA+J6qXXnF5LG95jYOyeINCJysaeLEVgcxUA6XKHTSYib2aoIJTdVYXK15NrIE8QRozLiluDx3H
+        bA+2uwskqEGwmHVISXlVHx8vYW7Eq1CTMjMcilUIvowQq18SjKiDsJRIOGmDKwUdGUEKooxMnok9Jyde
+        FlfBCIFobDlfdapeSHSKTEwCFUGDLyCDg259YT0oM0gWvj+Moh+hhWGgQml0QW6/VBVsqX5CIG5uE1Fc
+        PTMnMj+2Sr8FgYxflEh0TBUClsS/g45JRFgnIVNia1MwMzMmbGWyQRZ2bHhRdDwVBA6rv7g4foBrdSco
+        JygzMzMzNSZznKIRNoyrYW8mCg+BRXaMYm+1oBSCLHUnMzMzMzMtJ1W/YRZ4WXhiViYpPz8VaE2OSYqV
+        UT57XiczMDMwMzUnW8QfIU0pg2JNFkIpsYMWims1U3RIJzMuMDAwMDAzNyhQvRcrQpRuZIQghMDFoqmL
+        dVNrXEkuMzAzMDAwMDMtLDaUGiyOdGJehqaapHlWjpV1d4B+JzMwMzMwMDAzMyosKX4nK00GSE5tbXFe
+        Xm+ZQoBeXopTJzMoMzMzMzMzLTMmXCs4OCZINWBtbXFxa5prlTMsoCEzMywzMzMzMzMtNTJIODMzMqle
+        OlptbUtLe0Q+J2KaITMzMzMzMzMzMzU1KD5JLDMnTRRERE5OSWlCIDIfTGEgODMzMzMzMzMzKDU1KEAs
+        OCszK3JvODgWUXk2NF9UTCkrLDMzMzMzMzMzKDAzMzMzODMrOk1WOExzol+RjI24aSssLDMzMzMzMzAz
+        KDMsMzMzLDgzKys2QaJsbHBwX41IKzMzMzMzMzMzMzMzMzMzMzMsMzMzMylBp4VSeo92XCYzMzMzMzMz
+        MzMzMzMzMzMzMzUzMzM4KUqRoWqjcF8mMjMzMzMzMzMzMzMzMzMzMzMzMzMsNStPjUNjV3Bdq1EnJzMz
+        MzMzMzMzMzMzMzMzMzMzNTU1MzhuoXxfX3ZhPSwzMzMzMzMzMzMzMzMzMzMzMzMzNS04ImGRp0U2vX4n
+        MzMzMzMzMzMzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA
+</value>
+  </data>
+</root>

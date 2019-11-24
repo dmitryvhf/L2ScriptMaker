@@ -1,0 +1,902 @@
+Lineage II Script Tool
+Make by HellFire, Russia, Ekaterinburg, 2005-2010
+
+Release History
+
+Legend:
++ Added feature
+* Improved/changed feature
+- Bug fixed
+! In working
+
+4.0.53.2		- NpcdataRateReBuilder: program cause overflow on very high SP/EXP value.
+
+4.0.53.1		- L2J NpcPos: add new module for conversion PTS -> to L2J spawnlist format.
+
+4.0.53.0		- L2J NpcData Drop: add rater tool for change drop rate
+
+4.0.52.5		- AI Decompilator: add checkbox for support decompilation Freya AI (work in non-config mode)
+
+4.0.52.4		- Unknown changes :)
+
+4.0.52.3		- Script Add/Delete Param: fixed engine for replace param with default value
+
+4.0.52.2		- NpcData Checker: add Race checker. Use skill_list parameter and internal table for identify skill (like s_race_...) to same race.
+				- NpcData Checker: add Stats checker - str,int,dex,wit,con,men for each npc type: boss, zzoldagu, warrior, summon/pet and etc
+				- ZeroScripts: NpcData generator: bug fix: correct stats writing for boss,warrior,zzoldagu and etc. (str,int,...)
+
+4.0.52.1		- ZeroScripts: NpcData Drop generator: fixed missed drop. Symptome: more one npc with different drop in generated file. Why? Because tool scaned step-by-step. Now created temporary folder and create new clean drop file for import data.
+
+4.0.52.0		- [NEW] ZeroScripts: AI.obj BuySell shop list generator: import L2JDB XML 'merchant_buylists.sql'
+
+4.0.51.0		- [NEW] ZeroScripts: Multisell: import L2JDB XML 'multisell\*.xml' to multisell_l2j.txt
+
+4.0.50.0		- ZeroScripts: NpcData: import L2JDB XML 'npc.sql' to npcdata_l2j.txt
+				!Commentary: this is not finished file. Need more imports for full good config. Not finished: races, correct exp/sp for HP increased mobs, passive skill list.
+
+4.0.49.2		- NpcData ItemDrop Chance Updater/Fixer: add checkbox for ignore Spoil list
+
+4.0.49.1		- [NEW] ZeroScripts: NpcData Drop: import L2JDB XML 'droplist.sql' to Npcdata_drop_l2j.txt
+
+4.0.48.1		- [NEW] ZeroScripts: NpcPos Generator: import L2JDB XML 'spawnlist.sql' to npcpos.txt
+
+4.0.47.3		- [NEW] ZeroScripts: ItemData Generator: support CT23 format. (NextDev support)
+
+4.0.47.2		- Recipe Generator: add support for DevNext script format:
+				product={{[soulshot_c];952}} to new
+				product={{[soulshot_c];952;100}} where 100 - chance to create item/items. Summary of chances to all items must be 100%.
+
+4.0.47.1		- [NEW] Scripts Adding/Clean/Delete parameters. Module for add new parameter with value; for set exist parameter to default value; for fully deleting parameter with value
+				AI Decompiler: config load mode: fixed bug with decompilation block with "+" ('add' command)
+
+4.0.46.12		- Skill_Pch Maker: add target type "pvp_target"(14)
+
+4.0.46.11		- AI Decompiler Tool Pack: generator handler/fetch_i/push_event/func_call list file's from AI.obj
+				- AI Decompiler: GUI: new default activated checkboxes: "Open decompiled...", "Write in La2Guard format"
+				- Skill_Pch Maker: support la2guard 'trait=' param. Now 'trait' write in old 'attribute' column
+
+4.0.46.10		- AI Decompiler: add support handler/fetch_i/push_event/func_call name from list (config's with param list)
+
+4.0.46.9		- Skill_Pch Maker: support la2guard new attribute format
+
+4.0.46.8		- Skill_Pch Maker: updated target_type type's (loaded from external list)
+
+4.0.46.7		- ZeroScript SkillDataGenerator: cast_range=FFFFFFFF fix
+
+4.0.46.6		Skill_Pch Maker:
+					- Kamael standart set to "on" as default
+					- Add loading and support customs attribute list
+					- Add support "AsIs" function. Use for use abnormal name without '[ab_' correction.
+				NpcData Maker: add simple editor for base stats making. Converter final
+				stats (mp, hp, p.att, p.def, m.attk, m.def) to npcdata value. Uses self researching dividers.
+
+4.0.46.5		AIDecompiler:
+					- fixed engine for decompilation func_call with different source value (one func have variacion)
+
+4.0.46.5		Zero Scripts: Itemdata Generator: updated to CT1.5 script
+					- add rapire, arbalest, ancientsword - attack/damage range
+				NpcData Passive Skill Fixer: new engine. Now support checking for active skills.
+				Itemdata: add crystal_type=s80
+				AIDecompiler:
+					- add La2Guard format
+					- work now "BuySellList" and "TelPosList". Attention! "BuySellList" use only numeric value for items
+
+4.0.46.3		Zero Scripts: SkillData/SkillEnchantData Generator: updated to CT1.5 script
+				Zero Scripts: Itemdata Generator: updated to CT1.5 script
+
+4.0.46.2		Herb Drop mob:
+					- add support for La2Guard parameter (drop_herb=)
+					- remade engine for generate herb mobs. No checking territory now
+				SkillData PCH Maker: new format for abnormal list loading.
+					Note: all abnormals into manual_pch.txt must be in [ab_abnormalname]
+				NpcDropRater: increased max drop group to 100
+
+4.0.46.1		AI Decompiler:
+				- functions_c4.txt renamed to func_call_list.txt
+				- func_call_list.txt support commentaries "// ...."
+				- added 5 new func_call
+
+4.0.46.0		Augmentation Generator. Support La2Guard Ext format
+
+4.0.45.3		- LogParser: fixed show last column item_id
+				* LogParser: GUI enchancing:
+					1) good size for datetime column;
+					2) fixed correct player name for column with =npc tag;
+					3) npc name now show into [] tags for easy reading logs.
+					4) added new unknown log_id's to config
+
+4.0.45.2		- AIDecompiler: wrong decompilation for Sxx. messages in Multiclass (folder) mode 
+				- ScriptLeecher: added info about string what caused error
+
+4.0.45.1		-* AIDecompiler: fixed (fully) wrong decompilation for closing else "}" .
+				(Big thanks to Sauron for PHP Decompiler and help).
+				*- AI Injector: recovery progress bar animation.
+
+4.0.45.0		* GUI update: new "Zero Script" tab in welcome window. For module's for creating clean scripts from DAT files and etc.
+				to this tab moved modules: SkillData/skillenchantdata C6/CT1 Generator's; ItemData Generator; Recipe Generator
+				+ SkillData/skillenchantdata Generator for CT1 scripts
+				* ItemData Generator updated for CT1 scripts
+				* Recipe Generator updated for CT1 scripts
+
+4.0.44.7		-* AIDecompiler: wrong {} decompilation found into 'ssq_main_event_acolyte'.
+				symptoms: 1) exceed end block 2) lost 'esle'
+				* AIDecompiler: removed no need () on || and && operations. Now less code in decompiled text.
+
+4.0.44.6		* AIDecompiler: change format for L2SM version in decompiled code header
+				* AIDecompiler: improve GUI. Can open module to full screen.
+				* AIFixer: working logging now to file with information about fixed class, handler and old/new value
+				- NpcPch Maker: fixed long name checking
+
+4.0.44.5		-* AIDecompiler: wrong {} decompilation fixed on codes where "switch have empty case block". Checked on hard classes (ssq_priest and etc).
+
+4.0.44.4		- AIDecompiler: wrong {} decompilation fixed. Checked on hard classes (antharas and etc).
+
+4.0.44.3		- AIDecompiler: wrong {} decompilation for multiclass mode. Symptoms: no tab, no blocks.
+
+4.0.44.2		* NpcposMap: update engine. Update engine. No refresh on left-mouse click (map move mode).
+
+4.0.44.1		* NpcposMap: update engine. Show Manor Domains. Add (debug mode) select by mouse for find territory name.
+
+4.0.44.0		+ HTML (Dialog) Designer: creating and edit npc dialog
+
+4.0.43.5		* AI Injector: new available for Splitting. Loading AI.obj for generate classes list. Custom selection for
+				multi class splitting.
+
+4.0.43.4		* AIFixer: update engine. support "// commentaries" and "empty" lines in table file
+
+4.0.43.3		* DATDecoder: support new L2Asm/Disasm. Now detect Unicode lines and generate new configs.
+				Attention! CFG structure updated to v2. Add new param ",[True/False]". Where checking for unicode and generate
+				specials symbols for creating new DAT file.
+
+4.0.43.3		- NpcPos Viewer/Editor: crash if map not found
+
+4.0.43.2		* AIFixer: Increase Quest list. Add feature for ignore if quest list already bigger (maybe you already fixed quest)
+
+4.0.43.1		* LogParser: update engine
+				* Quest_Pch2: update engine and fixed small bug
+
+4.0.43.00		+ NpcPos Viewer/Editor: Remade Npcpos viewer and simple editor.
+				Available for update: territory curve position, npc position into territory (pos or anywhere)
+				Module developed by E.Koksharov, Russia, Ekaterinburg
+
+4.0.42.00		+ LogParser: scanning LogD logs. Support enchanced filtering, load in memory (for fast finding) or save
+				immediately to file. Support logs explaination (name items, mobs, skills and actions)
+				Module developed by E.Koksharov, Russia, Ekaterinburg
+				
+				Information(i): now tool start using Registry for save work options (HKEY_CURRENT_USER\Software\L2ScriptMaker\LogParser)
+
+4.0.41.16		* NpcData Passive Skills: add "monrace" @s_npc_abnormal_immunity passive skill
+
+4.0.41.15		- AIDecompiler: crash on decompilation "push_reg_sp".
+				+ AIDecompiler: add Unknown error trap
+
+4.0.41.14		- SkillPCH Generator: add new ID generation metod. Generate 2word id.
+				Attention: you must fix all ID everywhere - Ai.obj, SQL DB and etc. for support this id's.
+
+4.0.41.13		- AIDecompiler: {} block decompilation fixing
+
+4.0.41.12		* AIDecompiler: support for decompilation ariphmetic action in FOR block. ( i0 = (i0 + 1) now like i0++ )
+
+4.0.41.11		+ SkillInjector: now Inject function work. Inject skill file can have empty lines, comments "//".
+
+4.0.41.10		- AIDecompiler: fix decompilation error for code compiled by sauron c4compiler (nasc)
+
+4.0.41.9		- AIDecompiler: add logging for excess code. All non-use stacks will be write before "handler_end" for
+				user debuging. Line start with "// DEBUG: Excess (x): ...." where ... - excess stack code.
+				Attention: found and fixed critical bug with decompilation While block
+				All possible bugs you can find if after decompilation you have "// DEBUG: Excess" comentaries.
+				-* NpcData Rate Changer: support non integer divider for rates
+
+4.0.41.8		* NpcData Checker/Fixer: fix bug for 'castle_guard' with 'bow'. Range must be 1100.
+
+4.0.41.7		* AI Decompiler: compatible fix with Sauron(r)(c) NASC Compiler. 
+					- support FOR [for ( i0 = 0 , i0 < i1 , i0 = (i0 + 1) )] will be for ( i0 = 0 ; i0 < i1 ; i0 = (i0 + 1) )
+					- support BuySellList and TelPosList
+
+4.0.41.6		* AI Decompiler: now compatible with Sauron(r)(c) NASC Compiler
+				* NpcData Checker:
+					- add 'herb_warrior' type (modded server), fix mercenary and castle_guard in unsowing
+					- now using npcname-e.txt for detect and ignore quest mobs
+				* NpcData Herb Mobs:
+					- if detected previous herb settings then recovery npc type before new setting
+					- now using npcname-e.txt for detect and ignore quest mobs
+					- add variable for mob minimum level
+
+4.0.41.5		- SkillPch/Pch2 Generator: fixed wrong loading abnormals from window (manual paste data into window).
+				Symptome: in generation skill_pch/pch2 tool show error "Unknown abnormal_type: ..." but abnormal exist and correct.
+				- NpcData Checker: default value 'base_critical=4' for 'base_attack_type=fist'
+
+4.0.41.4		- .DAT Decoder: engine fixed for WindowsXP 'new path selection bug'. Symptoms: tool cant use l2asm/l2disasm,
+				because	cant find DDF file.
+
+4.0.41.3		- add Licensing dialog in main window
+
+4.0.41.2		- recompile EXE
+				
+4.0.41.1		* SQL Query Template Manager: improved. Results show in table window now; load connection settings; load/save scripts
+
+4.0.41.0		+ SQL Query Manager: simple query manager for remotely using sql scripts with control values
+				- Npcdata PCH Generator: fixing to fix with logging for npcname more then 25 symbols
+
+4.0.40.5		Happy New Year Edition. :)
+
+4.0.40.4		* HTML Checker: add new metod for detect error for link metod (example: "link htmlname.htm ")
+				- Skilldata Generator: added new wrong symbol for skill name autogenerator - "-". (bugreport by EroSennin)
+				Now: 's_npc_self-damage_shield4' will be generated like 's_npc_self_damage_shield4'
+				* Itemdata Generator:
+					1) add new param to set_begin records: 'p_def_inc={0;0}'
+					2) add generation params for set with +6 enchant. Optional.
+					Where: enchant_six_skill=[...] - magic skill for this set. Autogenerated with depending armor and crystal type 
+					enchant_six_slots=[...] - list of slots effected to effect
+					
+
+4.0.40.3		- NpcData Herb Mob Generator: ignore party mobs
+				- ScriptLeecher (old) fix for transfer mp_consume from skillgrp.txt
+				- Itemdata Generator. fixing, emproving. Fix for Lure slot_type, hit_modify
+				* ItemData Fixer: check no skill for polearm multi-attack
+				* Npcdata PCH Generator: add logging for npcname more then 25 symbols
+				- Rb Generator: losted "territory_end" for territory
+				- Skilldata Generator: 'effective_range' now no float (125.50 -> 125)
+
+4.0.40.2		- SkillPch/Pch2/Cache Generator: fix for crash on generation gmskilldata.txt file (bugreport by EroSennin)
+
+4.0.40.1		- Skilldata Creator/SkillEnchantData Generator: inverse enchant rate table bug fixed. (bugreport by EroSennin)
+
+4.0.40.0		+ NpcData Herb Mob Generator. Finding mobs what must drop herbs.
+				Required: ncpdata.txt, npcpos.txt, huntingzone-e.txt
+
+4.0.39.0		+* Script Leecher: new engine. Developed by Evgeny, Russia, Ekaterinburg.
+					Module use for transfering any amounts for equal params from one script to another.
+					Example, itemdata.txt 'weight' param from client to server config param 'weight'.
+					Old module leave for compatibility with old standarts and for using for transfering skilldata mana values.
+
+4.0.38.1		-! NpcData ItemDrop Checker: fix bug with rate increasing for spoil.
+
+4.0.38.0		+ Npcpos Viewer/Editor: source code from unknown developer. Can use like simple npcpos viewer.
+					Project will be update later.
+
+4.0.37.3		* ItemData Fixer: check and fix "action_capsule" items and "dual_fhit_rate" now
+				+ NpcData Analyser: add finding undefined active skills what use in npc_ai={..}
+				- QuestPCH2 generator: fixed generation with L2Disasm file format. Add new search metod for finding all items
+				* NpcData Agro Patch Maker: add settings for use any client formal npcname-e.txt file
+
+4.0.37.2		* NpcData Passive Skill fixer: critical engine fix and enhanced module with new features.
+
+4.0.37.1		* NpcDropItemChecker: fixed and improved analyzing engine. Add spoil check. Add logging.
+				Add cleaning for bad spoil/drop record. (Thanks for bugreport and error researhing - xDarkYx)
+
+4.0.37.0		+ Script Analyzer. Simple checking for knowns symbols what must have 'open' and 'close' symbols. Example, [ and ], { and }
+				- engine fixed for 4.0.36.1 build. Symptoms: skillpch generator show error loading unknown abnormal, but show skillname.
+
+4.0.36.1		* ItemData generator:
+					1) etcitem_type=arrow  fixed slot_bit_type={none} -> {lhand}
+					2) weapon 'can_penetrate' param fixed
+				
+				Complete support list for ItemData generator: 
+					Loading from client:
+				item_type, slot_bit_type, armor_type, etcitem_type, recipe_id, weight, consume_type, soulshot_count, spiritshot_count,
+				material_type, crystal_type, physical_damage, random_damage,  weapon_type, can_penetrate, critical, avoid_modify, 
+				shield_defense, shield_defense_rate, attack_speed, mp_consume, magical_damage, 
+				physical_defense, magical_defense, mp_bonus, can_equip_hero
+				
+				Attention!!! 'etcitem_type' for types: scrl_enchant_wp, scrl_enchant_am, bless_scrl_enchant_wp, bless_scrl_enchant_am, crop, maturecrop
+				 generate by tool. Checking like this:
+					- enchants list:
+					729 947 951 955 959 "scrl_enchant_wp"
+                    730 948 952 956 960 - "scrl_enchant_am"
+                    6569 6571 6573 6575 6577 - "bless_scrl_enchant_wp"
+                    6570 6572 6574 6576 6578 - "bless_scrl_enchant_am"
+                    
+                    crop, maturecrop generated from items with word 'seed' inside, but
+                    - crop - end to "_coba]", or "_cobol]", or "_codran]", "_coda]"
+                    - maturecrop - start from "[mature_", or "[ripe_"
+                    
+				
+					Generated by tool (use only if you sure in this. But i can tell, what this generated with 99% quality):
+				default_action, maximum_count, attack_range, damage_range, enchant_enable
+
+
+4.0.36.0	+ NpcData Analyser: analysing npcdata.txt for common params.
+			Current build check features: acquire_exp_rate, acquire_sp, unsowing, undying, no_sleep_mode, base_attack_type, agro_range
+			
+4.0.35.3	* QuestPch Generator: fix for output codepage. Now all files questcomp.txt is Unicode.
+			* AIDecompiler: disabled support 4 param in file function.txt. Now you can have any value there. (Example, "167837696|GetSpawnDefine,1,0" value 0 - now ignored)
+
+4.0.35.2	* ItemData generator: fixed for weapons: 'hit_modify', 'can_penetrate'
+			* AI Handler Checker: Add new module "Handler Variable Checker". Do analyse in handler for searching push_event variables what
+				is not defined in handler variable list.
+			* NpcData Passive Skill fixer: add output to log list of passive skills what will be using in new npcdata.
+
+4.0.35.1	* Npcpos Checker: Outsider fixer: Improved engine. Now checking valid position in territory and ignore.
+
+4.0.35.0	* Npcpos Checker: Outsider fixer. added new module for scanning server log and fixing error 
+				"MakerLog(       Ice_Merchant_Frozen_162)'s ( 108681, -101892,   -3544) [maze_gargoyle_lad] is outsider."
+
+4.0.34.4	* ItemData generator (all reports by 'palace'(PP forum)):
+				1) questitem now: trade = 0 drop = 0
+				2) weapon, armor now: enchant_enable = 1
+		
+			* NPCData Rate Builder: now commentaries no changed spaces to tabs				
+
+4.0.34.3	- ItemData generator:
+				1) armor type fix. Now, 'attack_range=0 damage_range={} attack_speed=0' for armor type
+
+4.0.34.2	- AI Decompiler:
+				1) notepad open always "ai_out.txt".
+				2) automaticaly name for output file
+			* ItemData generator:
+				1) additional error checker. Now show window this bad line and dialog with confirmation for continue process.
+
+4.0.34.1	+ NpcData.txt CollisionFixer: add feature for importing and apply only first value from table file.
+				With correction: if second value in param less then first, then second value fixed and will be set like first.
+				
+4.0.34.0	+ NpcData.txt CollisionFixer: generate file with collision_radius, collision_height	params and do import this params to current npcdata
+			Collision file format: 12077	collision_radius={13;13}	collision_height={11.5;11.5}
+
+4.0.33.3	* AI Fixer: change quest limits in AI.obj. Example, C4 - 16, T0 - 25, so incrementer will be 9. If you want decrease, set -XX value.
+			- ItemData Generator: weapon type fix: etcitem_type=weapon->none
+
+4.0.33.2	* SkillAquire Editor: add autosorting mode by columns
+
+4.0.33.1	- ItemData Generator: 
+				1)armor: accessory/armor type fix
+				2)bow: reuse_delay to 1500
+				3)dual/dualfist: dual_fhit_rate to 50 
+				4)item skills [] -> [none]
+				5)if crystal_type=none -> crystal_count=0
+			* ItemData Generator: generate "items set" now
+			* AI Decompiler: fixed standart's for valiable definition. Now is this:
+					int	Use_Privates = 0;
+					string	Privates = "orc;party_private;1;10sec";
+					waypointstype = WayPoints;
+
+4.0.33.0	+ ItemData Generator from client .Dat file. Generate a lot params with use dependence from other param.
+
+4.0.32.2	- AI Decompiler: add symbols '(' and ')' for limit code block.
+				If ( skill_name_id / 256 == 27 || skill_name_id / 256 == 2065 || myself->DistFromMe(attacker) > 280 )
+			now is
+				If ( ( ( skill_name_id / 256 == 27 ) || ( skill_name_id / 256 == 2065 ) ) || ( myself->DistFromMe(attacker) > 280 ) )
+
+4.0.32.1	- Npcpos Manor zones Generator:
+				1) fix for z1>z2
+				2) correct design for 'Manor Generator' button in Welcome window
+
+4.0.32.0	+ Npcpos Manor zones Generator. Generate manor zones for npcpos for all locations.
+
+4.0.31.2	- SkillData Generator:
+				1) generation A2 skill: 'activate_rate=-1' now is 'activate_rate=80'
+				2) fix autogen name for new symbols: example, "s_hp_increase_(1/4x)8" now is "s_hp_increase_1_4x_8"
+				3) first scill in skill will be without level id if no more levels in this skill.
+				Example, "s_snipe1", next "s_snipe2", but will be "s_undead", "s_dragon"
+
+4.0.31.1	- Npcpos Checker: Quot fixer. Fix searching mask from *.txt to *.log
+			- AI Injecter: module "Inject fix" search now now and all subfolders too
+			- SkillData Generator: fix for incorrect generate param mp_consume2 for A2 skill type
+
+4.0.31.0	+ Npcpos Checker: added new module for scanning server log and fixing error 
+				"failed to increase total npc because of npc quota"
+
+4.0.30.0	+ Raid Boss Position AI class and simple npcpos Generator.
+				1) Generate parameter_define for ai class: 'class 1 announce_raid_boss_position : citizen'
+				2) Generate simple npcpos with positions for all Raid Boss with Privates list (optional).
+
+4.0.29.4	+ Npcdata Drop Checker Tool: check summary of chances of items in one group in mob drop (additional_make_multi_list={})
+				a) check summary of all chances
+				b) fix/decrease all chances if summary is >100%
+				c) can use it module for npcdata drop chance changing into group
+
+4.0.29.3	- SkillCached Generator: fixed for L2Disasm format. Required params for skillname-e.txt: id=, level=, name=, description=
+			+ Npcdata C4 to C5 ID Conversion tool: fix C4 npc id's to new C5,T0 id's. Required file with id's. Included in pack
+			+ Npcdata Item Chance Drop Checker Tool: check summary of chances for all items in one group and correction for required value
+
+4.0.29.2	add "Eula" text
+
+4.0.29.1	- NpcData Rate Builder: crash on empty line or remark line (//)
+			- Item Default Price Calculator: price refreshed only in leaved from "Shop price" menu. Now refreshed from all.
+
+4.0.29.0	+ Value Incrementer Tool: generate incrementation value table with start and end value definition
+			* NpcdataRateReBuilder: added attention window about critical Regional Setting for working with module
+			* EventData Generator: added new feature. New param [npcsetting] for start more then 1 event on server
+				start (like gmcommand //npcpos_event ... on ). Thanks 'kvoxi' for information.
+			* Skilldata Creator: 1) use existing name of skills from existing file skill_pch for old skills. New skill name will be generate normaly.
+				2) checking for non-existing master enchant skill. This error in skillgrp.dat. Bad skill will be write with // header for next fixing manualy
+			* SkillAquire Editor: support two items in item_needed param			
+
+4.0.28.3	* Skilldata Creator: now skillenchdata.txt engine generate correct enchant table value (prob_76=...)
+
+4.0.28.2	- AI Decompiler: 1) rebuild decompiler engine with new exceptions/shema for if/else block. Critical fix.
+			2) change format for case. Now block case have symbol for case [ Case (2) { ] and case block end of with symbol } for better undestunding.
+
+4.0.28.1	- AI Decompiler: not decompile if one file selected.
+			- AI Decompiler: incorrect decompile for some jump shemas (affect class (for example) 'castle_merchant' and 'warrior_casting_enchant_physical_poison'
+
+4.0.28.0	+ Npcdata Aggro Patch generator. Made npcname-e.txt with info about mob level and aggro status. Affect only for 'warrior' type.
+
+4.0.27.1	- Skilldata Creator: add 'next_action' to A1,A2
+			* Skilldata Creator: add new module SkillEnchantData.txt Generator. Generated both with skilldata.txt
+				set default params: exp=3000000, sp=300000, prob_76=0, prob_77=0, prob_78=0
+			'SkillData Generator' renamed to 'SkillData and SkillEnchantData Generator'
+			- AI Decompiler: disable variable check with Manual Code decompiled mode.
+			support L2Disasm data format: npcname_begin id=20001 name=[Gremlin] description=[]
+
+4.0.27.0	* NpcData Passive Skill fixer (old): rename C4 module. module for import passive skills ('skill_list') from client file to ncpdata.txt. Use old parsed client file format
+			* NpcData Passive Skill fixer (l2disasm): add new module for import passive skills ('skill_list') from client file to ncpdata.txt. Use L2Disasm client file format
+			+ Skilldata Creator: generate clean skilldata.txt from client files (skilldata-e.txt and skillgrp.txt). Transfer a lot params:
+			commentaries in /* */, is_magic, mp/hp_consume, cast_range, debuff, hit_time. And create this params with use intelligence engine:
+			ride_state, mp1/mp2 consume, effective_range, target_type. Use 4 shemas for creating clean skills with A1,A2,P,T of types.
+			Autogenerator for skillname. Example, 'Master's Blessing - Chant of Victory' to 's_masters_blessing_chant_of_victory1'
+			- L2ScriptMaker Script Generator from Dat: fixed autogenerator for names. Add fixed for bad symbols (,.:!^&%()-)
+
+4.0.26.1	AI.obj Shop list generator:
+				- crash on taxrate >50. Combobox changed to Textbox
+				- add scrollbars to result window
+			SkillAquire Editor:
+				* add sorting to skillname column (press to column name for sorting)
+				* add support for insert skillname and itemname to current position (because clipboard paste disable for DataGrid)
+				* improved support for new rows. Add buttons for creating copy/new before/after current line
+			AI Decompliler:
+				- symptom - decompilated code have same "text" from Sxx string like before. But: Sxxx array not cleaned.
+				* add checking for undefined variable in handler
+				- checkbox "Open decompiled file after decompilation" now disable for default state. Enable it, if you file no big.
+			* Skilldata Effect Researcher: add search mask 'operate_cond'
+
+4.0.26.0	+ AI DeCompiler. no comments
+			* AI Injector: add feature for split only One class. Leave text block empty for all class uploading.
+			Or write name for uploading class (only name, whithout class numbers and master-class names)
+
+4.0.25.0	+ Skilldata Effect Researcher: parsing for effect for generating file with all skilldata effects with examples
+
+4.0.24.1	+ Script ID-Name Shower: Note: module search params: id=, name=. If your file have diff names, you can replace your to required
+				1) add huntingzone-e.txt, staticobject-e.txt, sysstring-e.txt to supported list
+				2) short mode show 'description' parameter too. (Note: required 'description=' param)
+			- Skill_Pch/Pch2 Generator: fix for generation 11 param in skill_pch2. Fix formula. (Thanks Kenjiro for this information)
+
+4.0.24.0	+ Script ID-Name Shower: searching Name for Id, or Id for Name (support itemdata, npcdata, skilldata). Idea by Hint
+
+4.0.23.2	- GetTestPoint Finder: fixed bug with duplicate points. Now checked, approved and project finished.
+			* GetTestPoint Finder: added processbar for writing process
+			* SkillAquire Editor:
+				1) enchanced open/save dialogs (filter by name)
+				2) default save name now is 'skillaquire.txt'. Making backup (.bak) if you write to exist file (backup and overwrite).
+			- NpcdataRateChanger: fixed engine for support unlimited item groups in drop/spoil.
+				Symptom: tool crash if drop groups more them 4
+			
+4.0.23.1	- AIFixer: increased array for IDs. Symptoms: program crash on loading big configs (fetch, func..)
+			* SkillPch Generator: autoload for manual_pch.txt file if this found in root folder
+			* GetTestPoint Finder: add support for add new points to existing _bug files
+
+4.0.23.0	+ Recipe Generator: create new server recipe.txt script from client recipe-e.txt file
+			Attention: tool not generate correctly iscommonrecipe= and npc_fee= params.
+
+4.0.22.2	- GetTestPoint Finder and Geodata Bug file gererator: output file format is ASCII
+			* remade engine for Npc_pch generator
+			+ L2ScriptMaker Script Generator: can generate clean server config file from .dat client file
+			
+			Update for file format:
+			"L2ScriptMaker Visual Script Editor config file v2"
+			add new params:
+			import=			- name for import param (from parsed DAT file). Replace param 'defvalue', if import not empty
+			unique=			- on/off(empty). Check this param in full file for unique value. Param MUST BE one in this config file.
+			autogenname=	- name for import param, if 1) name is empty 2) unique is 'on' and tool found same name. Name will be
+				create from last name + autogenname param. Example, 
+				import=name
+				unique=on	
+				autogenname=id 
+			[guard_11003] - name + id
+
+4.0.22.1	* Geodata name from Location converter: add protection (empty data and etc) on Import feature
+			+ GetTestPoint Finder and Geodata Bug file gererator: scanning server ERR logs and generating geo_bug files
+
+4.0.22.0	+ Geodata name from Location converter: find geodata name from coordinates.
+			* SkillPch Generator: add new checkbox. If abnormal name not found in abnormal list it will be set to -1
+
+4.0.21.8	* AI Injecter: remade engine for splitting. Now tool upload classes to subfolders.
+			Folder have name for parent class for each class.
+			* AI Injecter: remade 'AI Merge' module. Now you can gather new file with the observance of inheritance.
+			- SkillPch Generator: loading abnormal list activated on default. Check box blocked.
+			
+4.0.21.7	* EventData Generator: add 'npcsetting_count' section
+			- SkillPch Generator: fix bug with using abnormal with names start with 'ab_...
+			* SkillAcquire editor: now you can do custom size for editor window
+			*- SkillAcquire editor: split button "Load..." and "Save..."
+
+4.0.21.6	* SkillPch Generator: add support to use custom abnormal list (from manual_pch or self data)
+
+4.0.21.5	- .DAT Converter: structure for CFG generator loaded from plain txt file generated by L2Disasm
+			
+4.0.21.4	- ScriptEditor: wrong tag (cfg) definition
+			- ScriptEditor: add check to empty values. BE ATTENTION! CFG file must be correct.
+			* ScriptEditor: add protection on empty project or structure for loading and saving process.
+			* .DAT Converter: add new format from DDF structure
+
+4.0.21.3	- .DAT Converter: incorrect reading params from DDF file for new columns
+			+ ScriptEditor: support generation 10 lines from table to GUI text box.		
+			- .DAT Converter: import DDF file clean table before loading
+
+4.0.21.2	- .DAT Converter: small corrections in interface (L2Asm changed to L2Disasm, and etc)
+			+ .DAT Converter: add CFG Generator (both)
+
+4.0.21.1	- ScriptEditor: incorrect loading default values to new columns
+
+4.0.21.0	+ Script Param Value Searcher: search all definitions for param. Use for finding all existing
+				values for param in script. Second, can use for creating L2SM Editor config file. And etc.
+
+4.0.20.5	* .DAT Converter ".DAT Decoder/Encoder with use l2encdec and l2asm".
+			Full functional module for working with client .DAT files. Module use L2EncDec(r) for
+		decrypt/encrypt and L2Asm(r) for unpack/pack data for creating (as target idea) config files
+		with old/basis standarts/formats.
+			You must SELF to create definition config's for working of feature "L2Asm<->Txt".
+		Or you can use tool as simple GUI interface for l2asm and l2encdec (encode/decode, pack/unpack)
+
+4.0.20.4	ScriptEditor: finished. Named as "L2ScriptMaker Visual Script Editor".
+			Updated 'ScriptEditor\npcdata_c4.ini'.
+
+4.0.20.3	- Doordata Generator: 1) fix "no tab" before 'pos=...'
+			2) crash client on press "HowToDo" button
+
+4.0.20.2	+ Compatibility feature. Add L2Asm file Converter to old text file format. Example:
+		4	1	Dash	Temporary burst of speed. Effect 1.	none	none
+			to old
+		skillname_begin	id=4	level=1	name=[Dash]	description=[Temporary burst of speed. Effect 1.]	desc_add1=[none]	desc_add2=[none]	skillname_end
+			+ SkillAquire Editor. For work required skill_pch.txt and item_pch.txt files.
+			Changing different class cause GUI lag, because required memory transactions and GUI refreshing.
+
+
+4.0.20.1	+ AI.obj teleport pos fixer: scanning log for message "container NULL pos[" and find bad lines
+			in AI.obj and npcpos.txt for next fixing.
+			+ add support for creating e-mail and sending to tool owner
+
+4.0.20.0	Last stable release.
+			+ Add button "U" (in right up position) for checking new releases and download updates from site.
+
+4.0.19.10	* Superpoint.bin Builder: add features:
+			1) you can enter all point to table and generate new path (with conntype)
+			2) loading superpoint (for one path) and generate new path (with conntype)
+
+4.0.19.9	* Authentifycation Blowfish Change Key Tool: now, you can patch only need file. Press Cancel in
+			select file window for ignore patch this file type (auth or engine).
+			- NPCPosMaker: add check for null value in multispawn generator
+			* NpcdataRateChanger: add new ignore npc list by names. Made for ignore applying rates on drop and spoil
+			for unical Raid Boss like Valakas, Orfen, Baium, Queen Ant, Antaras, because rate drop will be unreasonable.
+
+4.0.19.8	- fixed small issues
+		- fixed problem with skill_pch maker
+		- SkillCache-, ItemCache- generator's fixed to static line size, because
+		CacheD dont support long lines. QuestCache generate now file 'questcomp.txt'.
+
+4.0.19.7	- AI Handler Checker: always work in "No label counting mode".
+
+4.0.19.6	- Skill_pch: add support for new abnormal. List obtained from L2Server.exe
+			* NpcdataRateChanger: old file backup now in file "... .bak"
+			- AIFixer: small issue fix from 4.0.19.4 release.
+			symptoms: output AI file without spaces and tabs
+
+4.0.19.5	+ Missed Html Finder: module for finding html dialog and checking of availability this file and server folder.
+		Finding into Ai.obj, npcdata.txt, itemdata.txt and in html folder.
+		Support: enchanced logging, creating empty file for missed html, calculating all missing files.
+
+4.0.19.4	-* Item Fixer: add files list where will be change all items name what has been fixed in itemdata.txt
+		- (critical!) NpcdataRateChanger: bug with chance number like 0.0030
+
+4.0.19.3	* NpcdataRateChanger: Support 5 metods for rate increasing. New metod:
+				- "Balance". Better metod for all servers with rates no 1x. This metod wrote one unknown man. Notes for metod:
+				If rated chance no more 100% - chance will be * rate. It's common rate metod.
+				if rated change more 100% - chance will be leave without changes... item amount will be * to chance rate.
+				Example:
+				corpse_make_list={{[item1];1;1;5};{[item2];1;1;1};{[item2];1;1;20}}
+				corpse_make_list={{[item3];1;1;5};{[item4];1;1;40};{[item5];1;1;100}}
+				- with rates 3x - 
+				corpse_make_list={{[item1];1;1;15};{[item2];1;1;3};{[item2];1;1;60}}
+				corpse_make_list={{[item3];1;1;15};{[item4];1;1;120};{[item5];1;1;300}}
+				- after balance metod - 
+				corpse_make_list={{[item1];1;1;15};{[item2];1;1;3};{[item2];1;1;60}}
+				corpse_make_list={{[item3];1;1;15};{[item4];3;3;40};{[item5];3;3;100}}
+
+4.0.19.2	* NpcPos Privates Checker:
+			1) renamed to "NpcPos Checker"
+			2) add module checking npcpos.txt for searching invalid makers. Logged only.
+			3) add module checking ai.obj for searching bad privates. Logged only.
+			4) add module checking npcpos.txt for searching invalid dbname param. Logged only.
+
+4.0.19.1	* Superpoint.bin Builder: small changing in log format. Change <space> to <tab> in conntype for compatibility with
+			main point definitions.
+			- AiRateChanger: fix for finding SP,EXP in hard ai code
+			* GeoIndex Generator:
+				1) support multi-folders for generating geo_index file. Example
+					2
+					16_10_conv.dat
+					TestGeo\16_11_conv.dat
+				2) check duplicate geodata for multi-folders mode								
+
+4.0.19.0	:) Changed image on welcome window. "Crazy Russian".
+			+ GeoIndex Generator: small module for fast creating geo_index.txt file into GeoData folder
+			* AI.obj Injector: added feature for injecting from One file
+			* 'Item_Type Fixer' renamed to 'Itemdata Fixer'
+			* Item_Pch builder: removed feature, check itemtype and removed to module Itemdata Fixer
+			* ItemData Fixer: now have 4 metod's:
+				- check duplicate names and automaticaly renamed to [itemname_itemid]
+				- check item_type. If item_type different with header type, then header type automaticaly renamed to item_type type
+				Questitems checking:
+				- check itemtype=questitem. If item is questitem but name not start with "[q_" then name will be renamed to [q_itemname]
+				- check all itemtypes. If item is not questitem but name start with "[q_itemname]" then name will be renamed to [itemname]
+				Note: Much nonquest items have q_. Example Coins [q_gold_wyrm] and etc normal quest items.
+				I'm recomended to use 1,2,3 metods.
+
+4.0.18.8	-(!) Critical bug:
+			 Superpoint.bin Builder: incorrect export data for some coordinates. Example
+			 [treekeeper_jaradine]
+			 bad value:		index: 145: -20572;-14968;-3056
+			 good value:	index: 145: 44964;50568;-3056
+			 Now module work perfect. Approve on exporting and on generating.
+			 Big thanks "Greis" for fast bugreport and full information about my mistake.
+
+4.0.18.7	- NpcdataRateChanger: tool crash when try to do change rates for 'boss'.
+				Increased items groups in tool code.
+			* NpcdataRateChanger: add feature - rate limit max value. Use this with "100% max" metod.
+			+ QuestPch/Pch2 Builder. Add feature for creating non-defined quest. Non-defined it's -
+			quest have in ai.obj but not exist in questdata-e.
+
+4.0.18.6	*+- ScriptLeacher: add radiobox for feature to correct import "hit_time" value from 'skillgrp'
+				to 'skill_hit_time' in 'skilldata'.
+			* recovered skilldata_c4_info.txt to old version
+			* created skillgrp_to_skilldata_c4_info.txt for work with skillgrp file
+
+4.0.18.5	*+- ScriptLeacher: add radiobox for feature to correct import "mp_consume" value from 'skillgrp' to 'skilldata'.
+			*+- ScriptLeacher: add radiobox for feature to correct import skillname from skilldata-e.
+			Note. Check one box, select non used params (example "debuff") and start leaching.
+		
+4.0.18.4	* AI Handler Line checker: add report about error line number.
+
+4.0.18.3	* NpcdataRateChanger: released.
+
+4.0.18.2	* NpcdataRateChanger: Added npc ignore list. For example, now you can apply rates on all npc types
+			but ignore required npc type, example 'boss' or 'guard'.
+
+4.0.18.1	* NpcdataRateChanger: Support 4 metods for rate increasing:
+				- "Normal" Standart shema: all group chance more them 100%, will be increased to GroupChance*GroupRate.
+				Example:
+				{[item1];1;2;50} with rate 5x will be converted to {[item1];1;2;250} 
+
+				- "Agressive". Hi-rate server shema: group chance more them 100%
+				will be dropped to 100% and item amount will be increased to value NewChanceDrop/100. Example:
+				{[item1];1;2;450} will be converted to {[item1];4;6;100} 
+
+				- "100% max" All group chance more them 100%, will be dropped to 100%.	Example:
+				{[item1];1;2;450} will be converted to {[item1];1;2;100} 
+
+				- "Gold Middle". Use ONLY to SPOIL rates
+				If summary of all groups in drop will be more them 100%, all chance decreased to summary 100%.
+				Example:
+				corpse_make_list={{[group1];1;1;20.5065};{[item2];1;1;0.202};{[item3];1;1;6.615}}
+				after rates and rebuilding with this metod will be converted to
+				corpse_make_list={{[item1];1;1;75.0508};{[item2];1;1;0.7393};{[item3];1;1;24.2099}}
+			
+4.0.18.0	+ Authentifycation Blowfish Change Key Tool: you can see and change blowfish auth key in l2auth service
+			and in client engine.dll
+
+4.0.17.5	* Multisell list Generator: support Import button. You are check your script on error with it features.
+			+ QuestPch/Pch2 Builder. Required itemdata.txt, questdata-e.txt and ai.obj for creating this files.
+			+ Item_Type Fixer. Make correction in item if item_type different. Example:
+				item_begin	questitem	709	[sek_temp_upper001]	item_type=armor -> will be fixed to "item_begin	armor"
+			* AI Handler Line checker: and second metod for counting. Kvoxi metod - no count label (Lxxxx) lines
+			- NpcdataRateChanger: fix crash tool for output file name for regional setting with symbols "/" in date
+			  now output file named simple "..._rates_rebuild.txt"
+			+ Superpoint.bin Builder. See superpoint.bin file in text and build new Superpoint.bin from text file.
+			  Note! Format has been changed. You need generate new file from retail bin.
+
+4.0.17.0	+ NpcdataRateChanger. Support:
+				- change rate on spoil, drop, exp, sp
+				- change item amount drop rate on adena, sealstones, spoil, drop
+				- change item amount drop rate on spoil, drop to max value only or for both (min, max)
+				- change item amount drop rate on spoil, drop for specific items from custom list
+				Notes: adena must be have named as [adena], sealstones names must be ended to ..sealstones] 
+				
+4.0.16.7	- Doordata Maker: update for support C4. Critical update "static_object_id" to -> "editor_id".
+				Full support soon.
+			* SkillPch Maker: fix "scill" to "skill" :) in dialog
+			* SkillPch Maker: removed non-used button. Now, two button - two functions.
+			* SkillPch Cachemaker: improved engine for support big skill_id range (up value to 30000)
+			    If you use skill_id > 30000 in skilldata.txt then gmskilldata.txt be have comment "L2ScriptMaker: Customs skills not supported"
+			    If you use skill_id > 30000 in skilldata-e.txt then tool show error and generation will be stoped.
+			* NpcPch Cachemaker: improved engine for support big skill_id range (unlimited range)
+			* NpcPch Maker: removed non-used button. Now, two button - two functions.
+			* ItemPch Maker: removed non-used button. Now, two button - two functions.
+			* ItemPch Cachemaker: improved engine for support big skill_id range (up value to 30000)
+			    If you use item_id > 30000 in itemdata.txt then itemcache.txt be have comment "L2ScriptMaker: Customs Items not supported"
+			    If you use item_id > 30000 in itemdata-e.txt then tool show error and generation will be stoped.
+			* AIMessage Teleport Importer: protection againt empty teleport name.
+				If you need to do empty line, use <br> tag. Example, "Talking Island<br>"
+			
+4.0.16.0	+ Ai and NpcData Params Checker: check npcdata params in ai.obj. Check full ai inherits tree.
+
+4.0.15.1	* EventData Generator: add choose - you can work with item names (willow_staff, adena, blade,...)
+			in selection or in values (1-5000)
+
+4.0.15.0	+ AreaData Generator: to generate areadata zones.
+
+4.0.14.0	+ NpcData skill_list checker: get skill_list from npcgrp.txt and fix npcdata.
+
+4.0.13.2	- AIMessageImporter: Import: fix tool crash is found Sxxx number non existed in import file.
+
+4.0.13.1	* AiRateChanger: add Select/Deselect buttons.
+ 
+4.0.13.0	+ NpcPos Privates Checker. Check string Privates for non-exisiting npc.
+
+4.0.12.1	- ScriptChanger: bug with import skill. scills with similar names and in one skill line changed to bug name
+
+4.0.12.0	+ new AI.obj shop list generator. Support generation new list and import exist list to next edit
+			note: paste shop list to textbox and do Import for import data
+			+ new Multisell list Generator for creating new multisell exchange list.
+			* EventData.ini Generator: use item_pch file now
+
+4.0.11.0	+ new Superpoint.bin Viewer. Show superpoint.bin file in text.
+			* version release now in main title
+
+4.0.10.0	+ EventData.ini Generator: add timevariable_count generator
+
+4.0.9.0		+ EventData.ini Generator: start project. Thanks for idea "AHTUKULLEP".
+
+4.0.8.1		- AiInjector: last line in ai.obj dont saved after AiInjection
+			- Ai.obj Fixer: func_call not fixed! Log file correct, finish ai.obj leave without changes.
+
+4.0.8.0		* AiInjector: remake 'Inject' engine. Support fix folder now. Select folder with fixes and waiting.
+			+ AIMessageTeleportImporter: add new module (same as AIMessageImporter) for teleport list.
+			(i) Teleport coordinates not imported. Only messages.
+
+4.0.7.5		- Script Checkers: 'Ai.obj Fixer':
+			- Fix in 'fetch_i' engine N2: check on last push_event AND with last fetch_i too. (Bug with master.sm)
+			* add protect tag for fix files (in fetch file have [fetch_i] and etc - same as in tool menu)
+			* search tag (second column) change from digital number to string name (from 704 to myself and etc)
+
+4.0.7.4 - Script Checkers: 'Ai.obj Fixer': Fix in 'fetch_i' engine (incorrect checking for last push_event)
+
+4.0.7.3 +- Script Checkers: 'Ai.obj Fixer': Add "Handler" fix module
+
+4.0.7.2 *- Script Checkers: 'Ai.obj Fixer': Emproved engine and fix bug with knowledge base use.
+
+4.0.7.1	+ Script Checkers: 'Ai.obj Fixer' remove to "Scripts file checker"
+		* Script Checkers: 'Ai.obj Fixer' Files from Sauron C4Decompiler knowledge base are used. But with corrections and changes
+		 in a format of files for work with this program.
+
+4.0.7.0	+ Start new project - "Scripts file checker". Checking on correct numbers, formats and etc.
+		+ Script Checkers: 'AI Handler Line checker'. Calculate defined and real line numbers in handler.
+
+4.0.6.0	- AiInjector: 'Split' and 'Inject' compatible with C4 AI.obj now. 
+
+		All next version have action logging for all new modules.
+
+4.0.5.1	- AIMessageImporter: ai_exports.txt now in Unicode format (thanks 'goldwin' for bugreport)
+
+4.0.5.0	+ Ai.obj Fixer:	work with func_call, fetch_i, push_event. Change to correct from list. Support log.
+
+4.0.4.0	+ AiRateChanger: change rate for getting items, sp, exp. Support log.
+
+4.0.0.3	+ AIMessageImporter: make export all Sxxxx. strings to file and make import all Sxxxx. to new Ai.obj from export file
+
+4.0.0.2	+ universal ScriptEditor added in testing mode
+		- QuestComp: fix with space in quest_pch2
+
+4.0.0.1	updating tool for C4
+		* ItemCache (for CachedScript) update to C4.
+		* SkillCache (for CachedScript) update to C4.
+		* NpcCache (for CachedScript) update to C4.
+		* QuestCache (for CachedScript) update to C4.
+		
+2.7.7.1	Stability test passed.
+
+2.7.7.0	* SkillPch update to C4.
+		+ ScriptLeacher: add to project. Transfer need param's from one script to another.
+		+ HtmlButtonDesigner: change standart button to button with user define style (size, background and etc)
+		example. This message in html file
+		<center><a action="bypass -h recipe?id=159">[Create]</a><br><br></center></body></html>
+		will be this after updating:
+		<center><td><button action="bypass -h recipe?id=159" value="[Create]" width=111 height=222 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal"></td><br><br></center></body></html>
+		with using: width=111 height=222 back=L2UI_CH3.Btn1_normalOn fore=L2UI_CH3.Btn1_normal in tool dialog starttag=<td> endtag=</td>
+
+2.7.6.3	- SkillPch:	fix for strings with "//" header. Ignored now.
+		+ ScriptChanger: support skillaquire transfer. Check new box for work with skillaquire.txt format file.
+		- Skill Cache: for strings with "//" header. Ignored now.
+
+2.7.6.2	- ScriptChanger: correct work with 'multisell'
+		- ScriptChanger: correct work with 'npcpos'. Attention! Privates not fixed!
+
+2.7.6.1	* ScriptChanger: remake engine.
+		* start remaking for NpcPos Maker. Add new features in test mode. Old features work normaly
+		+ NpcPos Maker: add multipos spawn generator for new features
+		- item_pch: ignore comments (//) and empty string in file
+
+2.7.5.2	- NpcPosMaker: bug with Z coord. generation for multiple npc
+		- NpcPosMaker: bug with Z1 and Z2 coordinates
+		* ExecInjecter:	support hex fixes with offset 40000h
+		* ExecInjecter:	change name for recovery fix file to "backup~... .txt"
+		* ScriptChanger: export no replace empty id's
+		+ ScriptChanger: check for duplicate id on LoadPch stage
+		+  DefaultPrice finder. Tool for calculate default_price for
+			item from information about item from official server
+
+2.7.5.0	+ NpcPos Shifter: shift all npcpos to need value. Good for castles.
+
+2.7.4.4	- NpcPos Maker: wrong generate Z pos for multiple engine
+
+2.7.4.3	- Script config exchanger: rebiuld export engine
+		- Script config exchanger: if target pch file's have less id's then source
+
+2.7.4.2	* Script config exchanger: add on/off options for work with needed pch
+		(example, work only with item names or no work with npcnames and etc.)
+2.7.41	* Script config exchanger: autoresize memory array for PCH id's
+
+2.7.4	* Script config exchanger: ignore npc_ai= npcname
+		* Script config exchanger: comments (// and empty string in config) fix
+
+2.7.3	+ Script config exchanger. Change namespace from one list to new list. Why? You
+		can take config with different names inside ([orc_warrior] but need [warrior_orc])
+		Work with all configs. Need only have all _pch files and all be do!
+
+2.7.2	* item_pch: ignore comments (//) and empty string in file in pchcache maker
+
+2.7.1	+ client decoder project use now alternative tools (l2encoder and PHPdec/enc pack)
+		  Full pack 1.7Mb. You can make it itself.
+			Structure:
+			- folder 'DatProject' in L2ScriptMaker folder
+			- all files from PHPC3Enc pack into 'DatProject' folder
+			- l2encdec.exe tool in root of 'DatProject' folder
+			Note:
+			- copy original *.dat file to L2Scriptmaker\DatProject folder
+			- you can do update for php scripts, php.exe and l2encdec.exe tool
+			for "PHPdec/enc pack!  rename dump-, makerecipeS.php to dump-, makerecipe.php
+			Way of decode/encode:
+			- first decode do l2encdec.exe tool. File saved to 'input' folder
+			- next decode - parsing to text format. Using Php script. File have
+			non-compatible with client format. (Wait fixed files for it). File saved to 'output' folder.
+			Ready compatible with client config saved in *.txt format.
+			- encode use l2encdec.exe tool. File (*.txt) take from 'output' folder and save to 'modded'.
+			
+2.7.0.0		* a lot "cosmetic"'s changes
+			* some no critical bugs fixes
+			* ExecInjecter make backup update for recovery, now
+			* start client decoder project
+			* start recipe fixer project
+			* ItemModul: do correct merge (5 digital for id used now, 4 before)
+			* about window have my face now :)
+
+project "frozen"
+
+2.6.6.1		* tweaking in output itemdata: tabs beetween columns
+
+2.6.6		* tweaking in output skilldata/npcdata: tabs beetween columns
+			- npcdata: small bug in split/merge operation
+			* full compatibility tabs-tweaking with split/merge operation.
+			Rebuild self configs for better work.
+
+2.6.5		* tweaking in all dialog menu (file filter)
+			- critical bug: fix string no must have "space" in end of string. Now can. Trim() enable.
+			
+2.6.4.3		- Npcpos bug (no finish npcmaker_end tag in simple "Multidata" mode)
+
+2.6.4.2		* Trial removed
+
+2.6.4.1		- remove UpperCase fix
+			+ enchanced NpcPos interface. Can import data about npc's in one zone
+			  and generate correct zone
+
+2.6.3		Itemdata:	- 1. split no work correctly. Tab set to default symbol for tabs
+						* 2. interface corrections
+						- 3. add fix for Uppercase words
+			Item_Pch:	+ add module for making itemcache.txt config for CacheScripts
+			Npc_Pch:	+ add module for making npccache.txt config for CacheScripts
+			Skill_Pch:	+ add module for making gmskilldata.txt config for CacheScripts
+
+2.6.2.2		* Tweak in skillEditor interface
+			+ Start RecipeFixer Project
+
+2.6.2		- NpcPch Maker: ignore empty string and comments // records
+
+2.6.1		- AI Injecter: some classes has been ignored. Error v2.5
+
+2.6			- Fix to ExecInjector
+
+2.5			+ Add ExecInjector
+			- Fix AIInjecter. No critical fix. Remake search engine.
+			Some classes has been ignored
+
+2.4			* Npcpos: add Boss Private maker
