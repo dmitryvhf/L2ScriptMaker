@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
+    <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
+  </ItemGroup>
+
+</Project>
