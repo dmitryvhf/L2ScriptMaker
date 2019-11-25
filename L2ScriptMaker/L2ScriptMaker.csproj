@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{57B45535-EEC9-4734-8C4A-26824D28F4F2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>L2ScriptMaker</RootNamespace>
+    <AssemblyName>L2ScriptMaker</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>HF.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckUpdate.Designer.cs">
+      <DependentUpon>CheckUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Libraries.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\Constants.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\Conversions.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\DateAndTime.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\MyAssemblyInfo.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\Strings.cs" />
+    <Compile Include="Modules\AI\AIbuyselllistEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIbuyselllistEditor.Designer.cs">
+      <DependentUpon>AIbuyselllistEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIDecompiler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIDecompiler.Designer.cs">
+      <DependentUpon>AIDecompiler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIDecompilerPack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIDecompilerPack.Designer.cs">
+      <DependentUpon>AIDecompilerPack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AiFixer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AiFixer.Designer.cs">
+      <DependentUpon>AiFixer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIHandlersChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIHandlersChecker.Designer.cs">
+      <DependentUpon>AIHandlersChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AiInjector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AiInjector.Designer.cs">
+      <DependentUpon>AiInjector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIMessageImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIMessageImporter.Designer.cs">
+      <DependentUpon>AIMessageImporter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIMessageTeleportImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIMessageTeleportImporter.Designer.cs">
+      <DependentUpon>AIMessageTeleportImporter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AiParamsNpcdataChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AiParamsNpcdataChecker.Designer.cs">
+      <DependentUpon>AiParamsNpcdataChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AIRaidPosGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AIRaidPosGenerator.Designer.cs">
+      <DependentUpon>AIRaidPosGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AiRateChanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AiRateChanger.Designer.cs">
+      <DependentUpon>AiRateChanger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Eula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eula.Designer.cs">
+      <DependentUpon>Eula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoGetTestPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoGetTestPoint.Designer.cs">
+      <DependentUpon>GeoGetTestPoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoIndexGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoIndexGen.Designer.cs">
+      <DependentUpon>GeoIndexGen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoLocConverter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Geodata\GeoLocConverter.Designer.cs">
+      <DependentUpon>GeoLocConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Geodata\LogDNullPosFixer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Geodata\LogDNullPosFixer.Designer.cs">
+      <DependentUpon>LogDNullPosFixer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Items\ItemDataFixer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Items\ItemDataFixer.Designer.cs">
+      <DependentUpon>ItemDataFixer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Items\ItemDefaultPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Items\ItemDefaultPrice.Designer.cs">
+      <DependentUpon>ItemDefaultPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Items\ItemInjector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Items\ItemInjector.Designer.cs">
+      <DependentUpon>ItemInjector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Items\ItemPchMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Items\ItemPchMaker.Designer.cs">
+      <DependentUpon>ItemPchMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcC4toC5IdsConversion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcC4toC5IdsConversion.Designer.cs">
+      <DependentUpon>NpcC4toC5IdsConversion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataChecker.Designer.cs">
+      <DependentUpon>NpcDataChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataCollisionFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataCollisionFix.Designer.cs">
+      <DependentUpon>NpcDataCollisionFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataHerbMobs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataHerbMobs.Designer.cs">
+      <DependentUpon>NpcDataHerbMobs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataMaker.Designer.cs">
+      <DependentUpon>NpcDataMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataPassiveSkillFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataPassiveSkillFix.Designer.cs">
+      <DependentUpon>NpcDataPassiveSkillFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataPassiveSkillFixC6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDataPassiveSkillFixC6.Designer.cs">
+      <DependentUpon>NpcDataPassiveSkillFixC6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcdataRateReBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcdataRateReBuilder.Designer.cs">
+      <DependentUpon>NpcdataRateReBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDropItemChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcDropItemChecker.Designer.cs">
+      <DependentUpon>NpcDropItemChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcInjector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcInjector.Designer.cs">
+      <DependentUpon>NpcInjector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosAreaMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosAreaMaker.Designer.cs">
+      <DependentUpon>NpcPosAreaMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosChecker.Designer.cs">
+      <DependentUpon>NpcPosChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcposManorZoneGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcposManorZoneGenerator.Designer.cs">
+      <DependentUpon>NpcposManorZoneGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcposMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcposMap.Designer.cs">
+      <DependentUpon>NpcposMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosShifter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPosShifter.Designer.cs">
+      <DependentUpon>NpcPosShifter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlDesigner.Designer.cs">
+      <DependentUpon>HtmlDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\LogParser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\LogParser.Designer.cs">
+      <DependentUpon>LogParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\MultisellEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\MultisellEditor.Designer.cs">
+      <DependentUpon>MultisellEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\QuestPchMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\QuestPchMaker.Designer.cs">
+      <DependentUpon>QuestPchMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\SQLForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\SQLForms.Designer.cs">
+      <DependentUpon>SQLForms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\SuperpointBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\SuperpointBuilder.Designer.cs">
+      <DependentUpon>SuperpointBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\ToolIncrementer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\ToolIncrementer.Designer.cs">
+      <DependentUpon>ToolIncrementer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptAddDelParam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptAddDelParam.Designer.cs">
+      <DependentUpon>ScriptAddDelParam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptEditor.Designer.cs">
+      <DependentUpon>ScriptEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptExchanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptExchanger.Designer.cs">
+      <DependentUpon>ScriptExchanger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptLeecher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptLeecher.Designer.cs">
+      <DependentUpon>ScriptLeecher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptLeecherOld.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptLeecherOld.Designer.cs">
+      <DependentUpon>ScriptLeecherOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptParamSearcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptParamSearcher.Designer.cs">
+      <DependentUpon>ScriptParamSearcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptSyntacsisChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ScriptSyntacsisChecker.Designer.cs">
+      <DependentUpon>ScriptSyntacsisChecker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillAcquireEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillAcquireEditor.Designer.cs">
+      <DependentUpon>SkillAcquireEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillDataParser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillDataParser.Designer.cs">
+      <DependentUpon>SkillDataParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillEditor.Designer.cs">
+      <DependentUpon>SkillEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillInjector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillInjector.Designer.cs">
+      <DependentUpon>SkillInjector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillPch2Maker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Skills\SkillPch2Maker.Designer.cs">
+      <DependentUpon>SkillPch2Maker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\SkillDataGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\SkillDataGenerator.Designer.cs">
+      <DependentUpon>SkillDataGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\ItemDataGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\ItemDataGenerator.Designer.cs">
+      <DependentUpon>ItemDataGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPchMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Npc\NpcPchMaker.Designer.cs">
+      <DependentUpon>NpcPchMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\AreaDataGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\AreaDataGenerator.Designer.cs">
+      <DependentUpon>AreaDataGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\DoorMakerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\DoorMakerForm.Designer.cs">
+      <DependentUpon>DoorMakerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\EventDataEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\EventDataEditor.Designer.cs">
+      <DependentUpon>EventDataEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\EventDataEditorAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\EventDataEditorAbout.Designer.cs">
+      <DependentUpon>EventDataEditorAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\ExecInjector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\ExecInjector.Designer.cs">
+      <DependentUpon>ExecInjector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\ExecL2AuthKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\ExecL2AuthKey.Designer.cs">
+      <DependentUpon>ExecL2AuthKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\HowToForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\HowToForm.Designer.cs">
+      <DependentUpon>HowToForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlButtonDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlButtonDesigner.Designer.cs">
+      <DependentUpon>HtmlButtonDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlMissedFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Others\HtmlMissedFinder.Designer.cs">
+      <DependentUpon>HtmlMissedFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\ClientAggroPatchMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\ClientAggroPatchMaker.Designer.cs">
+      <DependentUpon>ClientAggroPatchMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Scripts\DatDecoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Scripts\DatDecoder.Designer.cs">
+      <DependentUpon>DatDecoder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\AugmentationGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\AugmentationGenerator.Designer.cs">
+      <DependentUpon>AugmentationGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_BuySellList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_BuySellList.Designer.cs">
+      <DependentUpon>L2J_BuySellList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_DoorData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_DoorData.Designer.cs">
+      <DependentUpon>L2J_DoorData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_MultiSell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_MultiSell.Designer.cs">
+      <DependentUpon>L2J_MultiSell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcData.Designer.cs">
+      <DependentUpon>L2J_NpcData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcData_Drop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcData_Drop.Designer.cs">
+      <DependentUpon>L2J_NpcData_Drop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\L2J\L2J_NpcPos.Designer.cs">
+      <DependentUpon>L2J_NpcPos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\RecipeGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\RecipeGenerator.Designer.cs">
+      <DependentUpon>RecipeGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\ScriptFromDat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\ScriptFromDat.Designer.cs">
+      <DependentUpon>ScriptFromDat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\SkillDataGeneratorCT1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ZeroScripts\SkillDataGeneratorCT1.Designer.cs">
+      <DependentUpon>SkillDataGeneratorCT1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WelcomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomeForm.Designer.cs">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckUpdate.resx">
+      <DependentUpon>CheckUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIbuyselllistEditor.resx">
+      <DependentUpon>AIbuyselllistEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIDecompiler.resx">
+      <DependentUpon>AIDecompiler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIDecompilerPack.resx">
+      <DependentUpon>AIDecompilerPack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AiFixer.resx">
+      <DependentUpon>AiFixer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIHandlersChecker.resx">
+      <DependentUpon>AIHandlersChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AiInjector.resx">
+      <DependentUpon>AiInjector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIMessageImporter.resx">
+      <DependentUpon>AIMessageImporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIMessageTeleportImporter.resx">
+      <DependentUpon>AIMessageTeleportImporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AiParamsNpcdataChecker.resx">
+      <DependentUpon>AiParamsNpcdataChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AIRaidPosGenerator.resx">
+      <DependentUpon>AIRaidPosGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AiRateChanger.resx">
+      <DependentUpon>AiRateChanger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Eula.resx">
+      <DependentUpon>Eula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Geodata\GeoGetTestPoint.resx">
+      <DependentUpon>GeoGetTestPoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Geodata\GeoIndexGen.resx">
+      <DependentUpon>GeoIndexGen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Geodata\GeoLocConverter.resx">
+      <DependentUpon>GeoLocConverter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Geodata\LogDNullPosFixer.resx">
+      <DependentUpon>LogDNullPosFixer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Items\ItemDataFixer.resx">
+      <DependentUpon>ItemDataFixer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Items\ItemDefaultPrice.resx">
+      <DependentUpon>ItemDefaultPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Items\ItemInjector.resx">
+      <DependentUpon>ItemInjector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Items\ItemPchMaker.resx">
+      <DependentUpon>ItemPchMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcC4toC5IdsConversion.resx">
+      <DependentUpon>NpcC4toC5IdsConversion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataChecker.resx">
+      <DependentUpon>NpcDataChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataCollisionFix.resx">
+      <DependentUpon>NpcDataCollisionFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataHerbMobs.resx">
+      <DependentUpon>NpcDataHerbMobs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataMaker.resx">
+      <DependentUpon>NpcDataMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataPassiveSkillFix.resx">
+      <DependentUpon>NpcDataPassiveSkillFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDataPassiveSkillFixC6.resx">
+      <DependentUpon>NpcDataPassiveSkillFixC6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcdataRateReBuilder.resx">
+      <DependentUpon>NpcdataRateReBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcDropItemChecker.resx">
+      <DependentUpon>NpcDropItemChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcInjector.resx">
+      <DependentUpon>NpcInjector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcPosAreaMaker.resx">
+      <DependentUpon>NpcPosAreaMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcPosChecker.resx">
+      <DependentUpon>NpcPosChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcposManorZoneGenerator.resx">
+      <DependentUpon>NpcposManorZoneGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcposMap.resx">
+      <DependentUpon>NpcposMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcPosShifter.resx">
+      <DependentUpon>NpcPosShifter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\HtmlDesigner.resx">
+      <DependentUpon>HtmlDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\LogParser.resx">
+      <DependentUpon>LogParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\MultisellEditor.resx">
+      <DependentUpon>MultisellEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\QuestPchMaker.resx">
+      <DependentUpon>QuestPchMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\SQLForms.resx">
+      <DependentUpon>SQLForms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\SuperpointBuilder.resx">
+      <DependentUpon>SuperpointBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\ToolIncrementer.resx">
+      <DependentUpon>ToolIncrementer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptAddDelParam.resx">
+      <DependentUpon>ScriptAddDelParam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptEditor.resx">
+      <DependentUpon>ScriptEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptExchanger.resx">
+      <DependentUpon>ScriptExchanger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptLeecher.resx">
+      <DependentUpon>ScriptLeecher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptLeecherOld.resx">
+      <DependentUpon>ScriptLeecherOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptParamSearcher.resx">
+      <DependentUpon>ScriptParamSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ScriptSyntacsisChecker.resx">
+      <DependentUpon>ScriptSyntacsisChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Skills\SkillAcquireEditor.resx">
+      <DependentUpon>SkillAcquireEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Skills\SkillDataParser.resx">
+      <DependentUpon>SkillDataParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Skills\SkillEditor.resx">
+      <DependentUpon>SkillEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Skills\SkillInjector.resx">
+      <DependentUpon>SkillInjector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Skills\SkillPch2Maker.resx">
+      <DependentUpon>SkillPch2Maker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\SkillDataGenerator.resx">
+      <DependentUpon>SkillDataGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\ItemDataGenerator.resx">
+      <DependentUpon>ItemDataGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Npc\NpcPchMaker.resx">
+      <DependentUpon>NpcPchMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\AreaDataGenerator.resx">
+      <DependentUpon>AreaDataGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\DoorMakerForm.resx">
+      <DependentUpon>DoorMakerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\EventDataEditor.resx">
+      <DependentUpon>EventDataEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\EventDataEditorAbout.resx">
+      <DependentUpon>EventDataEditorAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\ExecInjector.resx">
+      <DependentUpon>ExecInjector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\ExecL2AuthKey.resx">
+      <DependentUpon>ExecL2AuthKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\HowToForm.resx">
+      <DependentUpon>HowToForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\HtmlButtonDesigner.resx">
+      <DependentUpon>HtmlButtonDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Others\HtmlMissedFinder.resx">
+      <DependentUpon>HtmlMissedFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\ClientAggroPatchMaker.resx">
+      <DependentUpon>ClientAggroPatchMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Scripts\DatDecoder.resx">
+      <DependentUpon>DatDecoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\AugmentationGenerator.resx">
+      <DependentUpon>AugmentationGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_BuySellList.resx">
+      <DependentUpon>L2J_BuySellList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_DoorData.resx">
+      <DependentUpon>L2J_DoorData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_MultiSell.resx">
+      <DependentUpon>L2J_MultiSell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_NpcData.resx">
+      <DependentUpon>L2J_NpcData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_NpcData_Drop.resx">
+      <DependentUpon>L2J_NpcData_Drop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\L2J\L2J_NpcPos.resx">
+      <DependentUpon>L2J_NpcPos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\RecipeGenerator.resx">
+      <DependentUpon>RecipeGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\ScriptFromDat.resx">
+      <DependentUpon>ScriptFromDat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\ZeroScripts\SkillDataGeneratorCT1.resx">
+      <DependentUpon>SkillDataGeneratorCT1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WelcomeForm.resx">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HF.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
