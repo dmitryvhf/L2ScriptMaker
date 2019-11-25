@@ -1,6 +1,9 @@
 # L2ScriptMaker
 Tool for support server scripts of Lineage II game server
 
+## Purpose
+
+en:
 This product is intended for the work with the server and client files of game "Lineage II" from NСSoft Corporation.
 It is devoted for all, who want more to learn, or to make something interesting and is more similar like gameplay on official server.
 As the developer of this product, I call all to share the knowledge, obtained with the work on the administration of this game.
@@ -12,7 +15,7 @@ I always await your ideas and proposals about an improvement in the program. So 
 This product is not intended for obtaining the income from the use of possibilities of this program.
 This product is not sold. On the propagation the author of program can establish all limitations only.
 
-
+ru:
 Данный продукт предназначен для работы с серверными и клиентскими файлами игры "Lineage II" от NCSoft Corporation.
 Посвящается для всех, кто хочет больше узнать, или сделать что-то интересное и похожее на официальный сервер.
 Как разработчик этого продукта, я призываю всех делиться знаниями, полученными при работе по администрированию этой игры.
@@ -23,3 +26,8 @@ This product is not sold. On the propagation the author of program can establish
 
 Данный продукт не предназначен для получения дохода от использования возможностей этой программы.
 Данный продукт не продаётся. Все ограничения на распространение может устанавливать только автор программы.
+
+# Requirements
+
+OS : Windows
+.Net Framework 3.5
