@@ -1,30 +1,25 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "L2ScriptMaker", "L2ScriptMaker\L2ScriptMaker.vbproj", "{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.138
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2ScriptMaker", "L2ScriptMaker\L2ScriptMaker.csproj", "{57B45535-EEC9-4734-8C4A-26824D28F4F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|Mixed Platforms = Debug|Mixed Platforms
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|Mixed Platforms = Release|Mixed Platforms
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9F29AB02-4D0B-4A69-806A-3B02A8FCA70C}.Release|x86.ActiveCfg = Release|Any CPU
+		{57B45535-EEC9-4734-8C4A-26824D28F4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B45535-EEC9-4734-8C4A-26824D28F4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B45535-EEC9-4734-8C4A-26824D28F4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B45535-EEC9-4734-8C4A-26824D28F4F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6963BEBE-BDBC-469E-B00A-B259488C86BC}
 	EndGlobalSection
 EndGlobal
