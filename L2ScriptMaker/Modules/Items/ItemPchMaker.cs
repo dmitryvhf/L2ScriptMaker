@@ -56,9 +56,9 @@ namespace L2ScriptMaker.Modules.Items
 			{
 
 				// ItemData = Replace(inItemData.ReadLine, Chr(9), TabSymbol).Split(Chr(32))
-				TempStr = Strings.Replace(inItemData.ReadLine(), Conversions.ToString((char)9), TabSymbol);
+				TempStr = Strings.Replace(inItemData.ReadLine(), "\t", TabSymbol);
 
-				if ((Strings.Mid(Strings.Trim(TempStr), 1, 2) ?? "") != "//" & TempStr != null & Strings.InStr(TempStr, "set_begin") == 0)
+				if (!String.IsNullOrWhiteSpace(TempStr) && (Strings.Mid(Strings.Trim(TempStr), 1, 2) ?? "") != "//" & Strings.InStr(TempStr, "set_begin") == 0)
 				{
 
 					// tabs and spaces correction
@@ -156,14 +156,14 @@ namespace L2ScriptMaker.Modules.Items
 
 			while (inFile.BaseStream.Position != inFile.BaseStream.Length)
 			{
-				ReadStr = Strings.Replace(inFile.ReadLine(), Conversions.ToString((char)9), Conversions.ToString((char)32));
+				ReadStr = Strings.Replace(inFile.ReadLine(), "\t", " ");
 
 
 				// tabs and spaces correction
 				while (Strings.InStr(ReadStr, "  ") != 0)
-					ReadStr = Strings.Replace(ReadStr, "  ", Conversions.ToString((char)32));
+					ReadStr = Strings.Replace(ReadStr, "  ", " ");
 
-				if (ReadStr != null)
+				if (!String.IsNullOrWhiteSpace(ReadStr))
 				{
 					if ((Strings.Mid(Strings.Trim(ReadStr), 1, 2) ?? "") != "//")
 					{

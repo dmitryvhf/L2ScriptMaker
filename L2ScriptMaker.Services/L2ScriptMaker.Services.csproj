@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
     <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
+    <ProjectReference Include="..\L2ScriptMaker.Parsers\L2ScriptMaker.Parsers.csproj" />
   </ItemGroup>
 
 </Project>

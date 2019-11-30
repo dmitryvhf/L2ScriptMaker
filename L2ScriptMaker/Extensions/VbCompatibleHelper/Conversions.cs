@@ -25,6 +25,7 @@ namespace L2ScriptMaker.Extensions.VbCompatibleHelper
 		public static string ToString(DateTime value) => Convert.ToString(value);
 		public static string ToString(long value) => Convert.ToString(value);
 		public static string ToString(int value) => Convert.ToString(value);
+		public static string ToString(char value) => Convert.ToString(value);
 		public static string ToString(double value) => Convert.ToString(value);
 
 		public static byte ToByte(int value) => Convert.ToByte(value);
