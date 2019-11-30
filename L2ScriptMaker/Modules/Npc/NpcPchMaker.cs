@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using L2ScriptMaker.Extensions;
+using L2ScriptMaker.Extensions.VbCompatibleHelper;
 
 namespace L2ScriptMaker.Modules.Npc
 {

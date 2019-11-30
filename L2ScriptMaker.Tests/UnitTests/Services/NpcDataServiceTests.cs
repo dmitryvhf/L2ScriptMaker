@@ -1,6 +1,5 @@
 ﻿using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Services.Npc;
-using L2ScriptMaker.Services.Parsers.Npc;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -12,18 +11,16 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 		[Fact]
 		public void ParseData()
 		{
+			INpcDataService npcDataService = new NpcDataService();
 			IEnumerable<string> rawData = GetNpcData();
 
-			var data1 = NpcDataService.Load(rawData);
-			var data2 = NpcDataService.Parse(data1).ToArray();
+			IEnumerable<NpcData> result = npcDataService.Parse(rawData).ToArray();
 
-			Assert.True(data2.Length > 0);
+			Assert.True(result.Any());
 		}
 
 		private IEnumerable<string> GetNpcData()
 		{
-			NpcDataFactory npcDataParser = new NpcDataFactory();
-
 			// npc_begin       warrior 20001   [gremlin]       category={}     level=1 exp=0 
 			IEnumerable<NpcData> npcDataArray = new NpcData[]
 			{
@@ -31,7 +28,7 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 				new NpcData{ Id = 20002, Name = "rabbit", Type = "warrior"},
 				new NpcData{ Id = 20003, Name = "goblin", Type = "warrior"}
 			};
-			IEnumerable<string> data = npcDataArray.Select(npcDataParser.Print);
+			IEnumerable<string> data = npcDataArray.Select(NpcDataService.Print);
 
 			return data;
 		}

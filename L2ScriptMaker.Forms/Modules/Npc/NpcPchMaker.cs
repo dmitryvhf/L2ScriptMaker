@@ -11,7 +11,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 {
 	public partial class NpcPchMaker : Form
 	{
-		private readonly NpcPchService _npcPchService;
+		private readonly INpcPchService _npcPchService;
 
 		public NpcPchMaker()
 		{

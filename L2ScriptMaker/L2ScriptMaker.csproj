@@ -76,10 +76,10 @@
     <Compile Include="CheckUpdate.Designer.cs">
       <DependentUpon>CheckUpdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Libraries.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\Constants.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\Conversions.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\DateAndTime.cs" />
+    <Compile Include="Extensions\VbCompatibleHelper\Libraries.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\MyAssemblyInfo.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\Strings.cs" />
     <Compile Include="Modules\AI\AIbuyselllistEditor.cs">

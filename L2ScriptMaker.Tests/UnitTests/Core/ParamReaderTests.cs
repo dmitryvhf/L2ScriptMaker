@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using L2ScriptMaker.Core.ScriptParser.InlineData;
+using L2ScriptMaker.Parsers.Parsers.Inline;
 using Xunit;
 
 namespace L2ScriptMaker.Tests.UnitTests.Core

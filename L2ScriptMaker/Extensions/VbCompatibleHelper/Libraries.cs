@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using L2ScriptMaker.Extensions.VbCompatibleHelper;
-
-namespace L2ScriptMaker.Extensions
+﻿namespace L2ScriptMaker.Extensions.VbCompatibleHelper
 {
 	class Libraries
 	{
@@ -87,7 +80,7 @@ namespace L2ScriptMaker.Extensions
 			{
 				GetNeedParamFromStrRet = "";
 				return GetNeedParamFromStrRet;
-			}
+			} 
 
 			FirstPos += MaskStr.Length + 1; // +1 - next symbol after Mask word + space
 			SecondPos = FirstPos + 1;
@@ -95,14 +88,14 @@ namespace L2ScriptMaker.Extensions
 			if (SecondPos == 0)
 				SecondPos = SourceStr.Length;
 
-			GetNeedParamFromStrRet = SourceStr.Substring(FirstPos + 1, SecondPos - FirstPos).Trim();
+			GetNeedParamFromStrRet = SourceStr.Substring(FirstPos, SecondPos - FirstPos).Trim();
 			if (GetNeedParamFromStrRet.StartsWith("[") == true & GetNeedParamFromStrRet.EndsWith("]") == false)
 			{
 				SecondPos = Strings.InStr(FirstPos, SourceStr, "]");
 				// If SecondPos = 0 Then SecondPos = SourceStr.Length
-				GetNeedParamFromStrRet = SourceStr.Substring(FirstPos + 1, SecondPos - FirstPos).Trim();
+				GetNeedParamFromStrRet = SourceStr.Substring(FirstPos, SecondPos - FirstPos).Trim();
 			}
-			SourceStr = SourceStr.Replace(" ", "\t");
+			// SourceStr = SourceStr.Replace(" ", "\t");
 			return GetNeedParamFromStrRet;
 		}
 

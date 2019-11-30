@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace L2ScriptMaker.Core.ScriptParser.InlineData
+[assembly: InternalsVisibleTo("L2ScriptMaker.Tests")]
+namespace L2ScriptMaker.Parsers.Parsers.Inline
 {
-	public class InlineDataReader : IScriptReader<InlineData>
+	internal class InlineDataReader : IScriptReader<InlineData>
 	{
 		private char Splitter { get; } = '\t';
 		public bool SkipComment { get; } = true;
 
 		public InlineData Read(string raw)
-		{
-			InlineData data = Parse(raw);
-			return data;
-		}
-
-		private InlineData Parse(string raw)
 		{
 			InlineData data = new InlineData();
 
