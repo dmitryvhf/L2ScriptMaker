@@ -14,7 +14,7 @@ namespace L2ScriptMaker.Extensions.VbCompatibleHelper
 		public static int ToInteger(string value) => Convert.ToInt32(value);
 
 		public static double ToDouble(string value) => Convert.ToDouble(value);
-		public static double Val(string value) => Convert.ToDouble(value);
+		public static double Val(string value) => String.IsNullOrWhiteSpace(value) ? 0 : Convert.ToDouble(value);
 		public static double Fix(double value) => Math.Truncate(value);
 
 		public static long ToLong(double value) => Convert.ToInt64(value);

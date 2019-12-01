@@ -21,7 +21,7 @@ namespace L2ScriptMaker.Parsers.Parsers.Inline
 		{
 			Type t = typeof(T);
 			bool isInlineScript = t.IsDefined(typeof(InlineScriptAttribute));
-			if (!isInlineScript) throw new ArgumentException($"Type is not inline script");
+			if (!isInlineScript) throw new ArgumentException("Type is not inline script");
 
 			if (_scriptParams.Count > 0) _scriptParams.Clear();
 

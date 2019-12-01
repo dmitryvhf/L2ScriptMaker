@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using L2ScriptMaker.Services.Npc;
+using System.Threading.Tasks;
+using L2ScriptMaker.Core.Thread;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {
@@ -20,9 +23,6 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			_npcPchService = new NpcPchService();
 		}
 
-		// Dim TabSymbol As String = Chr(9)
-		// private const string TabSymbol = " ";
-
 		private void StartButton_Click(object sender, EventArgs e)
 		{
 			FileDialogService fileDialogService = new FileDialogService
@@ -30,33 +30,33 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 				InitialDirectory = Environment.CurrentDirectory,
 				Filter = "Lineage II NpcData config|npcdata.txt|All files (*.*)|*.*"
 			};
-			if(!fileDialogService.OpenFileDialog()) return;
+			if (!fileDialogService.OpenFileDialog()) return;
 
-			string NpcDataFile = Path.GetFileName(fileDialogService.FilePath);
-			string NpcDataDir = Path.GetDirectoryName(fileDialogService.FilePath);
+			string NpcDataFile = fileDialogService.FileName;
+			string NpcDataDir = fileDialogService.FileDirectory;
 
-			if (File.Exists(NpcDataDir + @"\npc_pch.txt"))
+			if (File.Exists(NpcDataDir + "\\" + NpcContants.NpcPchFileName))
 			{
-				if (MessageBox.Show("File npc_pch.txt exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				if (MessageBox.Show($"File {NpcContants.NpcPchFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 					return;
 			}
 
-			_npcPchService.Generate(NpcDataFile, NpcDataDir);
+			IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });
+			StartButton.Enabled = false;
 
-			MessageBox.Show("Complete. Success.");
+			Task.Run(() =>
+			{
+				_npcPchService.Generate(NpcDataDir, NpcDataFile, progress);
+			}).ContinueWith(task =>
+			{
+				this.Invoker(() =>
+				{
+					StartButton.Enabled = true;
+					ProgressBar.Value = 0;
+				});
+				MessageBox.Show("Success.", "Complete");
+			});
 		}
-
-		//private static void Generate(string NpcDataFile, string NpcDataDir)
-		//{
-		//	NpcPchFactory npcPchFactory = new NpcPchFactory();
-		//	IEnumerable<string> rawNpcData = FileUtils.ReadFile(NpcDataFile);
-
-		//	IEnumerable<InlineData> data1 = NpcPchService.Load(rawNpcData);
-		//	IEnumerable<NpcPch> data2 = NpcPchService.Parse(data1);
-		//	var data3 = data2.Select(npcPchFactory.Print);
-
-		//	FileUtils.SaveFile(data3, NpcDataDir + @"\npc_pch.txt", Encoding.Unicode);
-		//}
 
 		private void NpcCacheScript_Click(object sender, EventArgs e)
 		{

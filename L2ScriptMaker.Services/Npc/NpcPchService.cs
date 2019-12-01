@@ -6,6 +6,7 @@ using System.Text;
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Parsers.Parsers.Inline;
 using L2ScriptMaker.Parsers.Models;
+using System.IO;
 
 namespace L2ScriptMaker.Services.Npc
 {
@@ -19,27 +20,42 @@ namespace L2ScriptMaker.Services.Npc
 			InlineParser.Initialize();
 		}
 
+		public NpcPch Parse(string data)
+		{
+			return InlineParser.Parse<NpcPch>(data);
+		}
+
 		public IEnumerable<NpcPch> Parse(IEnumerable<string> data)
 		{
-			IEnumerable<NpcPch> result = data.Select(a => InlineParser.Parse<NpcPch>(a));
+			IEnumerable<NpcPch> result = data.Select(Parse);
 			return result;
 		}
 
 		#region WinForms services
-		public void Generate(string NpcDataFile, string NpcDataDir)
+		public async void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
-			IEnumerable<string> rawNpcData = FileUtils.ReadFile(NpcDataFile);
+			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
+			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
+			string outPch2File = Path.Combine(NpcDataDir, NpcContants.NpcPch2FileName);
 
-			IEnumerable<NpcPch> data = Parse(rawNpcData);
-			IEnumerable<string> result = data.Select(Print);
+			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
 
-			FileUtils.SaveFile(result, NpcDataDir + @"\npc_pch.txt", Encoding.Unicode);
-			FileUtils.SaveFile(Enumerable.Empty<string>(), NpcDataDir + @"\npc_pch2.txt", Encoding.Unicode);
+			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
+			{
+				foreach (string s in rawNpcData)
+				{
+					NpcPch parsed = InlineParser.Parse<NpcPch>(s);
+					sw.WriteLine(Print(parsed));
+				}
+			}
+
+			File.Create(outPch2File);
+
 		}
 		#endregion
 
 		// [gremlin]       =       1020001
-		public static string Print(NpcPch model)
+		static string Print(NpcPch model)
 		{
 			return $"[{model.Name}] = {NpcPchPrefix + model.Id}";
 		}

@@ -43,7 +43,7 @@
 			this.StopError.AutoSize = true;
 			this.StopError.Checked = true;
 			this.StopError.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.StopError.Location = new System.Drawing.Point(206, 16);
+			this.StopError.Location = new System.Drawing.Point(178, 16);
 			this.StopError.Name = "StopError";
 			this.StopError.Size = new System.Drawing.Size(87, 17);
 			this.StopError.TabIndex = 51;
@@ -89,7 +89,7 @@
 			// 
 			// ButtonQuit
 			// 
-			this.ButtonQuit.Location = new System.Drawing.Point(291, 12);
+			this.ButtonQuit.Location = new System.Drawing.Point(290, 12);
 			this.ButtonQuit.Name = "ButtonQuit";
 			this.ButtonQuit.Size = new System.Drawing.Size(91, 23);
 			this.ButtonQuit.TabIndex = 50;

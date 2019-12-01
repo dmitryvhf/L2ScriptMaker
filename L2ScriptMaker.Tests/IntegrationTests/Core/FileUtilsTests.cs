@@ -28,15 +28,15 @@ namespace L2ScriptMaker.Tests.IntegrationTests.Core
 			string[] data = GetFileData();
 
 			// Save test
-			FileUtils.SaveFile(data, testFile, Encoding.Default);
+			FileUtils.Save(data, testFile, Encoding.Default);
 
-			FileInfo fileInfo = FileUtils.GetFileInfo(testFile);
+			FileInfo fileInfo = FileUtils.GetInfo(testFile);
 
 			Assert.True(fileInfo.Exists); 
 			Assert.True(fileInfo.Length > 0);
 
 			// Read test
-			IEnumerable<string> rawData = FileUtils.ReadFile(testFile);
+			IEnumerable<string> rawData = FileUtils.Read(testFile);
 
 			var readData = rawData.ToArray();
 			int saveDataLength = String.Join(String.Empty, data).Length + data.Length * 2;

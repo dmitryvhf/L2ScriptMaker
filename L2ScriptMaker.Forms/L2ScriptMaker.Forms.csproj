@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>L2ScriptMaker.Forms</RootNamespace>
     <AssemblyName>L2ScriptMaker.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -32,9 +32,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,6 +85,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj">
+      <Project>{4e51a7c6-6f92-494c-b0aa-8d1245379fbf}</Project>
+      <Name>L2ScriptMaker.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\L2ScriptMaker.Services\L2ScriptMaker.Services.csproj">
       <Project>{90b5a5ee-da5b-4a4d-87ad-9d93328d026f}</Project>
       <Name>L2ScriptMaker.Services</Name>

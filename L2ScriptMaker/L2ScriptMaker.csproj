@@ -838,6 +838,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\L2ScriptMaker.Forms\L2ScriptMaker.Forms.csproj">
+      <Project>{6d88ae68-5aba-48db-b281-466a3f9a5da8}</Project>
+      <Name>L2ScriptMaker.Forms</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

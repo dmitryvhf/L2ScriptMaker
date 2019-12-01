@@ -145,7 +145,8 @@ namespace L2ScriptMaker
 		#region NPC
 		private void NpcPchMakerButton_Click(object sender, EventArgs e)
 		{
-			new NpcPchMaker().ShowDialog();
+			// new NpcPchMaker().ShowDialog();
+			new L2ScriptMaker.Forms.Modules.Npc.NpcPchMaker().ShowDialog();
 		}
 
 		private void NpcC4toC5IdsConversionButton_Click(object sender, EventArgs e)

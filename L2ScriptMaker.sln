@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Tests", "L2Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2ScriptMaker.Forms", "L2ScriptMaker.Forms\L2ScriptMaker.Forms.csproj", "{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2ScriptMaker.Parsers", "L2ScriptMaker.Parsers\L2ScriptMaker.Parsers.csproj", "{E0F7CE9F-9CCC-49F4-948A-EAE6CC3F8CF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers", "L2ScriptMaker.Parsers\L2ScriptMaker.Parsers.csproj", "{E0F7CE9F-9CCC-49F4-948A-EAE6CC3F8CF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
