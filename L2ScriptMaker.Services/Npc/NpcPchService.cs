@@ -1,12 +1,11 @@
 ﻿using L2ScriptMaker.Models.Npc;
+using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Parsers.Parsers.Inline;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Core.Files;
-using L2ScriptMaker.Parsers.Parsers.Inline;
-using L2ScriptMaker.Parsers.Models;
-using System.IO;
 
 namespace L2ScriptMaker.Services.Npc
 {
@@ -31,21 +30,29 @@ namespace L2ScriptMaker.Services.Npc
 			return result;
 		}
 
-		#region WinForms services
-		public async void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		#region WinForms service
+		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
 			string outPch2File = Path.Combine(NpcDataDir, NpcContants.NpcPch2FileName);
 
-			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
+			// IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
 
-			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
+			using (StreamReader sr = new StreamReader(inNpcdataFile))
 			{
-				foreach (string s in rawNpcData)
+				long dataLenght = sr.BaseStream.Length;
+
+				using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 				{
-					NpcPch parsed = InlineParser.Parse<NpcPch>(s);
-					sw.WriteLine(Print(parsed));
+					while (!sr.EndOfStream)
+					{
+						string current = sr.ReadLine();
+						progress.Report((int)(sr.BaseStream.Position * 100 / dataLenght));
+
+						NpcPch parsed = InlineParser.Parse<NpcPch>(current);
+						sw.WriteLine(Print(parsed));
+					}
 				}
 			}
 

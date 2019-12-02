@@ -5,5 +5,7 @@
 		public const string NpcDataFileName = "npcdata.txt";
 		public const string NpcPchFileName = "npc_pch.txt";
 		public const string NpcPch2FileName = "npc_pch2.txt";
+
+		public const string NpcCacheFileName = "npccache.txt";
 	}
 }

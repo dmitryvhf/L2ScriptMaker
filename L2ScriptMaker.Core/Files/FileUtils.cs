@@ -16,8 +16,6 @@ namespace L2ScriptMaker.Core.Files
 			return File.ReadLines(path).Where(FilterEmptyOrCommentLines);
 		}
 
-		/// <exception cref="NullReferenceException">Путь к файлу null или пустое значение</exception>
-		/// <exception cref="FileNotFoundException">Файл не существует</exception>
 		public static IEnumerable<string> Read(string path, IProgress<int> progress)
 		{
 			using (StreamReader sw = new StreamReader(path))

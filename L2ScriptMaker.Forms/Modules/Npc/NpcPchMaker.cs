@@ -1,26 +1,25 @@
-﻿using L2ScriptMaker.Forms.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
+﻿using L2ScriptMaker.Core.Thread;
+using L2ScriptMaker.Forms.Services;
+using L2ScriptMaker.Services.CachedScript;
 using L2ScriptMaker.Services.Npc;
+using System;
+using System.IO;
 using System.Threading.Tasks;
-using L2ScriptMaker.Core.Thread;
+using System.Windows.Forms;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {
 	public partial class NpcPchMaker : Form
 	{
 		private readonly INpcPchService _npcPchService;
+		private readonly INpcCacheService _npcCacheService;
 
 		public NpcPchMaker()
 		{
 			InitializeComponent();
 
 			_npcPchService = new NpcPchService();
+			_npcCacheService = new NpcCacheService();
 		}
 
 		private void StartButton_Click(object sender, EventArgs e)
@@ -60,7 +59,37 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 		private void NpcCacheScript_Click(object sender, EventArgs e)
 		{
+			FileDialogService fileDialogService = new FileDialogService
+			{
+				InitialDirectory = Environment.CurrentDirectory,
+				Filter = "Lineage II NpcData config|npcdata.txt|All files (*.*)|*.*"
+			};
+			if (!fileDialogService.OpenFileDialog()) return;
 
+			string NpcDataFile = fileDialogService.FileName;
+			string NpcDataDir = fileDialogService.FileDirectory;
+
+			if (File.Exists(NpcDataDir + "\\" + NpcContants.NpcCacheFileName))
+			{
+				if (MessageBox.Show($"File {NpcContants.NpcCacheFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+					return;
+			}
+
+			IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });
+			NpcCacheScript.Enabled = false;
+
+			Task.Run(() =>
+			{
+				_npcCacheService.Generate(NpcDataDir, NpcDataFile, progress);
+			}).ContinueWith(task =>
+			{
+				this.Invoker(() =>
+				{
+					NpcCacheScript.Enabled = true;
+					ProgressBar.Value = 0;
+				});
+				MessageBox.Show("Success.", "Complete");
+			});
 		}
 
 
