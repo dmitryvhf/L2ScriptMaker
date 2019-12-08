@@ -9,6 +9,7 @@
 
 		public const string SkillCacheFileName = "skillcache.txt";
 
-		public const int SkillUniqueIdMultiplier = 256;
+		public const int SkillIdMultiplierV1 = 256;
+		public const int SkillIdMultiplierV2 = 65536;
 	}
 }

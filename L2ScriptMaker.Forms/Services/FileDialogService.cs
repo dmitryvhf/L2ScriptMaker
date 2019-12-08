@@ -23,6 +23,7 @@ namespace L2ScriptMaker.Forms.Services
 			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
 				openFileDialog.Filter = Filter;
+				openFileDialog.InitialDirectory = InitialDirectory;
 
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{

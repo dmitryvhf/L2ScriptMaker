@@ -14,7 +14,7 @@ namespace L2ScriptMaker.Services.Npc
 		private readonly NpcDataService _npcDataService = new NpcDataService();
 
 		#region WinForms service
-		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
@@ -34,6 +34,8 @@ namespace L2ScriptMaker.Services.Npc
 			}
 
 			File.Create(outPch2File).Close();
+
+			return new ServiceResult { HasErrors = false };
 		}
 		#endregion
 

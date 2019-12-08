@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using L2ScriptMaker.Models.Skill;
 using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Services.Manual;
 
 namespace L2ScriptMaker.Services.Skill
 {
@@ -13,49 +14,23 @@ namespace L2ScriptMaker.Services.Skill
 	{
 		private readonly SkillDataService _skillDataService = new SkillDataService();
 		private readonly SkillPchOptions _options;
-
-		private Dictionary<string, int> abnormals = new Dictionary<string, int>();
-		private Dictionary<string, int> targets = new Dictionary<string, int>();
-		private Dictionary<string, int> attributes = new Dictionary<string, int>();
+		private readonly ManualPchService _manualPchService;
 
 		public SkillPchService(SkillPchOptions options)
 		{
 			_options = options;
+
+			if(String.IsNullOrWhiteSpace(_options.ManualPchFile)) throw new ArgumentException("manual_pch");
+			_manualPchService = new ManualPchService(_options.ManualPchFile);
 		}
-
-		private void ParseManualPch(string prefix, Dictionary<string, int> dictionary, bool trimPrefix = false)
-		{
-			string pref = prefix.ToLower();
-			foreach (string raw in _options.ManualPchAttributes)
-			{
-				string line = raw.ToLower().Trim();
-				if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//") || !line.StartsWith(pref)) continue;
-
-				// [ab_pa_up]      =       0
-				string[] data = line.Split('=');
-				string key = data[0].Trim();
-				int value = Convert.ToInt32(data[1].Trim());
-
-				key = key.Substring(1, key.Length - 2);
-
-				if (trimPrefix) key = key.Substring(prefix.Length - 1);
-
-				dictionary.Add(key, value);
-			}
-		}
-
 
 		#region WinForms service
-		public void Generate(string SkillDataDir, string SkillDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string SkillDataDir, string SkillDataFile, IProgress<int> progress)
 		{
-			ParseManualPch("[ab_", abnormals);
-			ParseManualPch("[STGT_", targets, true);
-			ParseManualPch("[attr_", attributes);
-
 			string inNpcdataFile = Path.Combine(SkillDataDir, SkillDataFile);
 			string outPchFile = Path.Combine(SkillDataDir, SkillContants.SkillPchFileName);
 			string outPch2File = Path.Combine(SkillDataDir, SkillContants.SkillPch2FileName);
-			// outPch3File
+			string outPch3File = Path.Combine(SkillDataDir, SkillContants.SkillPch3FileName);
 
 			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile);
 			List<SkillDataDto> skillData = _skillDataService.Parse(rawNpcData).ToList();
@@ -77,19 +52,21 @@ namespace L2ScriptMaker.Services.Skill
 				}
 			}
 
-			// File.Create(outPch2File).Close();
 			sw2.Close();
 			sw2.Dispose();
+			File.Create(outPch3File).Close();
+
+			return new ServiceResult { HasErrors = false };
 		}
 		#endregion
 
 		#region Private methods
-		private static SkillPch Map(SkillDataDto data)
+		private SkillPch Map(SkillDataDto data)
 		{
 			return new SkillPch
 			{
 				Name = data.Name,
-				Id = data.SkillId * SkillContants.SkillUniqueIdMultiplier + data.Level
+				Id = data.SkillId * SkillContants.SkillIdMultiplierV1 + data.Level
 			};
 		}
 
@@ -106,13 +83,13 @@ namespace L2ScriptMaker.Services.Skill
 			int hitTime = CalculateHitTime(data.HitTime, data.CoolTime);
 			int cooldownTime = CalculateReuseCooldown(data.ReuseDelay, data.HitTime, data.HitCancelTime, data.CoolTime);
 
-			int targetTypeId = CalculateTargetTypeId(data.TargetType);
-			int attributeId = CalculateAttributeId(data.Attribute);
-			int abnormalTypeId = CalculateAbnormalTypeId(data.AbnormalType);
+			int targetTypeId = _manualPchService.GetTargetId(data.TargetType);
+			int attributeId = _manualPchService.GetAttributeId(data.Attribute);
+			int abnormalTypeId = _manualPchService.GetAbnormalId(data.AbnormalType);
 
 			return new SkillPch2
 			{
-				Id = data.SkillId * SkillContants.SkillUniqueIdMultiplier + data.Level,
+				Id = data.SkillId * SkillContants.SkillIdMultiplierV1 + data.Level,
 				CastRange = data.CastRange,
 				HpConsume = data.HpConsume,
 				MpConsume2 = data.MpConsume2,
@@ -127,34 +104,6 @@ namespace L2ScriptMaker.Services.Skill
 			};
 		}
 
-		private int CalculateTargetTypeId(string targetType)
-		{
-			if (targetType == null) return 0;
-
-			if (targets.ContainsKey(targetType)) return targets[targetType];
-
-			return 0; // "self";
-		}
-
-		private int CalculateAttributeId(string attribute)
-		{
-			if (attribute == null) return 0;
-
-			if (attributes.ContainsKey(attribute)) return attributes[attribute];
-
-			return 0; // "attr_none";
-		}
-
-		private int CalculateAbnormalTypeId(string abnormalType)
-		{
-			if (abnormalType == null || abnormalType == "none") return -1;
-
-			if (abnormalType == "none" || abnormals.ContainsKey(abnormalType)) 
-				return abnormals[abnormalType];
-
-			return -1; // "attr_none";
-		}
-
 		private static int CalculateHitTime(double HitTime, double CoolTime)
 		{
 			if (HitTime == 0) return 0;
@@ -166,9 +115,10 @@ namespace L2ScriptMaker.Services.Skill
 
 		private static int CalculateReuseCooldown(double ReuseDelay, double HitTime, double hitCancelTime, double CoolTime)
 		{
-			double result = Math.Round((ReuseDelay - (HitTime - hitCancelTime) - CoolTime), MidpointRounding.AwayFromZero);
-
+			// double result = Math.Round((ReuseDelay - (HitTime - hitCancelTime) - CoolTime), MidpointRounding.AwayFromZero);
 			// double result = Math.Round((ReuseDelay - HitTime - CoolTime), MidpointRounding.AwayFromZero);
+			// double result = (ReuseDelay - (HitTime - hitCancelTime));
+			double result = Math.Round((ReuseDelay - HitTime - CoolTime), MidpointRounding.AwayFromZero);
 
 			return Convert.ToInt32(result);
 		}

@@ -15,7 +15,7 @@ namespace L2ScriptMaker.Services.CachedScript
 		private readonly NpcDataService _npcDataService = new NpcDataService();
 
 		#region WinForms service
-		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
@@ -32,6 +32,8 @@ namespace L2ScriptMaker.Services.CachedScript
 					progress.Report((int)(index * 100 / npcData.Count));
 				}
 			}
+			
+			return new ServiceResult { HasErrors = false };
 		}
 		#endregion
 

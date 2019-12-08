@@ -29,7 +29,7 @@ namespace L2ScriptMaker.Services.Npc
 			return result;
 		}
 
-		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			throw new NotImplementedException();
 		}

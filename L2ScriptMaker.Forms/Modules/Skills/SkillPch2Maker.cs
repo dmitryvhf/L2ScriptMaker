@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Core.Thread;
 using L2ScriptMaker.Forms.Services;
+using L2ScriptMaker.Services.Manual;
 using L2ScriptMaker.Services.Skill;
 
 namespace L2ScriptMaker.Forms.Modules.Skills
@@ -18,11 +19,10 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 	public partial class SkillPch2Maker : Form
 	{
 		private readonly FileDialogService _fileDialogService;
-		private readonly ISkillPchService _skillPchService;
+		private ISkillPchService _skillPchService;
 		// private readonly ISkillCacheService _skillCacheService;
 
 		private readonly SkillPchOptions _options;
-
 
 		public SkillPch2Maker()
 		{
@@ -31,27 +31,33 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 			_options = new SkillPchOptions();
 
 			_fileDialogService = new FileDialogService();
-			_skillPchService = new SkillPchService(_options);
+			// _skillPchService = new SkillPchService(_options);
 			// _skillCacheService = new SkillCacheService();
 		}
 
 		private void SkillPch2Maker_Load(object sender, EventArgs e)
 		{
-			if (System.IO.File.Exists("manual_pch.txt") == true)
-				FillManualData("manual_pch.txt");
+			// Select ManualPch File
+			string manualPchFile = ManualPchContants.ManualPchFileName;
+			if (File.Exists(manualPchFile) == false)
+			{
+				_fileDialogService.Filter = "Lineage II ManualPch config|" + manualPchFile + "|All files (*.*)|*.*";
+				if (!_fileDialogService.OpenFileDialog()) return;
+
+				manualPchFile = _fileDialogService.FileName;
+			}
+
+			_options.ManualPchFile = manualPchFile;
 		}
 
 		private void StartButton_Click(object sender, EventArgs e)
 		{
-			FileDialogService fileDialogService = new FileDialogService
-			{
-				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II SkillData config|" + SkillContants.SkillDataFileName + "|All files (*.*)|*.*"
-			};
-			if (!fileDialogService.OpenFileDialog()) return;
+			_fileDialogService.InitialDirectory = Environment.CurrentDirectory;
+			_fileDialogService.Filter = "Lineage II SkillData config|" + SkillContants.SkillDataFileName + "|All files (*.*)|*.*";
+			if (!_fileDialogService.OpenFileDialog()) return;
 
-			string SkillDataFile = fileDialogService.FileName;
-			string SkillDataDir = fileDialogService.FileDirectory;
+			string SkillDataFile = _fileDialogService.FileName;
+			string SkillDataDir = _fileDialogService.FileDirectory;
 
 			if (File.Exists(SkillDataDir + "\\" + SkillContants.SkillPchFileName))
 			{
@@ -59,59 +65,41 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 					return;
 			}
 
-			_options.IsChaoticThronesCronicles = CheckBoxKamaelIDStandart.Checked;
-			_options.UseNamesAsIs = CheckBoxAsIs.Checked;
-			_options.SetUnknown = IgnoreCustomAbnormalsCheckBox.Checked;
-			_options.ManualPchAttributes = AbnormalListTextBox.Lines;
+			_skillPchService = new SkillPchService(_options);
+
+			//_options.IsChaoticThronesCronicles = CheckBoxKamaelIDStandart.Checked;
+			//_options.UseNamesAsIs = CheckBoxAsIs.Checked;
+			//_options.SetUnknown = IgnoreCustomAbnormalsCheckBox.Checked;
+			//_options.ManualPchAttributes = AbnormalListTextBox.Lines;
 
 			IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });
 			StartButton.Enabled = false;
+			SkillCacheScriptButton.Enabled = false;
 
-			Task.Run(() =>
-			{
-				_skillPchService.Generate(SkillDataDir, SkillDataFile, progress);
-			}).ContinueWith(task =>
+			Task.Run(() => _skillPchService.Generate(SkillDataDir, SkillDataFile, progress))
+				.ContinueWith(task =>
 			{
 				this.Invoker(() =>
 				{
 					StartButton.Enabled = true;
+					SkillCacheScriptButton.Enabled = true;
 					ProgressBar.Value = 0;
 				});
-				MessageBox.Show("Success.", "Complete");
+
+
+				if (task.IsFaulted)
+				{
+					MessageBox.Show("Crash with unhandled exception." , "Crash");
+				}
+				else if (task.Result.HasErrors)
+				{
+					MessageBox.Show("Complete finished with errors.\n" + String.Join(";", task.Result.Errors), "Failed completition");
+				}
+				else
+				{
+					MessageBox.Show("Success.", "Success completition");
+				}
 			});
-
-			//FileDialogService fileDialogService = new FileDialogService
-			//{
-			//	InitialDirectory = Environment.CurrentDirectory,
-			//	Filter = "Lineage II definition config (manual_pch.txt)|manual_pch.txt|All files (*.*)|*.*"
-
-			//};
-			//if (!fileDialogService.OpenFileDialog()) return;
-
-			//string SkillDataFile = fileDialogService.FileName;
-			//string SkillDataDir = fileDialogService.FileDirectory;
-
-			//if (File.Exists(SkillDataDir + "\\" + SkillContants.SkillPchFileName))
-			//{
-			//	if (MessageBox.Show($@"File {SkillContants.SkillPchFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
-			//		return;
-			//}
-
-			//IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });
-			//StartButton.Enabled = false;
-
-			//Task.Run(() =>
-			//{
-			//	_npcPchService.Generate(NpcDataDir, NpcDataFile, progress);
-			//}).ContinueWith(task =>
-			//{
-			//	this.Invoker(() =>
-			//	{
-			//		StartButton.Enabled = true;
-			//		ProgressBar.Value = 0;
-			//	});
-			//	MessageBox.Show("Success.", "Complete");
-			//});
 		}
 
 		private void SkillCacheScript_Click(object sender, EventArgs e)
@@ -125,36 +113,21 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		}
 
 		#region Private methods
-		private void FillManualData(string FileName)
-		{
-			IEnumerable<string> manualPchData = FileUtils.Read(FileName).Where(FilterSkillAttributes);
-			AbnormalListTextBox.Clear();
+		//private void FillManualData(string FileName)
+		//{
+		//	IEnumerable<string> manualPchData = FileUtils.Read(FileName).Where(FilterSkillAttributes);
+		//	AbnormalListTextBox.Clear();
 
-			foreach (string s in manualPchData)
-			{
-				AbnormalListTextBox.AppendText(s + Environment.NewLine);
-			}
-		}
+		//	foreach (string s in manualPchData)
+		//	{
+		//		AbnormalListTextBox.AppendText(s + Environment.NewLine);
+		//	}
+		//}
 
-		private static bool FilterSkillAttributes(string a)
-		{
-			return a.StartsWith("[ab_") || a.StartsWith("[attr_") || a.StartsWith("[trait") || a.StartsWith("[STGT_");
-		}
-
-		private void LoadAbListButton_Click(object sender, EventArgs e)
-		{
-			FileDialogService fileDialogService = new FileDialogService
-			{
-				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II definition config (manual_pch.txt)|manual_pch.txt|All files (*.*)|*.*"
-
-			};
-			if (!fileDialogService.OpenFileDialog()) return;
-
-			FillManualData(fileDialogService.FileName);
-
-			MessageBox.Show("Abnormal list loaded success. Made required correction in listist and use Pch/Pch2 generator", "Load success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
+		//private static bool FilterSkillAttributes(string a)
+		//{
+		//	return a.StartsWith("[ab_") || a.StartsWith("[attr_") || a.StartsWith("[trait") || a.StartsWith("[STGT_");
+		//}
 		#endregion
 	}
 }
