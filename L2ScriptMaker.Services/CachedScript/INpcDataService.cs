@@ -3,8 +3,7 @@ using System;
 
 namespace L2ScriptMaker.Services.CachedScript
 {
-	public interface INpcCacheService : IParserService<NpcCache>
+	public interface INpcCacheService : IGenerateService
 	{
-		void Generate(string npcDataDir, string npcDataFile, IProgress<int> progress);
 	}
 }

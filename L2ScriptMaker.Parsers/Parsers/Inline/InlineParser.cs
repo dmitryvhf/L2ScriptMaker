@@ -6,53 +6,53 @@ using System.Reflection;
 
 namespace L2ScriptMaker.Parsers.Parsers.Inline
 {
-	public class InlineParser<T> : IInlineParser
+	public class InlineParser<T> : IInlineParser<T>
 	{
-		private readonly Dictionary<string, InlineScriptParamAttribute> _scriptParams;
+		private readonly Dictionary<string, ScriptParamAttribute> _scriptParams;
 		private readonly IScriptReader<InlineData> _reader;
 
 		public InlineParser()
 		{
-			_scriptParams = new Dictionary<string, InlineScriptParamAttribute>();
+			_scriptParams = new Dictionary<string, ScriptParamAttribute>();
 			_reader = new InlineDataReader();
 		}
 
 		public void Initialize()
 		{
 			Type t = typeof(T);
-			bool isInlineScript = t.IsDefined(typeof(InlineScriptAttribute));
+			bool isInlineScript = t.IsDefined(typeof(ScriptAttribute));
 			if (!isInlineScript) throw new ArgumentException("Type is not inline script");
 
 			if (_scriptParams.Count > 0) _scriptParams.Clear();
 
 			PropertyInfo[] myMembers = t.GetProperties()
-				.Where(a => a.IsDefined(typeof(InlineScriptParamAttribute)))
+				.Where(a => a.IsDefined(typeof(ScriptParamAttribute)))
 				.ToArray();
 
 			foreach (PropertyInfo propertyInfo in myMembers)
 			{
-				InlineScriptParamAttribute attributedProperty =
-					propertyInfo.GetCustomAttribute<InlineScriptParamAttribute>();
+				ScriptParamAttribute attributedProperty =
+					propertyInfo.GetCustomAttribute<ScriptParamAttribute>();
 
 				_scriptParams.Add(propertyInfo.Name, attributedProperty);
 			}
 		}
 
-		public TOut Parse<TOut>(string raw)
+		public T Parse(string raw)
 		{
-			TOut instance = Activator.CreateInstance<TOut>();
+			T instance = Activator.CreateInstance<T>();
 
 			if (_scriptParams.Count == 0) return instance;
 
 			InlineData data = _reader.Read(raw);
-			Type t = typeof(TOut);
+			Type t = typeof(T);
 			PropertyInfo[] myMembers = t.GetProperties().ToArray();
 
 			foreach (PropertyInfo propertyInfo in myMembers)
 			{
 				if (!_scriptParams.ContainsKey(propertyInfo.Name)) continue;
 
-				InlineScriptParamAttribute attr = _scriptParams[propertyInfo.Name];
+				ScriptParamAttribute attr = _scriptParams[propertyInfo.Name];
 
 				Type t2 = propertyInfo.PropertyType;
 				object value;
@@ -72,7 +72,7 @@ namespace L2ScriptMaker.Parsers.Parsers.Inline
 				}
 
 				// Target type transformation
-				if (t2 != typeof(string))
+				if (value != null && t2 != typeof(string))
 				{
 					value = Convert.ChangeType(value, t2);
 				}

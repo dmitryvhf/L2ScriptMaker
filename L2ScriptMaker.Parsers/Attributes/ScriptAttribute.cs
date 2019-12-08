@@ -5,7 +5,7 @@ using System.Text;
 namespace L2ScriptMaker.Parsers.Attributes
 {
 	[AttributeUsage(AttributeTargets.Class)]
-	class InlineScriptAttribute : Attribute
+	internal class ScriptAttribute : Attribute
 	{
 	}
 }

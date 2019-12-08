@@ -5,16 +5,16 @@ using System.Text;
 
 namespace L2ScriptMaker.Parsers.Models
 {
-	[InlineScript]
+	[Script]
 	public class NpcDataDto
 	{
-		[InlineScriptParam(1)]
+		[ScriptParam(1)]
 		public string Type { get; set; }
 
-		[InlineScriptParam(2)]
-		public string Id { get; set; }
+		[ScriptParam(2)]
+		public int Id { get; set; }
 
-		[InlineScriptParam(3, TrimLR = true)]
+		[ScriptParam(3, TrimLR = true)]
 		public string Name { get; set; }
 	}
 }

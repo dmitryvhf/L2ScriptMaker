@@ -16,6 +16,7 @@ using L2ScriptMaker.Modules.Scripts;
 using L2ScriptMaker.Modules.Skills;
 using L2ScriptMaker.Modules.ZeroScripts;
 using L2ScriptMaker.Modules.ZeroScripts.L2J;
+using SkillPch2Maker = L2ScriptMaker.Forms.Modules.Skills.SkillPch2Maker;
 
 namespace L2ScriptMaker
 {
@@ -320,6 +321,7 @@ namespace L2ScriptMaker
 
 		private void ButtonSkillPch2Maker_Click(object sender, EventArgs e)
 		{
+			// new SkillPch2Maker().ShowDialog();
 			new SkillPch2Maker().ShowDialog();
 		}
 		#endregion

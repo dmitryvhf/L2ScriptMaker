@@ -2,7 +2,7 @@
 
 namespace L2ScriptMaker.Parsers.Parsers.Inline
 {
-	public interface IInlineParser
+	public interface IInlineParser<T>
 	{
 		/// <summary>
 		/// Collect information about source data type.<br />
@@ -21,9 +21,9 @@ namespace L2ScriptMaker.Parsers.Parsers.Inline
 		/// Use conversion to the destination type.
 		/// </summary>
 		/// <param name="raw">Raw string data from source data type file</param>
-		/// <typeparam name="TOut"></typeparam>
+		/// <typeparam name="T"></typeparam>
 		/// <returns>Target object with mapped properties</returns>
 		/// <seealso cref="Convert.ChangeType(object,System.Type)"/>
-		TOut Parse<TOut>(string raw);
+		T Parse(string raw);
 	}
 }

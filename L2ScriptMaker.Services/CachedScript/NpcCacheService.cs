@@ -3,32 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Models.CachedScript;
 using L2ScriptMaker.Parsers.Models;
-using L2ScriptMaker.Parsers.Parsers.Inline;
 using L2ScriptMaker.Services.Npc;
 
 namespace L2ScriptMaker.Services.CachedScript
 {
 	public class NpcCacheService : INpcCacheService
 	{
-		private static readonly IInlineParser InlineParser = new InlineParser<NpcDataDto>();
-
-		public NpcCacheService()
-		{
-			InlineParser.Initialize();
-		}
-
-		public NpcCache Parse(string data)
-		{
-			return InlineParser.Parse<NpcCache>(data);
-		}
-
-		public IEnumerable<NpcCache> Parse(IEnumerable<string> data)
-		{
-			IEnumerable<NpcCache> result = data.Select(Parse);
-			return result;
-		}
+		private readonly NpcDataService _npcDataService = new NpcDataService();
 
 		#region WinForms service
 		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
@@ -36,24 +20,30 @@ namespace L2ScriptMaker.Services.CachedScript
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
 
-			using (StreamReader sr = new StreamReader(inNpcdataFile))
+			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
+			List<NpcDataDto> npcData = _npcDataService.Parse(rawNpcData).ToList();
+
+			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
-				long dataLenght = sr.BaseStream.Length;
-
-				using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
+				for (var index = 0; index < npcData.Count; index++)
 				{
-					while (!sr.EndOfStream)
-					{
-						string current = sr.ReadLine();
-						progress.Report((int)(sr.BaseStream.Position * 100 / dataLenght));
-
-						NpcCache parsed = InlineParser.Parse<NpcCache>(current);
-						sw.WriteLine(Print(parsed));
-					}
+					NpcDataDto npcDataDto = npcData[index];
+					sw.WriteLine(Print(Map(npcDataDto)));
+					progress.Report((int)(index * 100 / npcData.Count));
 				}
 			}
 		}
 		#endregion
+
+		#region Private methods
+		private static NpcCache Map(NpcDataDto data)
+		{
+			return new NpcCache
+			{
+				Name = data.Name,
+				Id = data.Id
+			};
+		}
 
 		// 1        Gremlin
 		static string Print(NpcCache model)
@@ -61,5 +51,6 @@ namespace L2ScriptMaker.Services.CachedScript
 			string formattedId = model.Id.ToString().PadRight(5);
 			return $"{formattedId}\t{model.Name}";
 		}
+		#endregion
 	}
 }

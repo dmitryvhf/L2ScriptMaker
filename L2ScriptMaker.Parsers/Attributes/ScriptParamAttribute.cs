@@ -5,7 +5,7 @@ using System.Text;
 namespace L2ScriptMaker.Parsers.Attributes
 {
 	[AttributeUsage(AttributeTargets.Property)]
-	class InlineScriptParamAttribute : Attribute
+	internal class ScriptParamAttribute : Attribute
 	{
 		public bool ByName { get; }
 
@@ -15,13 +15,13 @@ namespace L2ScriptMaker.Parsers.Attributes
 
 		public bool TrimLR { get; set; }
 
-		public InlineScriptParamAttribute(string param)
+		public ScriptParamAttribute(string param)
 		{
 			FieldName = param;
 			ByName = true;
 		}
 
-		public InlineScriptParamAttribute(int fieldNum)
+		public ScriptParamAttribute(int fieldNum)
 		{
 			FieldNum = fieldNum;
 			ByName = false;

@@ -5,8 +5,7 @@ using L2ScriptMaker.Models.Npc;
 
 namespace L2ScriptMaker.Services.Npc
 {
-	public interface INpcPchService : IParserService<NpcPch>
+	public interface INpcPchService : IGenerateService
 	{
-		void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress);
 	}
 }

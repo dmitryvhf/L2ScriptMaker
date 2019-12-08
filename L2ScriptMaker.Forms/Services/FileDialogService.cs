@@ -20,30 +20,34 @@ namespace L2ScriptMaker.Forms.Services
 
 		public bool OpenFileDialog()
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = Filter;
-
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
-				FilePath = openFileDialog.FileName;
-				FileName = openFileDialog.SafeFileName;
-				FileDirectory = Path.GetDirectoryName(FilePath);
-				return true;
+				openFileDialog.Filter = Filter;
+
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					FilePath = openFileDialog.FileName;
+					FileName = openFileDialog.SafeFileName;
+					FileDirectory = Path.GetDirectoryName(FilePath);
+					return true;
+				}
+				return false;
 			}
-			return false;
 		}
 
 		public bool SaveFileDialog()
 		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
 			{
-				FilePath = saveFileDialog.FileName;
-				FileName = Path.GetFileName(FilePath);
-				FileDirectory = Path.GetDirectoryName(FilePath);
-				return true;
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					FilePath = saveFileDialog.FileName;
+					FileName = Path.GetFileName(FilePath);
+					FileDirectory = Path.GetDirectoryName(FilePath);
+					return true;
+				}
+				return false;
 			}
-			return false;
 		}
 
 		public void ShowMessage(string message)
