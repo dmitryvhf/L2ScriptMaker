@@ -4,33 +4,52 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Parsers.Parsers.Inline;
-using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Core.Mapper;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcDataService : INpcDataService
 	{
-		private static readonly IInlineParser InlineParser = new InlineParser<NpcDataDto>();
+		private readonly ModelMapper<NpcDataDto> _mapper = new ModelMapper<NpcDataDto>();
 
-		public NpcDataService()
+		private const string StartPrefix = "npc_begin";
+		private const string EndPrefix = "npc_end";
+
+		public IEnumerable<string> Collect(IEnumerable<string> lines)
 		{
-			InlineParser.Initialize();
+			return ScriptLoader.Collect(lines, StartPrefix, EndPrefix);
 		}
 
-		public IEnumerable<NpcData> Parse(IEnumerable<string> data)
+		public NpcDataDto Parse(string record)
 		{
-			IEnumerable<NpcData> result = data.Select(a => InlineParser.Parse<NpcData>(a));
+			ParsedData data = ParseService.Parse(record);
+			NpcDataDto npcDataDto = _mapper.Map(data);
+			return npcDataDto;
+			// return InlineParser.Parse(data);
+		}
+
+		public IEnumerable<NpcDataDto> Parse(IEnumerable<string> data)
+		{
+			IEnumerable<NpcDataDto> result = data.Select(Parse);
 			return result;
+		}
+
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		{
+			throw new NotImplementedException();
 		}
 
 		// npc_begin       warrior 20001   [gremlin]       category={}     level=1 exp=0 
 		public static string Print(NpcData model)
 		{
-			return $"npc_begin" +
-			       $"\t{model.Type}" +
-			       $"\t{model.Id}" +
-			       $"\t[{model.Name}]";
+			throw new NotImplementedException();
+			//return $"npc_begin" +
+			//       $"\t{model.Type}" +
+			//       $"\t{model.Id}" +
+			//       $"\t[{model.Name}]";
 		}
 	}
 }

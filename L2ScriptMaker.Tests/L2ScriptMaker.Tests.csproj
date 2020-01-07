@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
-    <ProjectReference Include="..\L2ScriptMaker.Parsers\L2ScriptMaker.Parsers.csproj" />
     <ProjectReference Include="..\L2ScriptMaker.Services\L2ScriptMaker.Services.csproj" />
   </ItemGroup>
 

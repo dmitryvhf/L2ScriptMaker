@@ -1,70 +1,53 @@
-﻿using L2ScriptMaker.Models.Npc;
-using L2ScriptMaker.Parsers.Models;
-using L2ScriptMaker.Parsers.Parsers.Inline;
+﻿using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Models.Npc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using L2ScriptMaker.Models.Dto;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcPchService : INpcPchService
 	{
-		private const int NpcPchPrefix = 1_000_000;
-		private static readonly IInlineParser InlineParser = new InlineParser<NpcDataDto>();
-
-		public NpcPchService()
-		{
-			InlineParser.Initialize();
-		}
-
-		public NpcPch Parse(string data)
-		{
-			return InlineParser.Parse<NpcPch>(data);
-		}
-
-		public IEnumerable<NpcPch> Parse(IEnumerable<string> data)
-		{
-			IEnumerable<NpcPch> result = data.Select(Parse);
-			return result;
-		}
+		private readonly NpcDataService _npcDataService = new NpcDataService();
+		private readonly IMapper<NpcDataDto, NpcPch> _mapper = new NpcPchMapper();
 
 		#region WinForms service
-		public void Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
 			string outPch2File = Path.Combine(NpcDataDir, NpcContants.NpcPch2FileName);
 
-			// IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
+			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile);
+			IEnumerable<string> collectedData = _npcDataService.Collect(rawNpcData);
+			List<NpcDataDto> npcData = _npcDataService.Parse(collectedData).ToList();
 
-			using (StreamReader sr = new StreamReader(inNpcdataFile))
+			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
-				long dataLenght = sr.BaseStream.Length;
-
-				using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
+				for (var index = 0; index < npcData.Count; index++)
 				{
-					while (!sr.EndOfStream)
-					{
-						string current = sr.ReadLine();
-						progress.Report((int)(sr.BaseStream.Position * 100 / dataLenght));
-
-						NpcPch parsed = InlineParser.Parse<NpcPch>(current);
-						sw.WriteLine(Print(parsed));
-					}
+					
+					NpcDataDto npcDataDto = npcData[index];
+					sw.WriteLine(Print(_mapper.Map(npcDataDto)));
+					progress.Report((int) (index * 100 / npcData.Count));
 				}
 			}
 
-			File.Create(outPch2File);
+			File.Create(outPch2File).Close();
 
+			return new ServiceResult { HasErrors = false };
 		}
 		#endregion
 
+		#region Private methods
 		// [gremlin]       =       1020001
-		static string Print(NpcPch model)
+		private static string Print(NpcPch model)
 		{
-			return $"[{model.Name}] = {NpcPchPrefix + model.Id}";
+			return $"[{model.Name}] = {model.Id}";
 		}
+		#endregion
 	}
 }

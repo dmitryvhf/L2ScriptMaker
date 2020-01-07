@@ -27,7 +27,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			FileDialogService fileDialogService = new FileDialogService
 			{
 				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II NpcData config|npcdata.txt|All files (*.*)|*.*"
+				Filter = "Lineage II NpcData config|" + NpcContants.NpcDataFileName + "|All files (*.*)|*.*"
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 
