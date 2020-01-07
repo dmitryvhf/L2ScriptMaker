@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Models.CachedScript;
-using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Services.Npc;
 
 namespace L2ScriptMaker.Services.CachedScript
@@ -21,7 +21,8 @@ namespace L2ScriptMaker.Services.CachedScript
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
 
 			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
-			List<NpcDataDto> npcData = _npcDataService.Parse(rawNpcData).ToList();
+			IEnumerable<string> collectedData = _npcDataService.Collect(rawNpcData);
+			List<NpcDataDto> npcData = _npcDataService.Parse(collectedData).ToList();
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{

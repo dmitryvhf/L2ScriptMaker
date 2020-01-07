@@ -1,11 +1,11 @@
-﻿using L2ScriptMaker.Parsers.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using L2ScriptMaker.Models.Skill;
 using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Services.Manual;
 
 namespace L2ScriptMaker.Services.Skill
@@ -33,7 +33,8 @@ namespace L2ScriptMaker.Services.Skill
 			string outPch3File = Path.Combine(SkillDataDir, SkillContants.SkillPch3FileName);
 
 			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile);
-			List<SkillDataDto> skillData = _skillDataService.Parse(rawNpcData).ToList();
+			IEnumerable<string> collectedRecord = _skillDataService.Collect(rawNpcData);
+			List<SkillDataDto> skillData = _skillDataService.Parse(collectedRecord).ToList();
 
 			StreamWriter sw2 = new StreamWriter(outPch2File, false, Encoding.Unicode);
 

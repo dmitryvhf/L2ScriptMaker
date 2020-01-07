@@ -4,23 +4,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Parsers.Parsers.Inline;
-using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Core.Mapper;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcDataService : INpcDataService
 	{
-		private static readonly IInlineParser<NpcDataDto> InlineParser = new InlineParser<NpcDataDto>();
+		private readonly ModelMapper<NpcDataDto> _mapper = new ModelMapper<NpcDataDto>();
 
-		public NpcDataService()
+		private const string StartPrefix = "npc_begin";
+		private const string EndPrefix = "npc_end";
+
+		public IEnumerable<string> Collect(IEnumerable<string> lines)
 		{
-			InlineParser.Initialize();
+			return ScriptLoader.Collect(lines, StartPrefix, EndPrefix);
 		}
 
-		public NpcDataDto Parse(string data)
+		public NpcDataDto Parse(string record)
 		{
-			return InlineParser.Parse(data);
+			ParsedData data = ParseService.Parse(record);
+			NpcDataDto npcDataDto = _mapper.Map(data);
+			return npcDataDto;
+			// return InlineParser.Parse(data);
 		}
 
 		public IEnumerable<NpcDataDto> Parse(IEnumerable<string> data)

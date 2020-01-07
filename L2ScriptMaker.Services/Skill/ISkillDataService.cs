@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Models.Dto;
 
 namespace L2ScriptMaker.Services.Skill
 {

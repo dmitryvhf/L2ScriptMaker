@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Models.Npc;
-using L2ScriptMaker.Parsers.Models;
 
 namespace L2ScriptMaker.Services.Npc
 {

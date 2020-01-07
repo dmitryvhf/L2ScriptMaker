@@ -8,27 +8,29 @@ namespace L2ScriptMaker.Core.Files
 {
 	public static class FileUtils
 	{
-		private static readonly Func<string, bool> FilterEmptyOrCommentLines =
+		private static readonly Func<string, bool> DataExists =
 			(s) => !String.IsNullOrWhiteSpace(s) && !s.StartsWith("//");
 
 		public static IEnumerable<string> Read(string path)
 		{
-			return File.ReadLines(path).Where(FilterEmptyOrCommentLines);
+			return File.ReadLines(path)
+				.Select(s => s.Trim())
+				.Where(DataExists);
 		}
 
 		public static IEnumerable<string> Read(string path, IProgress<int> progress)
 		{
-			using (StreamReader sw = new StreamReader(path))
+			using (StreamReader sr = new StreamReader(path))
 			{
-				long dataLenght = sw.BaseStream.Length;
+				long dataLenght = sr.BaseStream.Length;
 
-				while (!sw.EndOfStream)
+				while (!sr.EndOfStream)
 				{
-					string current = sw.ReadLine();
-					progress.Report((int)(sw.BaseStream.Position * 100 / dataLenght));
+					string current = sr.ReadLine();
+					progress.Report((int)(sr.BaseStream.Position * 100 / dataLenght));
 
-					if (FilterEmptyOrCommentLines(current))
-						yield return sw.ReadLine();
+					if (DataExists(current))
+						yield return current;
 				}
 			}
 

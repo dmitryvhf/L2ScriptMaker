@@ -1,4 +1,5 @@
-﻿using L2ScriptMaker.Models.Npc;
+﻿using System;
+using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Services.Npc;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,15 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 	public class NpcPchServiceTests
 	{
 		[Fact]
-		public void ParseData()
+		public void GenerateData()
 		{
-			INpcPchService npcPchService = new NpcPchService();
-			IEnumerable<string> rawData = GetNpcData();
+			throw new NotImplementedException();
+			//INpcPchService npcPchService = new NpcPchService();
+			//IEnumerable<string> rawData = GetNpcData();
 
-			IEnumerable<NpcPch> result = npcPchService.Parse(rawData).ToArray();
+			//// IEnumerable<NpcPch> result = npcPchService.Generate(rawData).ToArray();
 
-			Assert.True(result.Any());
+			//Assert.True(result.Any());
 		}
 
 		private IEnumerable<string> GetNpcData()

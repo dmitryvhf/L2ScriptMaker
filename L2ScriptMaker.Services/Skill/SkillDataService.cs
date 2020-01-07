@@ -4,23 +4,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Parsers.Parsers.Inline;
-using L2ScriptMaker.Parsers.Models;
+using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.Mapper;
 
 namespace L2ScriptMaker.Services.Skill
 {
 	public class SkillDataService : ISkillDataService
 	{
-		private static readonly IInlineParser<SkillDataDto> InlineParser = new InlineParser<SkillDataDto>();
 
-		public SkillDataService()
+		private readonly ModelMapper<SkillDataDto> _mapper = new ModelMapper<SkillDataDto>();
+
+		private const string StartPrefix = "skill_begin";
+		private const string EndPrefix = "skill_end";
+
+		public IEnumerable<string> Collect(IEnumerable<string> lines)
 		{
-			InlineParser.Initialize();
+			return ScriptLoader.Collect(lines, StartPrefix, EndPrefix);
 		}
 
-		public SkillDataDto Parse(string data)
+		public SkillDataDto Parse(string record)
 		{
-			return InlineParser.Parse(data);
+			ParsedData data = ParseService.Parse(record);
+			SkillDataDto skillDataDto = _mapper.Map(data);
+			return skillDataDto;
 		}
 
 		public IEnumerable<SkillDataDto> Parse(IEnumerable<string> data)

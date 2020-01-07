@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using L2ScriptMaker.Parsers.Parsers.Inline;
+using L2ScriptMaker.Core.Parser;
 using Xunit;
 
 namespace L2ScriptMaker.Tests.UnitTests.Core
 {
 	public class InlineParamReaderTests
 	{
-		InlineDataReader reader;
-
-		public InlineParamReaderTests()
-		{
-			reader = new InlineDataReader();
-		}
-
 		[Fact]
-		public void GetParam()
+		public void Get()
 		{
-			string raw = "val1=1 val2=TestMessage";
-			InlineData data = reader.Read(raw);
+			string raw = "val1=1\tval2=TestMessage";
+
+			ParsedData data = ParseService.Parse(raw);
 
 			string result1 = data.GetValue<string>("val2");
 			Assert.IsType<string>(result1);
@@ -29,43 +21,31 @@ namespace L2ScriptMaker.Tests.UnitTests.Core
 		}
 
 		[Fact]
-		public void GetParam_EmptyValue()
+		public void Get_NotExistedParam_Null()
 		{
-			string raw = "val1=1 val2=TestMessage\tval3=\tval4";
-			InlineData data = reader.Read(raw);
-
-			string result1 = data.GetValue<string>("val3");
-			Assert.Equal("", result1);
-			Assert.True(data.IsValuePossible("val3"));
-		}
-
-		[Fact]
-		public void GetParam_WithoutValue()
-		{
-			string raw = "val1=1 val2=TestMessage\tval3=\tval4";
-			InlineData data = reader.Read(raw);
-
-			string result1 = data.GetValue<string>("val4");
-			Assert.Null(result1);
-			Assert.True(data.HasParam("val4"));
-			Assert.False(data.IsValuePossible("val4"));
-		}
-
-		[Fact]
-		public void GetParam_WrongStringParam_Null()
-		{
-			string raw = "val1=1 val2=TestMessage";
-			InlineData data = reader.Read(raw);
+			string raw = "val1=1\tval2=TestMessage";
+			ParsedData data = ParseService.Parse(raw);
 
 			string result1 = data.GetValue<string>("val3");
 			Assert.Null(result1);
+		}
+
+
+		[Fact]
+		public void Get_ValueWithoutParam()
+		{
+			string raw = "val1=1\tval2=TestMessage\tval4";
+			ParsedData data = ParseService.Parse(raw);
+
+			string result2 = data.GetValue<string>(3);
+			Assert.Equal("val4", result2);
 		}
 
 		[Fact]
 		public void GetParam_WrongIntParam_Exception()
 		{
-			string raw = "val1=1 val2=TestMessage";
-			InlineData data = reader.Read(raw);
+			string raw = "val1=1\tval2=TestMessage";
+			ParsedData data = ParseService.Parse(raw);
 
 			Assert.Throws<InvalidCastException>(()=> data.GetValue<int>("val3"));
 		}
