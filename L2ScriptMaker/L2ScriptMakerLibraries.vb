@@ -9,7 +9,7 @@ Public Class Libraries
 
     End Function
 
-    Shared Function GetCommentaryFromStr(ByVal SourceStr As String) As String
+    Private Shared Function GetCommentaryFromStr(ByVal SourceStr As String) As String
 
         GetCommentaryFromStr = Nothing
         Dim sTempCommentary As String = ""
@@ -21,6 +21,7 @@ Public Class Libraries
         Return GetCommentaryFromStr
 
     End Function
+
     Shared Function SetNeedParamToStr(ByVal SourceStr As String, ByVal Param As String, ByVal Value As String) As String
 
         Dim sTemp As String
@@ -73,6 +74,12 @@ Public Class Libraries
 
         FirstPos = InStr(1, SourceStr, " " & MaskStr & "=") ' + 1
         If FirstPos = Nothing Then 'Or FirstPos = 0
+
+            If SourceStr.StartsWith(MaskStr) Then
+                GetNeedParamFromStr = SourceStr.Remove(0, MaskStr.Length + 1).Trim()
+                Exit Function
+            End If
+
             GetNeedParamFromStr = ""
             Exit Function
         End If
