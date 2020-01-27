@@ -78,6 +78,12 @@
 			FirstPos = Strings.InStr(1, SourceStr, " " + MaskStr + "="); // + 1
 			if (FirstPos == default(int))
 			{
+				if (SourceStr.StartsWith(MaskStr))
+				{
+					GetNeedParamFromStrRet = SourceStr.Remove(0, MaskStr.Length + 1).Trim();
+					return GetNeedParamFromStrRet;
+				}
+
 				GetNeedParamFromStrRet = "";
 				return GetNeedParamFromStrRet;
 			} 

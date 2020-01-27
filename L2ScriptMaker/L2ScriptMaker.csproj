@@ -82,6 +82,7 @@
     <Compile Include="Extensions\VbCompatibleHelper\Libraries.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\MyAssemblyInfo.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\Strings.cs" />
+    <Compile Include="Extensions\WinFormsControlExtension.cs" />
     <Compile Include="Modules\AI\AIbuyselllistEditor.cs">
       <SubType>Form</SubType>
     </Compile>

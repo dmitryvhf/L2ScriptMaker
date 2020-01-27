@@ -4,7 +4,13 @@ namespace L2ScriptMaker.Extensions.VbCompatibleHelper
 {
 	public static class Conversions
 	{
-		public static bool ToBoolean(string value) => Convert.ToBoolean(value);
+		public static bool ToBoolean(string value)
+		{
+			if (value == "1") value = "true";
+			if (value == "0") value = "false";
+
+			return Convert.ToBoolean(value.ToLower());
+		}
 
 		public static short ToShort(int value) => Convert.ToInt16(value);
 		public static short ToShort(string value) => Convert.ToInt16(value);
