@@ -30,4 +30,4 @@ ru:
 # Requirements
 
 OS : Windows
-.Net Framework 3.5
+.Net Framework 4.8
