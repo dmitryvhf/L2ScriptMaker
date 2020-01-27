@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Items\**" />
+    <EmbeddedResource Remove="Items\**" />
+    <None Remove="Items\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
+  </ItemGroup>
+
+</Project>
