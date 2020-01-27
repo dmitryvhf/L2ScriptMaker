@@ -8,8 +8,8 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("L2ScriptMaker (C4 Support)")> 
-<Assembly: AssemblyDescription("Tool for generate Lineage II server configuraion files. Contact: mailto:hellfire@reborn.ru Subject: L2ScriptMaker. Official site: http://l2scriptmaker.spaces.live.com/  Donation page: http://dragon.ur.ru/l2sm")> 
+<Assembly: AssemblyTitle("L2ScriptMaker (C4 Support)")>
+<Assembly: AssemblyDescription("Tool for generate Lineage II server configuraion files")>
 <Assembly: AssemblyCompany("HellFire Lair")> 
 <Assembly: AssemblyProduct("L2ScriptMaker")> 
 <Assembly: AssemblyCopyright("Copyright © HellFire '2005")> 
@@ -34,4 +34,4 @@ Imports System.Runtime.InteropServices
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
 <Assembly: AssemblyVersion("4.0.53.*")>
-<Assembly: AssemblyFileVersion("4.0.53.2")>
+<Assembly: AssemblyFileVersion("4.0.53.3")>
