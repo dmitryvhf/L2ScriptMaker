@@ -1,6 +1,6 @@
-﻿namespace L2ScriptMaker.Modules.AI
+﻿namespace L2ScriptMaker.Forms.Modules.AI
 {
-	partial class AIbuyselllistEditor
+	partial class AiBuyselllistEditor
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AIbuyselllistEditor));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AiBuyselllistEditor));
+			this.ButtonImport = new System.Windows.Forms.Button();
 			this.DataGridView = new System.Windows.Forms.DataGridView();
 			this.ItemList = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			this.CityTax = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,13 +45,22 @@
 			this.Label1 = new System.Windows.Forms.Label();
 			this.BuySellListTextBox = new System.Windows.Forms.TextBox();
 			this.PictureBox1 = new System.Windows.Forms.PictureBox();
-			this.ButtonImport = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
 			this.TabControl1.SuspendLayout();
 			this.TabDataPage.SuspendLayout();
 			this.TabResultPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// ButtonImport
+			// 
+			this.ButtonImport.Location = new System.Drawing.Point(29, 196);
+			this.ButtonImport.Name = "ButtonImport";
+			this.ButtonImport.Size = new System.Drawing.Size(75, 23);
+			this.ButtonImport.TabIndex = 61;
+			this.ButtonImport.Text = "Import";
+			this.ButtonImport.UseVisualStyleBackColor = true;
+			this.ButtonImport.Click += new System.EventHandler(this.ButtonImport_Click);
 			// 
 			// DataGridView
 			// 
@@ -80,10 +90,10 @@
 			// 
 			// ButtonStart
 			// 
-			this.ButtonStart.Location = new System.Drawing.Point(25, 219);
+			this.ButtonStart.Location = new System.Drawing.Point(29, 225);
 			this.ButtonStart.Name = "ButtonStart";
 			this.ButtonStart.Size = new System.Drawing.Size(75, 23);
-			this.ButtonStart.TabIndex = 49;
+			this.ButtonStart.TabIndex = 58;
 			this.ButtonStart.Text = "Generate";
 			this.ButtonStart.UseVisualStyleBackColor = true;
 			this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
@@ -92,11 +102,11 @@
 			// 
 			this.TabControl1.Controls.Add(this.TabDataPage);
 			this.TabControl1.Controls.Add(this.TabResultPage);
-			this.TabControl1.Location = new System.Drawing.Point(124, 48);
+			this.TabControl1.Location = new System.Drawing.Point(128, 54);
 			this.TabControl1.Name = "TabControl1";
 			this.TabControl1.SelectedIndex = 0;
 			this.TabControl1.Size = new System.Drawing.Size(316, 256);
-			this.TabControl1.TabIndex = 51;
+			this.TabControl1.TabIndex = 60;
 			// 
 			// TabDataPage
 			// 
@@ -128,13 +138,15 @@
 			this.BuySellListBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.BuySellListBox.Size = new System.Drawing.Size(296, 218);
 			this.BuySellListBox.TabIndex = 0;
+			this.BuySellListBox.Text = "buyselllist_begin SellList0\r\n\t{1829; 10; 1.000000; 5}\r\n\t{5169; 10; 1.000000; 5}\r\n" +
+    "buyselllist_end";
 			// 
 			// ButtonQuit
 			// 
-			this.ButtonQuit.Location = new System.Drawing.Point(25, 248);
+			this.ButtonQuit.Location = new System.Drawing.Point(29, 254);
 			this.ButtonQuit.Name = "ButtonQuit";
 			this.ButtonQuit.Size = new System.Drawing.Size(75, 23);
-			this.ButtonQuit.TabIndex = 50;
+			this.ButtonQuit.TabIndex = 59;
 			this.ButtonQuit.Text = "Quit";
 			this.ButtonQuit.UseVisualStyleBackColor = true;
 			this.ButtonQuit.Click += new System.EventHandler(this.ButtonQuit_Click);
@@ -143,63 +155,54 @@
 			// 
 			this.Label3.AutoSize = true;
 			this.Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.Label3.Location = new System.Drawing.Point(291, 22);
+			this.Label3.Location = new System.Drawing.Point(295, 28);
 			this.Label3.Name = "Label3";
 			this.Label3.Size = new System.Drawing.Size(97, 13);
-			this.Label3.TabIndex = 57;
+			this.Label3.TabIndex = 66;
 			this.Label3.Text = "(support C4 scripts)";
 			// 
 			// Label4
 			// 
 			this.Label4.AutoSize = true;
 			this.Label4.Font = new System.Drawing.Font("Arial", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.Label4.Location = new System.Drawing.Point(291, 6);
+			this.Label4.Location = new System.Drawing.Point(295, 12);
 			this.Label4.Name = "Label4";
 			this.Label4.Size = new System.Drawing.Size(144, 16);
-			this.Label4.TabIndex = 56;
+			this.Label4.TabIndex = 65;
 			this.Label4.Text = "AI.obj shop list maker";
 			// 
 			// Label1
 			// 
 			this.Label1.AutoSize = true;
-			this.Label1.Location = new System.Drawing.Point(125, 6);
+			this.Label1.Location = new System.Drawing.Point(129, 12);
 			this.Label1.Name = "Label1";
 			this.Label1.Size = new System.Drawing.Size(90, 13);
-			this.Label1.TabIndex = 55;
+			this.Label1.TabIndex = 64;
 			this.Label1.Text = "BuySellList name:";
 			// 
 			// BuySellListTextBox
 			// 
-			this.BuySellListTextBox.Location = new System.Drawing.Point(128, 22);
+			this.BuySellListTextBox.Location = new System.Drawing.Point(132, 28);
 			this.BuySellListTextBox.Name = "BuySellListTextBox";
 			this.BuySellListTextBox.Size = new System.Drawing.Size(151, 20);
-			this.BuySellListTextBox.TabIndex = 54;
+			this.BuySellListTextBox.TabIndex = 63;
 			this.BuySellListTextBox.Text = "SellList0";
 			// 
 			// PictureBox1
 			// 
 			this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-			this.PictureBox1.Location = new System.Drawing.Point(8, 6);
+			this.PictureBox1.Location = new System.Drawing.Point(12, 12);
 			this.PictureBox1.Name = "PictureBox1";
 			this.PictureBox1.Size = new System.Drawing.Size(110, 159);
-			this.PictureBox1.TabIndex = 53;
+			this.PictureBox1.TabIndex = 62;
 			this.PictureBox1.TabStop = false;
 			// 
-			// ButtonImport
-			// 
-			this.ButtonImport.Location = new System.Drawing.Point(25, 190);
-			this.ButtonImport.Name = "ButtonImport";
-			this.ButtonImport.Size = new System.Drawing.Size(75, 23);
-			this.ButtonImport.TabIndex = 52;
-			this.ButtonImport.Text = "Import";
-			this.ButtonImport.UseVisualStyleBackColor = true;
-			this.ButtonImport.Click += new System.EventHandler(this.ButtonImport_Click);
-			// 
-			// AIbuyselllistEditor
+			// AiBuyselllistEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(449, 311);
+			this.ClientSize = new System.Drawing.Size(449, 316);
+			this.Controls.Add(this.ButtonImport);
 			this.Controls.Add(this.ButtonStart);
 			this.Controls.Add(this.TabControl1);
 			this.Controls.Add(this.ButtonQuit);
@@ -208,10 +211,9 @@
 			this.Controls.Add(this.Label1);
 			this.Controls.Add(this.BuySellListTextBox);
 			this.Controls.Add(this.PictureBox1);
-			this.Controls.Add(this.ButtonImport);
-			this.Name = "AIbuyselllistEditor";
-			this.Text = "AIbuyselllistEditor";
-			this.Load += new System.EventHandler(this.AIbuyselllistEditor_Load);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Name = "AiBuyselllistEditor";
+			this.Text = "AI.obj shop list maker";
 			((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
 			this.TabControl1.ResumeLayout(false);
 			this.TabDataPage.ResumeLayout(false);
@@ -225,6 +227,7 @@
 
 		#endregion
 
+		internal System.Windows.Forms.Button ButtonImport;
 		internal System.Windows.Forms.DataGridView DataGridView;
 		internal System.Windows.Forms.DataGridViewComboBoxColumn ItemList;
 		internal System.Windows.Forms.DataGridViewTextBoxColumn CityTax;
@@ -240,6 +243,5 @@
 		internal System.Windows.Forms.Label Label1;
 		internal System.Windows.Forms.TextBox BuySellListTextBox;
 		internal System.Windows.Forms.PictureBox PictureBox1;
-		internal System.Windows.Forms.Button ButtonImport;
 	}
 }

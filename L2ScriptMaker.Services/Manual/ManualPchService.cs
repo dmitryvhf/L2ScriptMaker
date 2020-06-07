@@ -86,7 +86,7 @@ namespace L2ScriptMaker.Services.Manual
 			foreach (string raw in manualPchData)
 			{
 				string line = raw.ToLower().Trim();
-				if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//") || !line.StartsWith(pref)) continue;
+				if (!line.StartsWith(pref)) continue;
 
 				// [ab_pa_up]      =       0
 				string[] data = line.Split('=');

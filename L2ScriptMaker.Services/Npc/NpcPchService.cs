@@ -6,15 +6,30 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Core.Mapper;
+using L2ScriptMaker.Core;
+using L2ScriptMaker.Core.WinForms;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcPchService : INpcPchService
 	{
 		private readonly NpcDataService _npcDataService = new NpcDataService();
-		private readonly IMapper<NpcDataDto, NpcPch> _mapper = new NpcPchMapper();
+		private readonly IMapper<NpcDataDto, NpcPch> _modelMapper = new NpcPchMapper();
 
 		#region WinForms service
+		public List<ListItem> GetListItems(string fileName)
+		{
+			var data = FileUtils.Read(fileName);
+			return Parse(data).Select(a => new ListItem { Text = a.Name, Value = a.Id }).ToList();
+
+			//var test = npcPchService.Parse(data)
+			//	.GroupBy(a => a.Name)
+			//	.Where(a => a.Count() > 1)
+			//	.ToList();
+		}
+
 		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
@@ -29,9 +44,8 @@ namespace L2ScriptMaker.Services.Npc
 			{
 				for (var index = 0; index < npcData.Count; index++)
 				{
-					
 					NpcDataDto npcDataDto = npcData[index];
-					sw.WriteLine(Print(_mapper.Map(npcDataDto)));
+					sw.WriteLine(Print(_modelMapper.Map(npcDataDto)));
 					progress.Report((int) (index * 100 / npcData.Count));
 				}
 			}
@@ -41,6 +55,23 @@ namespace L2ScriptMaker.Services.Npc
 			return new ServiceResult { HasErrors = false };
 		}
 		#endregion
+
+		#region IParserService implementation
+		public NpcPchDto Parse(string record)
+		{
+			KeyValuePair<string, string> data = ParseKeyValueService.Parse(record);
+			NpcPchDto npcDataDto = new NpcPchDto() {Id = data.Value, Name = StringUtils.CutBrackets(data.Key) };
+			return npcDataDto;
+		}
+
+		public IEnumerable<NpcPchDto> Parse(IEnumerable<string> data)
+		{
+			IEnumerable<NpcPchDto> result = data.Select(Parse);
+			return result;
+		}
+
+		#endregion
+
 
 		#region Private methods
 		// [gremlin]       =       1020001

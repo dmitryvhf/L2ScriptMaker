@@ -11,6 +11,11 @@ namespace L2ScriptMaker.Core.Mapper
 	{
 		private readonly Dictionary<string, RecordParamAttribute> _params;
 
+		/// <summary>
+		/// Transfer parsed data to target type, uses target attribute rules.
+		/// </summary>
+		/// <exception cref="ArgumentException">Target type is not marked with RecordAttribute</exception>
+		/// <exception cref="ArgumentException">Index not defined for property with non-name link</exception>
 		public ModelMapper()
 		{
 			_params = new Dictionary<string, RecordParamAttribute>();
@@ -21,17 +26,22 @@ namespace L2ScriptMaker.Core.Mapper
 		private void Initialize()
 		{
 			Type t = typeof(T);
-			bool isInlineScript = t.IsDefined(typeof(RecordAttribute));
-			if (!isInlineScript) throw new ArgumentException("Type is not script");
+			if (!t.IsDefined(typeof(RecordAttribute)))
+				throw new ArgumentException("Target type is not marked with RecordAttribute");
 
-			PropertyInfo[] myMembers = t.GetProperties()
+			PropertyInfo[] targetProperties = t.GetProperties()
 				.Where(a => a.IsDefined(typeof(RecordParamAttribute)))
 				.ToArray();
 
-			foreach (PropertyInfo propertyInfo in myMembers)
+			foreach (PropertyInfo propertyInfo in targetProperties)
 			{
 				RecordParamAttribute attributedProperty =
 					propertyInfo.GetCustomAttribute<RecordParamAttribute>();
+
+				if (attributedProperty.ByName == false && !attributedProperty.Index.HasValue)
+				{
+					throw new ArgumentException($"Index not defined for property {propertyInfo.Name}");
+				}
 
 				_params.Add(propertyInfo.Name, attributedProperty);
 			}
@@ -40,36 +50,21 @@ namespace L2ScriptMaker.Core.Mapper
 		public T Map(ParsedData data)
 		{
 			T instance = Activator.CreateInstance<T>();
-
 			if (_params.Count == 0) return instance;
 
-			Type t = typeof(T);
-			PropertyInfo[] myMembers = t.GetProperties().ToArray();
-
-			foreach (PropertyInfo propertyInfo in myMembers)
+			foreach (PropertyInfo propertyInfo in typeof(T).GetProperties())
 			{
 				if (!_params.ContainsKey(propertyInfo.Name)) continue;
 
 				RecordParamAttribute attr = _params[propertyInfo.Name];
 
 				Type t2 = propertyInfo.PropertyType;
-				object value;
-				if (_params[propertyInfo.Name].ByName)
-				{
-					value = data.GetValue<string>(attr.Name);
-				}
-				else
-				{
-					if (!attr.Index.HasValue)
-						throw new ArgumentException($"Index not defined for property {propertyInfo.Name}");
-
-					value = data.GetValue<string>(attr.Index.Value);
-				}
+				object value = _params[propertyInfo.Name].ByName ? data.GetValue<string>(attr.Name) : data.GetValue<string>(attr.Index.Value);
 
 				// Additional filters
 				if (attr.Brackets != Brackets.None)
 				{
-					value = value.ToString().Substring(1, value.ToString().Length - 2);
+					value = StringUtils.CutBrackets(value.ToString());
 				}
 
 				// Target type transformation

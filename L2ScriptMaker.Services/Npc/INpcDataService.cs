@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using L2ScriptMaker.Models.Dto;
-using L2ScriptMaker.Models.Npc;
+﻿using L2ScriptMaker.Models.Dto;
 
 namespace L2ScriptMaker.Services.Npc
 {

@@ -83,12 +83,6 @@
     <Compile Include="Extensions\VbCompatibleHelper\MyAssemblyInfo.cs" />
     <Compile Include="Extensions\VbCompatibleHelper\Strings.cs" />
     <Compile Include="Extensions\WinFormsControlExtension.cs" />
-    <Compile Include="Modules\AI\AIbuyselllistEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AIbuyselllistEditor.Designer.cs">
-      <DependentUpon>AIbuyselllistEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modules\AI\AIDecompiler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -565,9 +559,6 @@
     <EmbeddedResource Include="CheckUpdate.resx">
       <DependentUpon>CheckUpdate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\AI\AIbuyselllistEditor.resx">
-      <DependentUpon>AIbuyselllistEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AIDecompiler.resx">
       <DependentUpon>AIDecompiler.cs</DependentUpon>
     </EmbeddedResource>
@@ -579,6 +570,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AIHandlersChecker.resx">
       <DependentUpon>AIHandlersChecker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AiInjector.resx">
       <DependentUpon>AiInjector.cs</DependentUpon>
@@ -726,6 +718,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Skills\SkillPch2Maker.resx">
       <DependentUpon>SkillPch2Maker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\ZeroScripts\SkillDataGenerator.resx">
       <DependentUpon>SkillDataGenerator.cs</DependentUpon>

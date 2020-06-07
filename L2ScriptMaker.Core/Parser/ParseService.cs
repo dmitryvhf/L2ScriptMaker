@@ -9,6 +9,11 @@ namespace L2ScriptMaker.Core.Parser
 	{
 		private static readonly char[] SplitChars = new char[] { '\t', '\n' };
 
+		/// <summary>
+		/// Split line record to param-value or value-only blocks.
+		/// Splitted with knowns symbols: tab or endline.
+		/// ParamValue defined with symbol '=' inside.
+		/// </summary>
 		public static ParsedData Parse(string raw)
 		{
 			ParsedData result = new ParsedData { IsEmpty = true }; //, Raw = raw};

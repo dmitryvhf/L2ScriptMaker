@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using L2ScriptMaker.Models.Npc;
+using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.Models.Dto;
 
 namespace L2ScriptMaker.Services.Npc
 {
-	public interface INpcPchService : IGenerateService
+	public interface INpcPchService : IParserService<NpcPchDto>, IGenerateService
 	{
+		List<ListItem> GetListItems(string fileName);
 	}
 }

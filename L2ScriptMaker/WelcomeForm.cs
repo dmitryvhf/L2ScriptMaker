@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using L2ScriptMaker.Forms.Modules.AI;
 using L2ScriptMaker.Modules.AI;
 using L2ScriptMaker.Modules.Geodata;
 using L2ScriptMaker.Modules.Items;
@@ -16,7 +17,6 @@ using L2ScriptMaker.Modules.Scripts;
 using L2ScriptMaker.Modules.Skills;
 using L2ScriptMaker.Modules.ZeroScripts;
 using L2ScriptMaker.Modules.ZeroScripts.L2J;
-using SkillPch2Maker = L2ScriptMaker.Forms.Modules.Skills.SkillPch2Maker;
 
 namespace L2ScriptMaker
 {
@@ -55,7 +55,7 @@ namespace L2ScriptMaker
 
 		private void AIbuyselllistEditorButton_Click(object sender, EventArgs e)
 		{
-			new AIbuyselllistEditor().ShowDialog();
+			new AiBuyselllistEditor().ShowDialog();
 		}
 
 		private void ButtonAiFixer_Click(object sender, EventArgs e)
@@ -147,7 +147,7 @@ namespace L2ScriptMaker
 		private void NpcPchMakerButton_Click(object sender, EventArgs e)
 		{
 			// new NpcPchMaker().ShowDialog();
-			new L2ScriptMaker.Forms.Modules.Npc.NpcPchMaker().ShowDialog();
+			new Forms.Modules.Npc.NpcPchMaker().ShowDialog();
 		}
 
 		private void NpcC4toC5IdsConversionButton_Click(object sender, EventArgs e)
@@ -322,7 +322,7 @@ namespace L2ScriptMaker
 		private void ButtonSkillPch2Maker_Click(object sender, EventArgs e)
 		{
 			// new SkillPch2Maker().ShowDialog();
-			new SkillPch2Maker().ShowDialog();
+			new Forms.Modules.Skills.SkillPch2Maker().ShowDialog();
 		}
 		#endregion
 

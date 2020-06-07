@@ -1,13 +1,11 @@
-﻿using L2ScriptMaker.Models.Npc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using L2ScriptMaker.Core.Files;
+﻿using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.Mapper;
 using L2ScriptMaker.Core.Parser;
 using L2ScriptMaker.Models.Dto;
-using L2ScriptMaker.Core.Mapper;
+using L2ScriptMaker.Models.Npc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace L2ScriptMaker.Services.Npc
 {
