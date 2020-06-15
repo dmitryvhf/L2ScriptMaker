@@ -37,7 +37,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 			if (System.IO.File.Exists(fileName) == false)
 			{
 				OpenFileDialog.FileName = "";
-				OpenFileDialog.Title = "Select item_pch.txt file for reading name of items from server file...";
+				OpenFileDialog.Title = @"Select item_pch.txt file for reading name of items from server file...";
 				OpenFileDialog.Filter = @$"{fileName}|{fileName}|All files|*.*";
 				if (OpenFileDialog.ShowDialog() == DialogResult.Cancel) return false;
 

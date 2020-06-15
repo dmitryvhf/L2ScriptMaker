@@ -27,7 +27,7 @@ namespace L2ScriptMaker.Tests.UnitTests.ModelMapper
 				Name = "TestMessage"
 			};
 
-			ParsedData data = ParseService.Parse(testLine);
+			ParsedData data = ParseService.ToKeyValueCollection(testLine);
 			TestModel result = mapper.Map(data);
 
 			result.Should().BeEquivalentTo(model);
@@ -43,7 +43,7 @@ namespace L2ScriptMaker.Tests.UnitTests.ModelMapper
 				Name = null
 			};
 
-			ParsedData data = ParseService.Parse(testLine);
+			ParsedData data = ParseService.ToKeyValueCollection(testLine);
 			MissedFieldsModel result = mapper.Map(data);
 
 			result.Should().BeEquivalentTo(model);
@@ -59,7 +59,7 @@ namespace L2ScriptMaker.Tests.UnitTests.ModelMapper
 				Name = "TestMessage"
 			};
 
-			ParsedData data = ParseService.Parse(testLine);
+			ParsedData data = ParseService.ToKeyValueCollection(testLine);
 			TargetTypeModel result = mapper.Map(data);
 
 			result.Should().BeEquivalentTo(model);

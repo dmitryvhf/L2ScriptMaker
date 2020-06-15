@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Models.CachedScript;
 using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Services.Npc;
@@ -12,7 +11,7 @@ namespace L2ScriptMaker.Services.CachedScript
 {
 	public class NpcCacheService : INpcCacheService
 	{
-		private readonly NpcDataService _npcDataService = new NpcDataService();
+		private readonly INpcDataService _npcDataService = new NpcDataService();
 
 		#region WinForms service
 		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
@@ -20,9 +19,7 @@ namespace L2ScriptMaker.Services.CachedScript
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
 
-			IEnumerable<string> rawNpcData = FileUtils.Read(inNpcdataFile, progress);
-			IEnumerable<string> collectedData = _npcDataService.Collect(rawNpcData);
-			List<NpcDataDto> npcData = _npcDataService.Parse(collectedData).ToList();
+			List<NpcDataDto> npcData = _npcDataService.Get(inNpcdataFile, progress).ToList();
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{

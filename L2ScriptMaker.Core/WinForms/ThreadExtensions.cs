@@ -9,9 +9,7 @@ namespace L2ScriptMaker.Core.WinForms
 		{
 			if (form.InvokeRequired)
 			{
-				form.Invoke(new MethodInvoker(delegate () {
-					action();
-				}));
+				form.Invoke(action);
 			}
 			else
 			{
@@ -23,9 +21,19 @@ namespace L2ScriptMaker.Core.WinForms
 		{
 			if (control.InvokeRequired)
 			{
-				control.Invoke(new MethodInvoker(delegate () {
-					action();
-				}));
+				control.Invoke(action);
+			}
+			else
+			{
+				action();
+			}
+		}
+
+		public static void InvokerAsync(this Control control, Action action)
+		{
+			if (control.InvokeRequired)
+			{
+				control.BeginInvoke(action);
 			}
 			else
 			{

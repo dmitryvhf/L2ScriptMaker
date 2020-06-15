@@ -16,20 +16,32 @@ namespace L2ScriptMaker.Services.Npc
 		private const string StartPrefix = "npc_begin";
 		private const string EndPrefix = "npc_end";
 
-		public IEnumerable<string> Collect(IEnumerable<string> lines)
+		public IEnumerable<NpcDataDto> Get(string dataFile)
 		{
-			return ScriptLoader.Collect(lines, StartPrefix, EndPrefix);
+			IEnumerable<string> rawData = FileUtils.Read(dataFile);
+			IEnumerable<string> filteredData = Collect(rawData);
+			return Parse(filteredData).ToList();
 		}
 
-		public NpcDataDto Parse(string record)
+		public IEnumerable<NpcDataDto> Get(string dataFile, IProgress<int> progress)
 		{
-			ParsedData data = ParseService.Parse(record);
-			NpcDataDto npcDataDto = _mapper.Map(data);
-			return npcDataDto;
-			// return InlineParser.Parse(data);
+			IEnumerable<string> rawData = FileUtils.Read(dataFile, progress);
+			IEnumerable<string> filteredData = Collect(rawData);
+			return Parse(filteredData).ToList();
 		}
 
-		public IEnumerable<NpcDataDto> Parse(IEnumerable<string> data)
+		private IEnumerable<string> Collect(IEnumerable<string> lines)
+		{
+			return ParseService.Collect(lines, StartPrefix, EndPrefix);
+		}
+
+		private NpcDataDto Parse(string record)
+		{
+			ParsedData data = ParseService.ToKeyValueCollection(record);
+			return _mapper.Map(data);
+		}
+
+		private IEnumerable<NpcDataDto> Parse(IEnumerable<string> data)
 		{
 			IEnumerable<NpcDataDto> result = data.Select(Parse);
 			return result;

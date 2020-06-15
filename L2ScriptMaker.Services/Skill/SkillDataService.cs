@@ -1,19 +1,16 @@
 ﻿using L2ScriptMaker.Models.Npc;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Core.Parser;
-using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Core.Mapper;
 
 namespace L2ScriptMaker.Services.Skill
 {
 	public class SkillDataService : ISkillDataService
 	{
-
 		private readonly ModelMapper<SkillDataDto> _mapper = new ModelMapper<SkillDataDto>();
 
 		private const string StartPrefix = "skill_begin";
@@ -21,12 +18,12 @@ namespace L2ScriptMaker.Services.Skill
 
 		public IEnumerable<string> Collect(IEnumerable<string> lines)
 		{
-			return ScriptLoader.Collect(lines, StartPrefix, EndPrefix);
+			return ParseService.Collect(lines, StartPrefix, EndPrefix);
 		}
 
-		public SkillDataDto Parse(string record)
+		private SkillDataDto Parse(string record)
 		{
-			ParsedData data = ParseService.Parse(record);
+			ParsedData data = ParseService.ToKeyValueCollection(record);
 			SkillDataDto skillDataDto = _mapper.Map(data);
 			return skillDataDto;
 		}

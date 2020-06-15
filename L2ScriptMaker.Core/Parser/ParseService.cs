@@ -10,11 +10,56 @@ namespace L2ScriptMaker.Core.Parser
 		private static readonly char[] SplitChars = new char[] { '\t', '\n' };
 
 		/// <summary>
+		/// Collect one, from multiple, line record with start and end prefixies.
+		/// If prefixies empty, line return as-is.
+		/// </summary>
+		public static IEnumerable<string> Collect(IEnumerable<string> lines, string startPrefix, string endPrefix)
+		{
+			IEnumerator<string> enumerator = lines.GetEnumerator();
+			string completeRecord = String.Empty;
+
+			bool withoutPrefixes = String.IsNullOrWhiteSpace(startPrefix) || String.IsNullOrWhiteSpace(endPrefix);
+
+			while (enumerator.MoveNext())
+			{
+				string current = enumerator.Current;
+				if (withoutPrefixes)
+				{
+					yield return current;
+					continue;
+				}
+
+				if (String.IsNullOrWhiteSpace(current))
+				{
+					continue;
+				}
+
+				if (String.IsNullOrWhiteSpace(completeRecord))
+				{
+					if (!current.StartsWith(startPrefix)) continue;
+				}
+				else
+				{
+					completeRecord += "\n";
+				}
+
+				completeRecord += current;
+				if (completeRecord.EndsWith(endPrefix))
+				{
+					yield return completeRecord;
+					completeRecord = String.Empty;
+				}
+			}
+
+			enumerator.Dispose();
+		}
+
+		/// <summary>
 		/// Split line record to param-value or value-only blocks.
 		/// Splitted with knowns symbols: tab or endline.
 		/// ParamValue defined with symbol '=' inside.
 		/// </summary>
-		public static ParsedData Parse(string raw)
+		public static ParsedData ToKeyValueCollection(string raw)
 		{
 			ParsedData result = new ParsedData { IsEmpty = true }; //, Raw = raw};
 
@@ -64,6 +109,36 @@ namespace L2ScriptMaker.Core.Parser
 			result.IsEmpty = false;
 
 			return result;
+		}
+
+		/// <summary>
+		/// Split line record to param-value or value-only blocks.
+		/// Splitted with knowns symbols: tab or endline.
+		/// ParamValue defined with symbol '=' inside.
+		/// </summary>
+		public static KeyValuePair<string, string> ToKeyValue(string raw)
+		{
+			//ParsedData result = new ParsedData { IsEmpty = true }; //, Raw = raw};
+
+			//if (String.IsNullOrWhiteSpace(raw))
+			//{
+			//	return null;
+			//}
+
+			//if (raw.StartsWith("//"))
+			//{
+			//	return null;
+			//}
+
+			Regex regex = new Regex("\\s*=\\s*");
+			string refinedRaw = regex.Replace(raw, "=");
+
+			KeyValuePair<string, string> keyvalue = GetPair(refinedRaw);
+
+			//result.Values = new ReadOnlyCollection<KeyValuePair<string, string>>(keyvalue);
+			//result.IsEmpty = false;
+
+			return keyvalue;
 		}
 
 		private static KeyValuePair<string, string> GetPair(string value)

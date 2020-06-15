@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using L2ScriptMaker.Forms.Modules.AI;
+// using L2ScriptMaker.Forms.Modules.AI;
 using L2ScriptMaker.Modules.AI;
 using L2ScriptMaker.Modules.Geodata;
 using L2ScriptMaker.Modules.Items;
@@ -45,7 +45,7 @@ namespace L2ScriptMaker
 		#region AI
 		private void AIDecompilerPackButton_Click(object sender, EventArgs e)
 		{
-			new AIDecompilerPack().ShowDialog();
+			new Forms.Modules.AI.AiDecompilerPack().ShowDialog();
 		}
 
 		private void AIDecompilerButton_Click(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace L2ScriptMaker
 
 		private void AIbuyselllistEditorButton_Click(object sender, EventArgs e)
 		{
-			new AiBuyselllistEditor().ShowDialog();
+			new Forms.Modules.AI.AiBuyselllistEditor().ShowDialog();
 		}
 
 		private void ButtonAiFixer_Click(object sender, EventArgs e)

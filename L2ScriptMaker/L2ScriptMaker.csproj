@@ -89,12 +89,6 @@
     <Compile Include="Modules\AI\AIDecompiler.Designer.cs">
       <DependentUpon>AIDecompiler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\AI\AIDecompilerPack.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AIDecompilerPack.Designer.cs">
-      <DependentUpon>AIDecompilerPack.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modules\AI\AiFixer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -561,9 +555,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AIDecompiler.resx">
       <DependentUpon>AIDecompiler.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\AI\AIDecompilerPack.resx">
-      <DependentUpon>AIDecompilerPack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AiFixer.resx">
       <DependentUpon>AiFixer.cs</DependentUpon>

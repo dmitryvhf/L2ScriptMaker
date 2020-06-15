@@ -51,11 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AiDecompilerPack\AiEvent.cs" />
+    <Compile Include="Models\AiDecompilerPack\AiFetch.cs" />
+    <Compile Include="Models\AiDecompilerPack\AiFunc.cs" />
+    <Compile Include="Models\AiDecompilerPack\AiHandler.cs" />
     <Compile Include="Modules\AI\AiBuyselllistEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\AI\AiBuyselllistEditor.Designer.cs">
       <DependentUpon>AiBuyselllistEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AI\AiDecompilerPack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\AI\AiDecompilerPack.Designer.cs">
+      <DependentUpon>AiDecompilerPack.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Npc\NpcPchMaker.cs">
       <SubType>Form</SubType>
@@ -74,6 +84,9 @@
     <Compile Include="Services\FileDialogService.cs" />
     <EmbeddedResource Include="Modules\AI\AiBuyselllistEditor.resx">
       <DependentUpon>AiBuyselllistEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\AI\AiDecompilerPack.resx">
+      <DependentUpon>AiDecompilerPack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Npc\NpcPchMaker.resx">
       <DependentUpon>NpcPchMaker.cs</DependentUpon>
