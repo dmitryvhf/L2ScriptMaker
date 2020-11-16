@@ -10,17 +10,23 @@ namespace L2ScriptMaker.Services.Skill
 	{
 		private readonly ParserService<SkillData> _parser = new ParserService<SkillData>();
 
-		#region IDataService implementation
+		#region IProgressService implementation
+		private IProgress<int> _progress;
+		public void With(IProgress<int> progress) => _progress = progress;
+		#endregion
 
+		#region IDataService implementation
 		public IEnumerable<SkillData> Get(string dataFile)
 		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile);
-			return _parser.Do(rawData);
-		}
-
-		public IEnumerable<SkillData> Get(string dataFile, IProgress<int> progress)
-		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile, progress);
+			IEnumerable<string> rawData;
+			if (_progress == null)
+			{
+				rawData = FileUtils.Read(dataFile);
+			}
+			else
+			{
+				rawData = FileUtils.Read(dataFile, _progress);
+			}
 			return _parser.Do(rawData);
 		}
 		#endregion

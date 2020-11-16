@@ -6,20 +6,19 @@ using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Services.Npc
 {
-	public class NpcDataService : INpcDataService, IProgressService
+	public class NpcDataService : INpcDataService
 	{
 		private readonly ParserService<NpcData> _parser = new ParserService<NpcData>();
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;
-		public void WithProgress(IProgress<int> progress) => _progress = progress;
+		public void With(IProgress<int> progress) => _progress = progress;
 		#endregion
 
 		#region IDataService implementation
 		public IEnumerable<NpcData> Get(string dataFile)
 		{
 			IEnumerable<string> rawData;
-
 			if (_progress == null)
 			{
 				rawData = FileUtils.Read(dataFile);
@@ -28,7 +27,6 @@ namespace L2ScriptMaker.Services.Npc
 			{
 				rawData = FileUtils.Read(dataFile, _progress);
 			}
-
 			return _parser.Do(rawData);
 		}
 		#endregion

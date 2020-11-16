@@ -17,14 +17,13 @@ namespace L2ScriptMaker.Services.Npc
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;
-		public void WithProgress(IProgress<int> progress) => _progress = progress;
+		public void With(IProgress<int> progress) => _progress = progress;
 		#endregion
 
 		#region INpcPchService implementation
 		public IEnumerable<NpcPch> Get(string dataFile)
 		{
 			IEnumerable<string> rawData;
-
 			if (_progress == null)
 			{
 				rawData = FileUtils.Read(dataFile);
@@ -45,7 +44,7 @@ namespace L2ScriptMaker.Services.Npc
 		#endregion
 
 		#region IGenerateService implementation
-		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
@@ -59,7 +58,7 @@ namespace L2ScriptMaker.Services.Npc
 				{
 					NpcData npcDataDto = npcData[index];
 					sw.WriteLine(Print(Map(npcDataDto)));
-					progress.Report((int)(index * 100 / npcData.Count));
+					_progress.Report((int)(index * 100 / npcData.Count));
 				}
 			}
 

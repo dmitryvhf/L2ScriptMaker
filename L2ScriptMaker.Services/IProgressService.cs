@@ -4,6 +4,6 @@ namespace L2ScriptMaker.Services
 {
 	public interface IProgressService
 	{
-		void WithProgress(IProgress<int> progress);
+		void With(IProgress<int> progress);
 	}
 }

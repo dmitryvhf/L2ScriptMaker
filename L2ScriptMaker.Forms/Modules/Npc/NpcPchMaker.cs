@@ -45,7 +45,8 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			Task.Run(() =>
 			{
-				_npcPchService.Generate(NpcDataDir, NpcDataFile, progress);
+				_npcPchService.With(progress);
+				_npcPchService.Generate(NpcDataDir, NpcDataFile);
 			}).ContinueWith(task =>
 			{
 				this.Invoker(() =>
@@ -80,7 +81,8 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			Task.Run(() =>
 			{
-				_npcCacheService.Generate(NpcDataDir, NpcDataFile, progress);
+				_npcCacheService.With(progress);
+				_npcCacheService.Generate(NpcDataDir, NpcDataFile);
 			}).ContinueWith(task =>
 			{
 				this.Invoker(() =>

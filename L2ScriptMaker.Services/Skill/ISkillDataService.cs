@@ -2,7 +2,7 @@
 
 namespace L2ScriptMaker.Services.Skill
 {
-	public interface ISkillDataService : IDataService<SkillData>
+	public interface ISkillDataService : IDataService<SkillData>, IProgressService
 	{
 	}
 }

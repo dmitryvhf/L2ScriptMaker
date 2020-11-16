@@ -75,7 +75,11 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 			StartButton.Enabled = false;
 			SkillCacheScriptButton.Enabled = false;
 
-			Task.Run(() => _skillPchService.Generate(SkillDataDir, SkillDataFile, progress))
+			Task.Run(() =>
+				{
+					_skillPchService.With(progress);
+					return _skillPchService.Generate(SkillDataDir, SkillDataFile);
+				})
 				.ContinueWith(task =>
 			{
 				this.Invoker(() =>

@@ -13,13 +13,18 @@ namespace L2ScriptMaker.Services.CachedScript
 	{
 		private readonly INpcDataService _npcDataService = new NpcDataService();
 
+		#region IProgressService implementation
+		private IProgress<int> _progress;
+		public void With(IProgress<int> progress) => _progress = progress;
+		#endregion
+
 		#region WinForms service
-		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string NpcDataDir, string NpcDataFile)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
 
-			_npcDataService.WithProgress(progress);
+			_npcDataService.With(_progress);
 			List<NpcData> npcDatas = _npcDataService.Get(inNpcdataFile).ToList();
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
@@ -28,7 +33,7 @@ namespace L2ScriptMaker.Services.CachedScript
 				{
 					NpcData npcData = npcDatas[index];
 					sw.WriteLine(Print(Map(npcData)));
-					progress.Report((int)(index * 100 / npcDatas.Count));
+					_progress.Report((int)(index * 100 / npcDatas.Count));
 				}
 			}
 			

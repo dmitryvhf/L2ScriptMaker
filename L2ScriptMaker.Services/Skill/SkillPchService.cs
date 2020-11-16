@@ -19,14 +19,20 @@ namespace L2ScriptMaker.Services.Skill
 			_manualPchService = new ManualPchService(options.ManualPchFile);
 		}
 
+		#region IProgressService implementation
+		private IProgress<int> _progress;
+		public void With(IProgress<int> progress) => _progress = progress;
+		#endregion
+
 		#region IGenerateService implementation
-		public ServiceResult Generate(string SkillDataDir, string SkillDataFile, IProgress<int> progress)
+		public ServiceResult Generate(string SkillDataDir, string SkillDataFile)
 		{
 			string inSkillDataFile = Path.Combine(SkillDataDir, SkillDataFile);
 			string outPchFile = Path.Combine(SkillDataDir, SkillContants.SkillPchFileName);
 			string outPch2File = Path.Combine(SkillDataDir, SkillContants.SkillPch2FileName);
 			string outPch3File = Path.Combine(SkillDataDir, SkillContants.SkillPch3FileName);
 
+			_skillDataService.With(_progress);
 			List<SkillData> skillDatas = _skillDataService.Get(inSkillDataFile).ToList();
 
 			StreamWriter sw2 = new StreamWriter(outPch2File, false, Encoding.Unicode);
@@ -42,7 +48,7 @@ namespace L2ScriptMaker.Services.Skill
 					sw.WriteLine(Print(pch));
 					sw2.WriteLine(Print(pch2));
 
-					progress.Report((int)(index * 100 / skillDatas.Count));
+					_progress.Report((int)(index * 100 / skillDatas.Count));
 				}
 			}
 
