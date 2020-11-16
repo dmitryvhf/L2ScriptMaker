@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
     <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
+    <ProjectReference Include="..\L2ScriptMaker.Parser\L2ScriptMaker.Parsers.csproj" />
   </ItemGroup>
 
 </Project>

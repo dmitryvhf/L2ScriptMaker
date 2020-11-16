@@ -1,11 +1,11 @@
 ﻿using System;
 using FluentAssertions;
 using L2ScriptMaker.Core.Attributes;
-using L2ScriptMaker.Core.Mapper;
-using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Parsers.Attributes;
+using L2ScriptMaker.Parsers.Core;
 using Xunit;
 
-namespace L2ScriptMaker.Tests.UnitTests.ModelMapper
+namespace L2ScriptMaker.Parsers.Tests
 {
 	public class ModelMapperTests
 	{

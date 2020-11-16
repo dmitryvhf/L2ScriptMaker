@@ -5,70 +5,60 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Models.Dto;
-using L2ScriptMaker.Core.Parser;
-using L2ScriptMaker.Core;
 using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcPchService : INpcPchService
 	{
 		private readonly INpcDataService _npcDataService = new NpcDataService();
-		private readonly IMapper<NpcDataDto, NpcPch> _modelMapper = new NpcPchMapper();
+		private readonly ParserService<NpcPch> _parser = new ParserService<NpcPch>();
 
-		#region IParserService implementation
+		#region IProgressService implementation
+		private IProgress<int> _progress;
+		public void WithProgress(IProgress<int> progress) => _progress = progress;
+		#endregion
 
-		public IEnumerable<NpcPchDto> Get(string dataFile)
+		#region INpcPchService implementation
+		public IEnumerable<NpcPch> Get(string dataFile)
 		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile);
-			return Parse(rawData).ToList();
+			IEnumerable<string> rawData;
+
+			if (_progress == null)
+			{
+				rawData = FileUtils.Read(dataFile);
+			}
+			else
+			{
+				rawData = FileUtils.Read(dataFile, _progress);
+			}
+			return _parser.Do(rawData);
 		}
 
-		public IEnumerable<NpcPchDto> Get(string dataFile, IProgress<int> progress)
+		public List<ListItem> GetListItems(string fileName)
 		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile, progress);
-			return Parse(rawData).ToList();
-		}
-
-		private NpcPchDto Parse(string record)
-		{
-			KeyValuePair<string, string> data = ParseService.ToKeyValue(record);
-			return Map(data);
-		}
-
-		private IEnumerable<NpcPchDto> Parse(IEnumerable<string> data)
-		{
-			IEnumerable<NpcPchDto> result = data.Select(Parse);
-			return result;
+			return Get(fileName)
+				.Select(a => new ListItem { Text = a.Name, Value = a.Id.ToString() })
+				.ToList();
 		}
 		#endregion
 
-		#region WinForms service
-		public List<ListItem> GetListItems(string fileName)
-		{
-			return Get(fileName).Select(a => new ListItem { Text = a.Name, Value = a.Id }).ToList();
-
-			//var test = npcPchService.Parse(data)
-			//	.GroupBy(a => a.Name)
-			//	.Where(a => a.Count() > 1)
-			//	.ToList();
-		}
-
+		#region IGenerateService implementation
 		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
 		{
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
 			string outPch2File = Path.Combine(NpcDataDir, NpcContants.NpcPch2FileName);
 
-			List<NpcDataDto> npcData = _npcDataService.Get(inNpcdataFile).ToList();
+			List<NpcData> npcData = _npcDataService.Get(inNpcdataFile).ToList();
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
 				for (var index = 0; index < npcData.Count; index++)
 				{
-					NpcDataDto npcDataDto = npcData[index];
-					sw.WriteLine(Print(_modelMapper.Map(npcDataDto)));
+					NpcData npcDataDto = npcData[index];
+					sw.WriteLine(Print(Map(npcDataDto)));
 					progress.Report((int)(index * 100 / npcData.Count));
 				}
 			}
@@ -80,15 +70,19 @@ namespace L2ScriptMaker.Services.Npc
 		#endregion
 
 		#region Private methods
-		private static NpcPchDto Map(KeyValuePair<string, string> data)
-		{
-			return new NpcPchDto { Id = data.Value, Name = StringUtils.CutBrackets(data.Key) };
-		}
-
-		// [gremlin]       =       1020001
 		private static string Print(NpcPch model)
 		{
+			// [gremlin]       =       1020001
 			return $"[{model.Name}] = {model.Id}";
+		}
+
+		private NpcPch Map(NpcData data)
+		{
+			return new NpcPch
+			{
+				Name = data.Name,
+				Id = NpcContants.NpcPchPrefix + data.Id
+			};
 		}
 		#endregion
 	}

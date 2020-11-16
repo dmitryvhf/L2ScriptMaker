@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace L2ScriptMaker.Core.Attributes
+namespace L2ScriptMaker.Parsers.Attributes
 {
 	[AttributeUsage(AttributeTargets.Class)]
 	public class RecordAttribute : Attribute

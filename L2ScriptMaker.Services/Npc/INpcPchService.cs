@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using L2ScriptMaker.Core.WinForms;
-using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Models.Npc;
 
 namespace L2ScriptMaker.Services.Npc
 {
-	public interface INpcPchService : IGenerateService // : IParserService<NpcPchDto>, IGenerateService
+	public interface INpcPchService : IDataService<NpcPch>, IProgressService, IGenerateService
 	{
-		IEnumerable<NpcPchDto> Get(string dataFile);
-		IEnumerable<NpcPchDto> Get(string dataFile, IProgress<int> progress);
 		List<ListItem> GetListItems(string fileName);
 	}
 }

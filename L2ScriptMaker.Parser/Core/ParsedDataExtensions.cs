@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace L2ScriptMaker.Core.Parser
+namespace L2ScriptMaker.Parsers.Core
 {
-	public static class ParsedDataExtensions
+	internal static class ParsedDataExtensions
 	{
 		//public static bool HasParam(this ParsedData data, string param) => data.Values.Any(a => a.Key == param);
 		// public static bool IsValuePossible(this ParsedData data, string param) => data.Values[param] != null;

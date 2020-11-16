@@ -1,42 +1,28 @@
-﻿using L2ScriptMaker.Models.Npc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using L2ScriptMaker.Models.Dto;
-using L2ScriptMaker.Core.Parser;
-using L2ScriptMaker.Core.Mapper;
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Parsers;
+using L2ScriptMaker.Models.Skill;
 
 namespace L2ScriptMaker.Services.Skill
 {
 	public class SkillDataService : ISkillDataService
 	{
-		private readonly ModelMapper<SkillDataDto> _mapper = new ModelMapper<SkillDataDto>();
+		private readonly ParserService<SkillData> _parser = new ParserService<SkillData>();
 
-		private const string StartPrefix = "skill_begin";
-		private const string EndPrefix = "skill_end";
+		#region IDataService implementation
 
-		public IEnumerable<string> Collect(IEnumerable<string> lines)
+		public IEnumerable<SkillData> Get(string dataFile)
 		{
-			return ParseService.Collect(lines, StartPrefix, EndPrefix);
+			IEnumerable<string> rawData = FileUtils.Read(dataFile);
+			return _parser.Do(rawData);
 		}
 
-		private SkillDataDto Parse(string record)
+		public IEnumerable<SkillData> Get(string dataFile, IProgress<int> progress)
 		{
-			ParsedData data = ParseService.ToKeyValueCollection(record);
-			SkillDataDto skillDataDto = _mapper.Map(data);
-			return skillDataDto;
+			IEnumerable<string> rawData = FileUtils.Read(dataFile, progress);
+			return _parser.Do(rawData);
 		}
-
-		public IEnumerable<SkillDataDto> Parse(IEnumerable<string> data)
-		{
-			IEnumerable<SkillDataDto> result = data.Select(Parse);
-			return result;
-		}
-
-		public static string Print(NpcData model)
-		{
-			throw new NotImplementedException();
-		}
+		#endregion
 	}
 }

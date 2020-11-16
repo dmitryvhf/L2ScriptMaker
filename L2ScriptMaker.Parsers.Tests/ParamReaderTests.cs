@@ -1,8 +1,8 @@
-﻿using System;
-using L2ScriptMaker.Core.Parser;
+﻿using L2ScriptMaker.Parsers.Core;
+using System;
 using Xunit;
 
-namespace L2ScriptMaker.Tests.UnitTests.Core
+namespace L2ScriptMaker.Parsers.Tests
 {
 	public class InlineParamReaderTests
 	{

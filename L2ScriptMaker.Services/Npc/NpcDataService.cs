@@ -1,56 +1,37 @@
 ﻿using L2ScriptMaker.Core.Files;
-using L2ScriptMaker.Core.Mapper;
-using L2ScriptMaker.Core.Parser;
-using L2ScriptMaker.Models.Dto;
 using L2ScriptMaker.Models.Npc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Services.Npc
 {
-	public class NpcDataService : INpcDataService
+	public class NpcDataService : INpcDataService, IProgressService
 	{
-		private readonly ModelMapper<NpcDataDto> _mapper = new ModelMapper<NpcDataDto>();
+		private readonly ParserService<NpcData> _parser = new ParserService<NpcData>();
 
-		private const string StartPrefix = "npc_begin";
-		private const string EndPrefix = "npc_end";
+		#region IProgressService implementation
+		private IProgress<int> _progress;
+		public void WithProgress(IProgress<int> progress) => _progress = progress;
+		#endregion
 
-		public IEnumerable<NpcDataDto> Get(string dataFile)
+		#region IDataService implementation
+		public IEnumerable<NpcData> Get(string dataFile)
 		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile);
-			IEnumerable<string> filteredData = Collect(rawData);
-			return Parse(filteredData).ToList();
-		}
+			IEnumerable<string> rawData;
 
-		public IEnumerable<NpcDataDto> Get(string dataFile, IProgress<int> progress)
-		{
-			IEnumerable<string> rawData = FileUtils.Read(dataFile, progress);
-			IEnumerable<string> filteredData = Collect(rawData);
-			return Parse(filteredData).ToList();
-		}
+			if (_progress == null)
+			{
+				rawData = FileUtils.Read(dataFile);
+			}
+			else
+			{
+				rawData = FileUtils.Read(dataFile, _progress);
+			}
 
-		private IEnumerable<string> Collect(IEnumerable<string> lines)
-		{
-			return ParseService.Collect(lines, StartPrefix, EndPrefix);
+			return _parser.Do(rawData);
 		}
-
-		private NpcDataDto Parse(string record)
-		{
-			ParsedData data = ParseService.ToKeyValueCollection(record);
-			return _mapper.Map(data);
-		}
-
-		private IEnumerable<NpcDataDto> Parse(IEnumerable<string> data)
-		{
-			IEnumerable<NpcDataDto> result = data.Select(Parse);
-			return result;
-		}
-
-		public ServiceResult Generate(string NpcDataDir, string NpcDataFile, IProgress<int> progress)
-		{
-			throw new NotImplementedException();
-		}
+		#endregion
 
 		// npc_begin       warrior 20001   [gremlin]       category={}     level=1 exp=0 
 		public static string Print(NpcData model)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace L2ScriptMaker.Services.Skill
+﻿namespace L2ScriptMaker.Services.Skill
 {
 	public class SkillPchOptions
 	{

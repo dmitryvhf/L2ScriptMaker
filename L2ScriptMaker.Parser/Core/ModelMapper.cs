@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using L2ScriptMaker.Core;
 using L2ScriptMaker.Core.Attributes;
-using L2ScriptMaker.Core.Parser;
+using L2ScriptMaker.Parsers.Attributes;
 
-namespace L2ScriptMaker.Core.Mapper
+namespace L2ScriptMaker.Parsers.Core
 {
-	public class ModelMapper<T>
+	internal class ModelMapper<T>
 	{
 		private readonly Dictionary<string, RecordParamAttribute> _params;
 

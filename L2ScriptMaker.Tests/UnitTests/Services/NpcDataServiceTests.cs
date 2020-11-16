@@ -2,7 +2,6 @@
 using L2ScriptMaker.Services.Npc;
 using System.Collections.Generic;
 using System.Linq;
-using L2ScriptMaker.Models.Dto;
 using Xunit;
 
 namespace L2ScriptMaker.Tests.UnitTests.Services
@@ -15,7 +14,7 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 			//INpcDataService npcDataService = new NpcDataService();
 			//IEnumerable<string> rawData = GetNpcData();
 
-			//IEnumerable<NpcDataDto> result = npcDataService.Parse(rawData);
+			//IEnumerable<NpcData> result = npcDataService.Get(rawData);
 
 			//Assert.True(result.Any());
 		}

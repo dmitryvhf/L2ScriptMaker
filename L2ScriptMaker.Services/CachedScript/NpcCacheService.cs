@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using L2ScriptMaker.Models.CachedScript;
-using L2ScriptMaker.Models.Dto;
+using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Services.Npc;
 
 namespace L2ScriptMaker.Services.CachedScript
@@ -19,15 +19,16 @@ namespace L2ScriptMaker.Services.CachedScript
 			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
 			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
 
-			List<NpcDataDto> npcData = _npcDataService.Get(inNpcdataFile, progress).ToList();
+			_npcDataService.WithProgress(progress);
+			List<NpcData> npcDatas = _npcDataService.Get(inNpcdataFile).ToList();
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
-				for (var index = 0; index < npcData.Count; index++)
+				for (var index = 0; index < npcDatas.Count; index++)
 				{
-					NpcDataDto npcDataDto = npcData[index];
-					sw.WriteLine(Print(Map(npcDataDto)));
-					progress.Report((int)(index * 100 / npcData.Count));
+					NpcData npcData = npcDatas[index];
+					sw.WriteLine(Print(Map(npcData)));
+					progress.Report((int)(index * 100 / npcDatas.Count));
 				}
 			}
 			
@@ -36,7 +37,7 @@ namespace L2ScriptMaker.Services.CachedScript
 		#endregion
 
 		#region Private methods
-		private static NpcCache Map(NpcDataDto data)
+		private static NpcCache Map(NpcData data)
 		{
 			return new NpcCache
 			{

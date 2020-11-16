@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace L2ScriptMaker.Core.Parser
+namespace L2ScriptMaker.Parsers.Core
 {
-	public class ParsedData
+	internal class ParsedData
 	{
 		//public string Raw { get; set; }
 		public bool IsEmpty { get; set; }

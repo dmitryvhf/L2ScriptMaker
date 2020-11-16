@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
-namespace L2ScriptMaker.Core.Parser
+namespace L2ScriptMaker.Parsers.Core
 {
-	public static class ParseService
+	internal static class ParseService
 	{
 		private static readonly char[] SplitChars = new char[] { '\t', '\n' };
 
@@ -13,7 +13,7 @@ namespace L2ScriptMaker.Core.Parser
 		/// Collect one, from multiple, line record with start and end prefixies.
 		/// If prefixies empty, line return as-is.
 		/// </summary>
-		public static IEnumerable<string> Collect(IEnumerable<string> lines, string startPrefix, string endPrefix)
+		internal static IEnumerable<string> Collect(IEnumerable<string> lines, string startPrefix, string endPrefix)
 		{
 			IEnumerator<string> enumerator = lines.GetEnumerator();
 			string completeRecord = String.Empty;
@@ -59,7 +59,7 @@ namespace L2ScriptMaker.Core.Parser
 		/// Splitted with knowns symbols: tab or endline.
 		/// ParamValue defined with symbol '=' inside.
 		/// </summary>
-		public static ParsedData ToKeyValueCollection(string raw)
+		internal static ParsedData ToKeyValueCollection(string raw)
 		{
 			ParsedData result = new ParsedData { IsEmpty = true }; //, Raw = raw};
 
@@ -116,34 +116,14 @@ namespace L2ScriptMaker.Core.Parser
 		/// Splitted with knowns symbols: tab or endline.
 		/// ParamValue defined with symbol '=' inside.
 		/// </summary>
-		public static KeyValuePair<string, string> ToKeyValue(string raw)
-		{
-			//ParsedData result = new ParsedData { IsEmpty = true }; //, Raw = raw};
-
-			//if (String.IsNullOrWhiteSpace(raw))
-			//{
-			//	return null;
-			//}
-
-			//if (raw.StartsWith("//"))
-			//{
-			//	return null;
-			//}
-
-			Regex regex = new Regex("\\s*=\\s*");
-			string refinedRaw = regex.Replace(raw, "=");
-
-			KeyValuePair<string, string> keyvalue = GetPair(refinedRaw);
-
-			//result.Values = new ReadOnlyCollection<KeyValuePair<string, string>>(keyvalue);
-			//result.IsEmpty = false;
-
-			return keyvalue;
-		}
+		internal static KeyValuePair<string, string> ToKeyValue(string raw) => GetPair(raw);
 
 		private static KeyValuePair<string, string> GetPair(string value)
 		{
-			string[] parts = value.Split('=');
+			Regex regex = new Regex("\\s*=\\s*");
+			string refinedRaw = regex.Replace(value, "=");
+
+			string[] parts = refinedRaw.Split('=');
 
 			string leftPart = null;
 			string rightPart;

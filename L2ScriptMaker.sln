@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Tests", "L2Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2ScriptMaker.Forms", "L2ScriptMaker.Forms\L2ScriptMaker.Forms.csproj", "{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers", "L2ScriptMaker.Parser\L2ScriptMaker.Parsers.csproj", "{493BB30B-B222-4960-B18C-C0BDCC6CC277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2ScriptMaker.Parsers.Tests", "L2ScriptMaker.Parsers.Tests\L2ScriptMaker.Parsers.Tests.csproj", "{C2CB280A-033D-46B1-A115-7F15D52FCB3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493BB30B-B222-4960-B18C-C0BDCC6CC277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493BB30B-B222-4960-B18C-C0BDCC6CC277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493BB30B-B222-4960-B18C-C0BDCC6CC277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493BB30B-B222-4960-B18C-C0BDCC6CC277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CB280A-033D-46B1-A115-7F15D52FCB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CB280A-033D-46B1-A115-7F15D52FCB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CB280A-033D-46B1-A115-7F15D52FCB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CB280A-033D-46B1-A115-7F15D52FCB3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

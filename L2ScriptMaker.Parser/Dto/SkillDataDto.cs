@@ -1,9 +1,10 @@
 ﻿using L2ScriptMaker.Core.Attributes;
+using L2ScriptMaker.Parsers.Attributes;
 
-namespace L2ScriptMaker.Models.Dto
+namespace L2ScriptMaker.Parsers.Dto
 {
 	[Record(HasBrackets = true, StartBracket = "skill_begin", EndBracket = "skill_end")]
-	public class SkillDataDto
+	internal class SkillDataDto
 	{
 		// P
 		[RecordParam("skill_name", Brackets = Brackets.Square)]

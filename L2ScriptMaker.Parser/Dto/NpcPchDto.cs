@@ -1,9 +1,10 @@
 ﻿using L2ScriptMaker.Core.Attributes;
+using L2ScriptMaker.Parsers.Attributes;
 
-namespace L2ScriptMaker.Models.Dto
+namespace L2ScriptMaker.Parsers.Dto
 {
 	[Record(HasBrackets = false)]
-	public class NpcPchDto
+	internal class NpcPchDto
 	{
 		[RecordParam(1, Brackets = Brackets.Square)]
 		public string Name { get; set; }

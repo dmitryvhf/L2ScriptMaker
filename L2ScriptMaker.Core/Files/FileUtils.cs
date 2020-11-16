@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace L2ScriptMaker.Core.Files
 {
@@ -28,7 +27,6 @@ namespace L2ScriptMaker.Core.Files
 		public static IEnumerable<string> Read(string path, IProgress<int> progress)
 		{
 			int nextProgress = 0;
-			int currentProgress = 0;
 			int stepProgress = 10;
 
 			using (StreamReader sr = new StreamReader(path))
@@ -38,7 +36,7 @@ namespace L2ScriptMaker.Core.Files
 				while (!sr.EndOfStream)
 				{
 					string current = sr.ReadLine().Trim();
-					currentProgress = (int) (sr.BaseStream.Position * 100 / dataLenght);
+					int currentProgress = (int) (sr.BaseStream.Position * 100 / dataLenght);
 					if (currentProgress > nextProgress)
 					{
 						progress.Report(currentProgress);
