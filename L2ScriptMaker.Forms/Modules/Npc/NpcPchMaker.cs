@@ -31,10 +31,10 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 
-			string NpcDataFile = fileDialogService.FileName;
-			string NpcDataDir = fileDialogService.FileDirectory;
+			string npcDataFile = fileDialogService.FileName;
+			string npcDataDir = fileDialogService.FileDirectory;
 
-			if (File.Exists(NpcDataDir + "\\" + NpcContants.NpcPchFileName))
+			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcPchFileName))
 			{
 				if (MessageBox.Show($"File {NpcContants.NpcPchFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 					return;
@@ -46,7 +46,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			Task.Run(() =>
 			{
 				_npcPchService.With(progress);
-				_npcPchService.Generate(NpcDataDir, NpcDataFile);
+				_npcPchService.Generate(npcDataDir, npcDataFile);
 			}).ContinueWith(task =>
 			{
 				this.Invoker(() =>
@@ -67,10 +67,10 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 
-			string NpcDataFile = fileDialogService.FileName;
-			string NpcDataDir = fileDialogService.FileDirectory;
+			string npcDataFile = fileDialogService.FileName;
+			string npcDataDir = fileDialogService.FileDirectory;
 
-			if (File.Exists(NpcDataDir + "\\" + NpcContants.NpcCacheFileName))
+			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcCacheFileName))
 			{
 				if (MessageBox.Show($"File {NpcContants.NpcCacheFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 					return;
@@ -82,7 +82,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			Task.Run(() =>
 			{
 				_npcCacheService.With(progress);
-				_npcCacheService.Generate(NpcDataDir, NpcDataFile);
+				_npcCacheService.Generate(npcDataDir, npcDataFile);
 			}).ContinueWith(task =>
 			{
 				this.Invoker(() =>

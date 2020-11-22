@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using L2ScriptMaker.Forms.Modules.AI;
 // using L2ScriptMaker.Forms.Modules.AI;
 using L2ScriptMaker.Modules.AI;
 using L2ScriptMaker.Modules.Geodata;
@@ -76,7 +77,8 @@ namespace L2ScriptMaker
 
 		private void ButtonAIMessageImporter_Click(object sender, EventArgs e)
 		{
-			new AIMessageImporter().ShowDialog();
+			//new AIMessageImporter().ShowDialog();
+			new AIMessages().ShowDialog();
 		}
 
 		private void ButtonAIMessageTeleportImporter_Click(object sender, EventArgs e)

@@ -117,15 +117,14 @@
 		}
 
 		#endregion
-
-		internal System.Windows.Forms.Button QuitButton;
 		internal System.Windows.Forms.SaveFileDialog SaveFileDialog;
 		internal System.Windows.Forms.OpenFileDialog OpenFileDialog;
-		internal System.Windows.Forms.PictureBox PictureBox1;
 		internal System.Windows.Forms.ProgressBar ProgressBar;
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.CheckedListBox clbCollect;
 		private System.Windows.Forms.Button btnStart;
 		private System.Windows.Forms.TextBox txbAiFile;
+		private System.Windows.Forms.Button QuitButton;
+		private System.Windows.Forms.PictureBox PictureBox1;
 	}
 }

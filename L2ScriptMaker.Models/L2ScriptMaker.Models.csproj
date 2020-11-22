@@ -10,8 +10,4 @@
     <None Remove="Items\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
-  </ItemGroup>
-
 </Project>

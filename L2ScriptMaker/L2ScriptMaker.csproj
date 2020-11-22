@@ -107,12 +107,6 @@
     <Compile Include="Modules\AI\AiInjector.Designer.cs">
       <DependentUpon>AiInjector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\AI\AIMessageImporter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AIMessageImporter.Designer.cs">
-      <DependentUpon>AIMessageImporter.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modules\AI\AIMessageTeleportImporter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -565,9 +559,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AiInjector.resx">
       <DependentUpon>AiInjector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\AI\AIMessageImporter.resx">
-      <DependentUpon>AIMessageImporter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\AI\AIMessageTeleportImporter.resx">
       <DependentUpon>AIMessageTeleportImporter.cs</DependentUpon>
