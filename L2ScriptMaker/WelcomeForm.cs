@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using L2ScriptMaker.Forms.Modules;
 using L2ScriptMaker.Forms.Modules.AI;
 // using L2ScriptMaker.Forms.Modules.AI;
 using L2ScriptMaker.Modules.AI;
@@ -437,5 +438,10 @@ namespace L2ScriptMaker
 			new SkillDataGeneratorCT1().ShowDialog();
 		}
 		#endregion
+
+		private void btnSettings_Click(object sender, EventArgs e)
+		{
+			new SettingsForm().ShowDialog();
+		}
 	}
 }

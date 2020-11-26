@@ -79,6 +79,12 @@
     <Compile Include="Modules\Npc\NpcPchMaker.Designer.cs">
       <DependentUpon>NpcPchMaker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Skills\SkillPch2Maker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Npc\NpcPchMaker.resx">
       <DependentUpon>NpcPchMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Skills\SkillPch2Maker.resx">
       <DependentUpon>SkillPch2Maker.cs</DependentUpon>

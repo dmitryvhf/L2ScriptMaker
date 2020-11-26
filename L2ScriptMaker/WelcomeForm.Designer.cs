@@ -120,6 +120,7 @@
 			this.ButtonAbout = new System.Windows.Forms.Button();
 			this.QuitButton = new System.Windows.Forms.Button();
 			this.Label1 = new System.Windows.Forms.Label();
+			this.btnSettings = new System.Windows.Forms.Button();
 			this.TabPage6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
 			this.TabPage8.SuspendLayout();
@@ -424,7 +425,7 @@
 			// 
 			// CheckUpdateButton
 			// 
-			this.CheckUpdateButton.Location = new System.Drawing.Point(103, 186);
+			this.CheckUpdateButton.Location = new System.Drawing.Point(99, 205);
 			this.CheckUpdateButton.Name = "CheckUpdateButton";
 			this.CheckUpdateButton.Size = new System.Drawing.Size(17, 23);
 			this.CheckUpdateButton.TabIndex = 19;
@@ -435,7 +436,7 @@
 			// PictureBox1
 			// 
 			this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-			this.PictureBox1.Location = new System.Drawing.Point(12, 12);
+			this.PictureBox1.Location = new System.Drawing.Point(12, 31);
 			this.PictureBox1.Name = "PictureBox1";
 			this.PictureBox1.Size = new System.Drawing.Size(108, 168);
 			this.PictureBox1.TabIndex = 17;
@@ -880,7 +881,7 @@
 			this.TabControl1.Controls.Add(this.TabPage7);
 			this.TabControl1.Controls.Add(this.TabPage8);
 			this.TabControl1.HotTrack = true;
-			this.TabControl1.Location = new System.Drawing.Point(128, 34);
+			this.TabControl1.Location = new System.Drawing.Point(126, 31);
 			this.TabControl1.Multiline = true;
 			this.TabControl1.Name = "TabControl1";
 			this.TabControl1.SelectedIndex = 0;
@@ -1085,7 +1086,7 @@
 			// 
 			// ButtonAbout
 			// 
-			this.ButtonAbout.Location = new System.Drawing.Point(18, 186);
+			this.ButtonAbout.Location = new System.Drawing.Point(18, 205);
 			this.ButtonAbout.Name = "ButtonAbout";
 			this.ButtonAbout.Size = new System.Drawing.Size(75, 23);
 			this.ButtonAbout.TabIndex = 15;
@@ -1094,7 +1095,7 @@
 			// 
 			// QuitButton
 			// 
-			this.QuitButton.Location = new System.Drawing.Point(18, 244);
+			this.QuitButton.Location = new System.Drawing.Point(18, 263);
 			this.QuitButton.Name = "QuitButton";
 			this.QuitButton.Size = new System.Drawing.Size(75, 23);
 			this.QuitButton.TabIndex = 16;
@@ -1105,17 +1106,28 @@
 			// 
 			this.Label1.AutoSize = true;
 			this.Label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.Label1.Location = new System.Drawing.Point(126, 12);
+			this.Label1.Location = new System.Drawing.Point(123, 9);
 			this.Label1.Name = "Label1";
 			this.Label1.Size = new System.Drawing.Size(149, 18);
 			this.Label1.TabIndex = 14;
 			this.Label1.Text = "Select need maker";
 			// 
+			// btnSettings
+			// 
+			this.btnSettings.Location = new System.Drawing.Point(18, 234);
+			this.btnSettings.Name = "btnSettings";
+			this.btnSettings.Size = new System.Drawing.Size(75, 23);
+			this.btnSettings.TabIndex = 20;
+			this.btnSettings.Text = "Settings";
+			this.btnSettings.UseVisualStyleBackColor = true;
+			this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+			// 
 			// WelcomeForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(515, 305);
+			this.ClientSize = new System.Drawing.Size(504, 299);
+			this.Controls.Add(this.btnSettings);
 			this.Controls.Add(this.CheckUpdateButton);
 			this.Controls.Add(this.PictureBox1);
 			this.Controls.Add(this.TabControl1);
@@ -1236,5 +1248,6 @@
 		internal System.Windows.Forms.Button ButtonAbout;
 		internal System.Windows.Forms.Button QuitButton;
 		internal System.Windows.Forms.Label Label1;
+		private System.Windows.Forms.Button btnSettings;
 	}
 }
