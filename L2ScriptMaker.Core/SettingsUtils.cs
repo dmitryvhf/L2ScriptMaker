@@ -9,14 +9,13 @@ namespace L2ScriptMaker.Core
 	{
 		public static GlobalSettings Settings { get; private set; }
 
-		public static string AppConfigName = "L2ScriptMaker.cfg";
+		private const string AppConfigName = "L2ScriptMaker.cfg";
 
 		private static void Init()
 		{
 			if(Settings != null) return;
 
-			Settings = new GlobalSettings();
-			Settings.WorkFolder = Environment.CurrentDirectory;
+			InitDefaultValues();
 		}
 
 		public static void Load()
@@ -37,6 +36,14 @@ namespace L2ScriptMaker.Core
 		{
 			string configPath =  Path.Combine(Environment.CurrentDirectory, AppConfigName);
 			SerializeUtils.Serialize(Settings, configPath);
+		}
+
+		private static void InitDefaultValues()
+		{
+			Settings = new GlobalSettings();
+			
+			Settings.WorkFolder = Environment.CurrentDirectory;
+			Settings.LogsFolder = Settings.WorkFolder;
 		}
 	}
 }
