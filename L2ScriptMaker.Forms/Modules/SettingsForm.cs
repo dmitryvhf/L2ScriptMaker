@@ -46,6 +46,9 @@ namespace L2ScriptMaker.Forms.Modules
 		{
 			btnClose.Click += btnClose_Click;
 
+			_controlErrors.TryAdd(nameof(txbWorkFolder), false);
+			_controlErrors.TryAdd(nameof(txbLogsFolder), false);
+
 			txbWorkFolder.DoubleClick += txbBoxFolder_DoubleClick;
 			txbWorkFolder.TextChanged += txbBoxFolder_TextChanged;
 

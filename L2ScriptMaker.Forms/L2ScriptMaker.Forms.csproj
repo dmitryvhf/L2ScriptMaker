@@ -1,153 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D88AE68-5ABA-48DB-B281-466A3F9A5DA8}</ProjectGuid>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <RootNamespace>L2ScriptMaker.Forms</RootNamespace>
-    <AssemblyName>L2ScriptMaker.Forms</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Messaging" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
+    <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
+    <ProjectReference Include="..\L2ScriptMaker.Services\L2ScriptMaker.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AiDecompilerPack\AiEvent.cs" />
-    <Compile Include="Models\AiDecompilerPack\AiFetch.cs" />
-    <Compile Include="Models\AiDecompilerPack\AiFunc.cs" />
-    <Compile Include="Models\AiDecompilerPack\AiHandler.cs" />
-    <Compile Include="Modules\AI\AiBuyselllistEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AiBuyselllistEditor.Designer.cs">
-      <DependentUpon>AiBuyselllistEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\AI\AiDecompilerPack.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AiDecompilerPack.Designer.cs">
-      <DependentUpon>AiDecompilerPack.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\AI\AIMessages.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\AI\AIMessages.Designer.cs">
-      <DependentUpon>AIMessages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Npc\NpcPchMaker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\Npc\NpcPchMaker.Designer.cs">
-      <DependentUpon>NpcPchMaker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Skills\SkillPch2Maker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Modules\Skills\SkillPch2Maker.Designer.cs">
-      <DependentUpon>SkillPch2Maker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\FileDialogService.cs" />
-    <EmbeddedResource Include="Modules\AI\AiBuyselllistEditor.resx">
-      <DependentUpon>AiBuyselllistEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\AI\AiDecompilerPack.resx">
-      <DependentUpon>AiDecompilerPack.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\AI\AIMessages.resx">
-      <DependentUpon>AIMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Npc\NpcPchMaker.resx">
-      <DependentUpon>NpcPchMaker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Skills\SkillPch2Maker.resx">
-      <DependentUpon>SkillPch2Maker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.212405">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj">
-      <Project>{4e51a7c6-6f92-494c-b0aa-8d1245379fbf}</Project>
-      <Name>L2ScriptMaker.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj">
-      <Project>{48272609-A960-4610-BBE3-426150B513B8}</Project>
-      <Name>L2ScriptMaker.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\L2ScriptMaker.Services\L2ScriptMaker.Services.csproj">
-      <Project>{90b5a5ee-da5b-4a4d-87ad-9d93328d026f}</Project>
-      <Name>L2ScriptMaker.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
