@@ -10,7 +10,7 @@ namespace L2ScriptMaker.Tests.IntegrationTests.Core
 {
 	public class FileUtilsTests
 	{
-		string[] GetFileData()
+		static string[] GetFileData()
 		{
 			return new string[]
 			{

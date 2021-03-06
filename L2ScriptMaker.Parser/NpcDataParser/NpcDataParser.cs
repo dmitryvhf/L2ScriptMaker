@@ -16,12 +16,12 @@ namespace L2ScriptMaker.Parsers
 		public IEnumerable<NpcData> Do(IEnumerable<string> rawData)
 		{
 			IEnumerable<string> filteredData = Collect(rawData);
-
 			List<NpcDataDto> dtoData = Parse(filteredData).ToList();
+
 			return AutoMapService.Map<NpcDataDto, NpcData>(dtoData);
 		}
 
-		private IEnumerable<string> Collect(IEnumerable<string> lines)
+		private static IEnumerable<string> Collect(IEnumerable<string> lines)
 		{
 			return ParseService.Collect(lines, StartPrefix, EndPrefix);
 		}

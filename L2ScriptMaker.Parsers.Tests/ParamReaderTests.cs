@@ -30,7 +30,6 @@ namespace L2ScriptMaker.Parsers.Tests
 			Assert.Null(result1);
 		}
 
-
 		[Fact]
 		public void Get_ValueWithoutParam()
 		{
@@ -47,7 +46,25 @@ namespace L2ScriptMaker.Parsers.Tests
 			string raw = "val1=1\tval2=TestMessage";
 			ParsedData data = ParseService.ToKeyValueCollection(raw);
 
-			Assert.Throws<InvalidCastException>(()=> data.GetValue<int>("val3"));
+			Assert.Throws<InvalidCastException>(() => data.GetValue<int>("val3"));
+		}
+
+		[Fact]
+		public void CommentLine_IsEmpty()
+		{
+			string raw = "// val1=1\tval2=TestMessage";
+			ParsedData data = ParseService.ToKeyValueCollection(raw);
+
+			Assert.True(data.IsEmpty);
+		}
+
+		[Fact]
+		public void EmptyLine_IsEmpty()
+		{
+			string raw = string.Empty;
+			ParsedData data = ParseService.ToKeyValueCollection(raw);
+
+			Assert.True(data.IsEmpty);
 		}
 	}
 }

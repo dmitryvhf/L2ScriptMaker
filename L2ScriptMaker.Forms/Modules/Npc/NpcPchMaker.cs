@@ -1,11 +1,11 @@
-﻿using L2ScriptMaker.Forms.Services;
+﻿using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.Forms.Services;
 using L2ScriptMaker.Services.CachedScript;
 using L2ScriptMaker.Services.Npc;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using L2ScriptMaker.Core.WinForms;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {

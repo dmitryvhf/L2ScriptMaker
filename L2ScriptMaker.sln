@@ -19,6 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers", "L2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers.Tests", "L2ScriptMaker.Parsers.Tests\L2ScriptMaker.Parsers.Tests.csproj", "{C2CB280A-033D-46B1-A115-7F15D52FCB3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCFAA41F-1E59-44D9-B614-9BFA9AAF95AB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C155091-5472-4DB2-9CA0-AFBA67334A8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +67,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{43538929-8755-44BD-B064-C01E6B2C04A2} = {1C155091-5472-4DB2-9CA0-AFBA67334A8A}
+		{C2CB280A-033D-46B1-A115-7F15D52FCB3B} = {1C155091-5472-4DB2-9CA0-AFBA67334A8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6963BEBE-BDBC-469E-B00A-B259488C86BC}

@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace L2ScriptMaker.Services.Manual
 {
-	enum ManualVariables
+	internal enum ManualVariables
 	{
 		Race,
 		Clan,
@@ -32,32 +31,52 @@ namespace L2ScriptMaker.Services.Manual
 		#region Public methods
 		public int GetAbnormalId(string abnormal)
 		{
-			if (abnormal == null || abnormal == "none") return -1;
+			if (abnormal == null || abnormal == "none")
+			{
+				return -1;
+			}
 
-			if (!abnormal.StartsWith("ab_")) abnormal = "ab_" + abnormal;
+			if (!abnormal.StartsWith("ab_"))
+			{
+				abnormal = "ab_" + abnormal;
+			}
 
 			if (_abnormals.ContainsKey(abnormal))
+			{
 				return _abnormals[abnormal];
+			}
 
 			return -1; // "ab_none";
 		}
 
 		public int GetAttributeId(string attribute)
 		{
-			if (attribute == null) return 0;
+			if (attribute == null)
+			{
+				return 0;
+			}
 
-			if (_attributes.ContainsKey(attribute)) return _attributes[attribute];
+			if (_attributes.ContainsKey(attribute))
+			{
+				return _attributes[attribute];
+			}
 
 			return 0; // "attr_none";
 		}
 
 		public int GetTargetId(string target)
 		{
-			if (target == null) return 0;
-			
+			if (target == null)
+			{
+				return 0;
+			}
+
 			target = "stgt_" + target;
 
-			if (_targets.ContainsKey(target)) return _targets[target];
+			if (_targets.ContainsKey(target))
+			{
+				return _targets[target];
+			}
 
 			return 0; // "self";
 		}
@@ -78,7 +97,7 @@ namespace L2ScriptMaker.Services.Manual
 			return a.StartsWith("[ab_") || a.StartsWith("[attr_") || a.StartsWith("[STGT_");
 		}
 
-		private void ParseManualPch(string[] manualPchData, string prefix, Dictionary<string, int> dictionary)
+		private static void ParseManualPch(string[] manualPchData, string prefix, Dictionary<string, int> dictionary)
 		{
 			// string regexPattern = $"\\[{prefix}[a-zA-Z_]\\]\\s?=\\s?\\d";
 
@@ -86,7 +105,10 @@ namespace L2ScriptMaker.Services.Manual
 			foreach (string raw in manualPchData)
 			{
 				string line = raw.ToLower().Trim();
-				if (!line.StartsWith(pref)) continue;
+				if (!line.StartsWith(pref))
+				{
+					continue;
+				}
 
 				// [ab_pa_up]      =       0
 				string[] data = line.Split('=');

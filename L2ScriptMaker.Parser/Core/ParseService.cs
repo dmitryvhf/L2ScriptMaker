@@ -76,7 +76,7 @@ namespace L2ScriptMaker.Parsers.Core
 			Regex regex = new Regex("\\s*=\\s*");
 			string refinedRaw = regex.Replace(raw, "=");
 
-			var splited = refinedRaw.Split(SplitChars, StringSplitOptions.RemoveEmptyEntries);
+			string[] splited = refinedRaw.Split(SplitChars, StringSplitOptions.RemoveEmptyEntries);
 			if (splited.Length == 0) return result;
 
 			List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();

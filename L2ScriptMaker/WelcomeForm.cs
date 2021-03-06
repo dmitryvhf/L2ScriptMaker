@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using L2ScriptMaker.Forms.Modules;
 using L2ScriptMaker.Forms.Modules.AI;
 // using L2ScriptMaker.Forms.Modules.AI;
+using L2ScriptMaker.Forms.Modules.Geodata;
 using L2ScriptMaker.Modules.AI;
 using L2ScriptMaker.Modules.Geodata;
 using L2ScriptMaker.Modules.Items;
@@ -111,7 +112,7 @@ namespace L2ScriptMaker
 
 		private void Button6_Click(object sender, EventArgs e)
 		{
-			new GeoIndexGen().ShowDialog();
+			new GeoIndexGenerator().ShowDialog();
 		}
 
 		private void GeonameLocationButton_Click(object sender, EventArgs e)

@@ -9,7 +9,7 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 {
 	public class NpcDataServiceTests
 	{
-		[Fact]
+		[Fact(Skip = "NotImplementedException")]
 		public void ParseData()
 		{
 			throw new NotImplementedException();

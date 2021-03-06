@@ -1,12 +1,12 @@
 ﻿using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.WinForms;
 using L2ScriptMaker.Models.Npc;
+using L2ScriptMaker.Parsers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Core.WinForms;
-using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Services.Npc
 {
@@ -54,11 +54,11 @@ namespace L2ScriptMaker.Services.Npc
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
-				for (var index = 0; index < npcData.Count; index++)
+				for (int index = 0; index < npcData.Count; index++)
 				{
 					NpcData npcDataDto = npcData[index];
 					sw.WriteLine(Print(Map(npcDataDto)));
-					_progress.Report((int)(index * 100 / npcData.Count));
+					_progress.Report(index * 100 / npcData.Count);
 				}
 			}
 
@@ -75,7 +75,7 @@ namespace L2ScriptMaker.Services.Npc
 			return $"[{model.Name}] = {model.Id}";
 		}
 
-		private NpcPch Map(NpcData data)
+		private static NpcPch Map(NpcData data)
 		{
 			return new NpcPch
 			{

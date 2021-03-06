@@ -9,7 +9,7 @@ namespace L2ScriptMaker.Tests.UnitTests.Services
 {
 	public class NpcPchServiceTests
 	{
-		[Fact]
+		[Fact(Skip = "NotImplementedException")]
 		public void GenerateData()
 		{
 			throw new NotImplementedException();

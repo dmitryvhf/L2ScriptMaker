@@ -1,10 +1,10 @@
-﻿using System;
+﻿using L2ScriptMaker.Models.Skill;
+using L2ScriptMaker.Services.Manual;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using L2ScriptMaker.Models.Skill;
-using L2ScriptMaker.Services.Manual;
 
 namespace L2ScriptMaker.Services.Skill
 {
@@ -15,13 +15,20 @@ namespace L2ScriptMaker.Services.Skill
 
 		public SkillPchService(SkillPchOptions options)
 		{
-			if(String.IsNullOrWhiteSpace(options.ManualPchFile)) throw new ArgumentException("manual_pch");
+			if (string.IsNullOrWhiteSpace(options.ManualPchFile))
+			{
+				throw new ArgumentException("manual_pch");
+			}
+
 			_manualPchService = new ManualPchService(options.ManualPchFile);
 		}
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;
-		public void With(IProgress<int> progress) => _progress = progress;
+		public void With(IProgress<int> progress)
+		{
+			_progress = progress;
+		}
 		#endregion
 
 		#region IGenerateService implementation
@@ -39,7 +46,7 @@ namespace L2ScriptMaker.Services.Skill
 
 			using (StreamWriter sw = new StreamWriter(outPchFile, false, Encoding.Unicode))
 			{
-				for (var index = 0; index < skillDatas.Count; index++)
+				for (int index = 0; index < skillDatas.Count; index++)
 				{
 					SkillData skillData = skillDatas[index];
 					SkillPch pch = Map(skillData);
@@ -48,7 +55,7 @@ namespace L2ScriptMaker.Services.Skill
 					sw.WriteLine(Print(pch));
 					sw2.WriteLine(Print(pch2));
 
-					_progress.Report((int)(index * 100 / skillDatas.Count));
+					_progress.Report(index * 100 / skillDatas.Count);
 				}
 			}
 
@@ -61,7 +68,7 @@ namespace L2ScriptMaker.Services.Skill
 		#endregion
 
 		#region Private methods
-		private SkillPch Map(SkillData data)
+		private static SkillPch Map(SkillData data)
 		{
 			return new SkillPch
 			{
@@ -106,7 +113,10 @@ namespace L2ScriptMaker.Services.Skill
 
 		private static int CalculateHitTime(double HitTime, double CoolTime)
 		{
-			if (HitTime == 0) return 0;
+			if (HitTime == 0)
+			{
+				return 0;
+			}
 
 			double result = Math.Round((HitTime + CoolTime), MidpointRounding.AwayFromZero);
 
@@ -143,7 +153,7 @@ namespace L2ScriptMaker.Services.Skill
 				"-12345"
 			};
 
-			return String.Join(" ", skillPch2Params);
+			return string.Join(" ", skillPch2Params);
 		}
 		#endregion
 	}
