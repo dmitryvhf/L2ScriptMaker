@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using L2ScriptMaker.Forms.Modules;
 using L2ScriptMaker.Forms.Modules.AI;
-// using L2ScriptMaker.Forms.Modules.AI;
 using L2ScriptMaker.Forms.Modules.Geodata;
 using L2ScriptMaker.Modules.AI;
 using L2ScriptMaker.Modules.Geodata;
@@ -117,7 +116,7 @@ namespace L2ScriptMaker
 
 		private void GeonameLocationButton_Click(object sender, EventArgs e)
 		{
-			new GeoLocConverter().ShowDialog();
+			new GeoNumberConverter().ShowDialog();
 		}
 
 		private void NullPosFixerButton_Click(object sender, EventArgs e)
