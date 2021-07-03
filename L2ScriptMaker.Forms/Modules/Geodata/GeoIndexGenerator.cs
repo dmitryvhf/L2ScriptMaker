@@ -1,8 +1,7 @@
-﻿using L2ScriptMaker.Core;
-using System;
-using System.Data;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using L2ScriptMaker.Core.Settings;
 
 namespace L2ScriptMaker.Forms.Modules.Geodata
 {
@@ -26,10 +25,10 @@ namespace L2ScriptMaker.Forms.Modules.Geodata
 			}
 
 			string selectedPath = folderDialog.SelectedPath;
-			string[] GeoFiles = System.IO.Directory.GetFiles(selectedPath, "*.dat")
-				.Select(a => System.IO.Path.GetFileName(a))
+			string[] geoFiles = System.IO.Directory.GetFiles(selectedPath, "*.dat")
+				.Select(System.IO.Path.GetFileName)
 				.ToArray();
-			if (GeoFiles.Length < 1)
+			if (geoFiles.Length < 1)
 			{
 				MessageBox.Show("No Geofiles into this folder. Select correct folder", "No geodata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
@@ -44,8 +43,8 @@ namespace L2ScriptMaker.Forms.Modules.Geodata
 			}
 
 			System.IO.StreamWriter outGeoFile = new System.IO.StreamWriter(selectedPath + @"\geo_index.txt", false, System.Text.Encoding.ASCII, 1);
-			outGeoFile.WriteLine(GeoFiles.Length);
-			foreach (string geoname in GeoFiles)
+			outGeoFile.WriteLine(geoFiles.Length);
+			foreach (string geoname in geoFiles)
 			{
 				outGeoFile.WriteLine(geoname);
 			}

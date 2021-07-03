@@ -51,6 +51,12 @@ namespace L2ScriptMaker.Core.Files
 			progress.Report(100);
 		}
 
+		/// <summary>
+		/// Create new file and write all text
+		/// </summary>
+		/// <param name="data">Text strings</param>
+		/// <param name="targetPath">Output file path</param>
+		/// <param name="encoding">File encoding</param>
 		public static void Save(IEnumerable<string> data, string targetPath, Encoding encoding)
 		{
 			File.WriteAllLines(targetPath, data, encoding);

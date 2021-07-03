@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using L2ScriptMaker.Core.Settings.Models;
 
-namespace L2ScriptMaker.Core
+namespace L2ScriptMaker.Core.Settings
 {
 	public static class SettingsUtils
 	{

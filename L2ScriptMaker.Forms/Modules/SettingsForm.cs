@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using L2ScriptMaker.Core;
+using L2ScriptMaker.Core.Settings;
+using L2ScriptMaker.Core.Settings.Models;
 
 namespace L2ScriptMaker.Forms.Modules
 {
