@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using L2ScriptMaker.Core.Logger;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {
@@ -13,6 +14,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 	{
 		private readonly INpcPchService _npcPchService;
 		private readonly INpcCacheService _npcCacheService;
+		private readonly ILogger _logger;
 
 		public NpcPchMaker()
 		{
@@ -20,6 +22,8 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			_npcPchService = new NpcPchService();
 			_npcCacheService = new NpcCacheService();
+
+			_logger = new Logger(nameof(NpcPchMaker));
 		}
 
 		private void StartButton_Click(object sender, EventArgs e)
@@ -45,6 +49,8 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			Task.Run(() =>
 			{
+				_logger.Write(LogLevel.Information, "Generation started");
+
 				_npcPchService.With(progress);
 				_npcPchService.Generate(npcDataDir, npcDataFile);
 			}).ContinueWith(task =>
@@ -54,6 +60,8 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 					StartButton.Enabled = true;
 					ProgressBar.Value = 0;
 				});
+				
+				_logger.Write(LogLevel.Information, "Generation completed.");
 				MessageBox.Show("Success.", "Complete");
 			});
 		}

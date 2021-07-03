@@ -34,16 +34,17 @@ namespace L2ScriptMaker.Core
 
 		public static void Save()
 		{
-			string configPath =  Path.Combine(Environment.CurrentDirectory, AppConfigName);
+			string configPath = Path.Combine(Environment.CurrentDirectory, AppConfigName);
 			SerializeUtils.Serialize(Settings, configPath);
 		}
 
 		private static void InitDefaultValues()
 		{
-			Settings = new GlobalSettings();
-			
-			Settings.WorkFolder = Environment.CurrentDirectory;
-			Settings.LogsFolder = Settings.WorkFolder;
+			Settings = new GlobalSettings
+			{
+				WorkFolder = Environment.CurrentDirectory,
+				LogsFolder = Environment.CurrentDirectory
+			};
 		}
 	}
 }
