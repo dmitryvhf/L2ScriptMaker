@@ -8,25 +8,24 @@ namespace L2ScriptMaker.Core
 {
 	public static class SerializeUtils
 	{
-		//Десериализация (чтение состояния модели)
-		public static T Deserialize<T>(string path)
-		{
-			var result = default(T);
-			using (var stream = new StreamReader(path))
-			{
-				var serializer = new XmlSerializer(typeof(T));
-				result = (T)serializer.Deserialize(stream);
-			}
-			return result;
-		}
-
-		//Сериализация (сохранение состояния модели)
 		public static void Serialize<T>(T obj, string path)
 		{
 			using (var stream = new StreamWriter(path))
 			{
+				var ns = new XmlSerializerNamespaces();
+				ns.Add("", "");
+
 				var serializer = new XmlSerializer(typeof(T));
-				serializer.Serialize(stream, obj);
+				serializer.Serialize(stream, obj, ns);
+			}
+		}
+
+		public static T Deserialize<T>(string path)
+		{
+			using (var stream = new StreamReader(path))
+			{
+				var serializer = new XmlSerializer(typeof(T));
+				return (T)serializer.Deserialize(stream);
 			}
 		}
 	}
