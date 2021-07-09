@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using L2ScriptMaker.Core;
+using L2ScriptMaker.Models.Common;
 
 namespace L2ScriptMaker.Parsers.Core
 {
@@ -139,6 +141,37 @@ namespace L2ScriptMaker.Parsers.Core
 			}
 
 			return new KeyValuePair<string, string>(leftPart, rightPart);
+		}
+
+		/// <summary>
+		/// Parser of simple line.
+		/// Detecting empty or commented line.
+		/// Spliting data by blocks.
+		/// </summary>
+		/// <param name="row"></param>
+		/// <returns></returns>
+		public static Maybe<ParsedLine> ParseSimple(string row)
+		{
+			if (String.IsNullOrWhiteSpace(row) || row.StartsWith("//"))
+			{
+				return Maybe<ParsedLine>.Nothing;
+			}
+
+			ParsedLine result = new ParsedLine();
+			string cleanedRaw = row.Trim();
+
+			int commentIndex = cleanedRaw.IndexOf("//", StringComparison.Ordinal);
+			if (commentIndex != -1)
+			{
+				// extract commentary
+				result.Comment = cleanedRaw.Remove(0, commentIndex + 2).Trim();
+				cleanedRaw = cleanedRaw.Remove(commentIndex);
+			}
+
+			result.Values = cleanedRaw
+				.Split(Constants.SpaceSplitChars, StringSplitOptions.RemoveEmptyEntries);
+
+			return Maybe<ParsedLine>.Value(result);
 		}
 
 		//public InlineData Read(string raw)

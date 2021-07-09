@@ -16,6 +16,7 @@ namespace L2ScriptMaker.Services.CachedScript
 		#region IProgressService implementation
 		private IProgress<int> _progress;
 		public void With(IProgress<int> progress) => _progress = progress;
+		public void Unbind() => _progress = null;
 		#endregion
 
 		#region WinForms service
@@ -57,6 +58,7 @@ namespace L2ScriptMaker.Services.CachedScript
 			string formattedId = model.Id.ToString().PadRight(5);
 			return $"{formattedId}\t{model.Name}";
 		}
+
 		#endregion
 	}
 }

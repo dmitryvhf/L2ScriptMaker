@@ -90,7 +90,7 @@ namespace L2ScriptMaker.Forms.Modules
 			string initText = textBoxElement.Text;
 			if (!String.IsNullOrWhiteSpace(initText))
 			{
-				folderBrowserDialog.SelectedPath = initText;
+				folderBrowserDialog.InitialDirectory = initText;
 			}
 			
 			if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;

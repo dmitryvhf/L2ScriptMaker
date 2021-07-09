@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using L2ScriptMaker.Models.Common;
 
 namespace L2ScriptMaker.Parsers.Core
 {

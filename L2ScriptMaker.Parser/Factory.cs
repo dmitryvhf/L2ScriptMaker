@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using L2ScriptMaker.Core.Logger;
+using L2ScriptMaker.Models.Ai;
 using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Models.Skill;
 
@@ -14,7 +16,14 @@ namespace L2ScriptMaker.Parsers
 
 		public ParserService()
 		{
-			if (typeof(T) == typeof(NpcData))
+
+			ILogger logger = new Logger();
+
+			if (typeof(T) == typeof(AiClass))
+			{
+				_parser = (IParserService<T>)new AiClassParser();
+			}
+			else if (typeof(T) == typeof(NpcData))
 			{
 				_parser = (IParserService<T>)new NpcDataParser();
 			}
@@ -28,6 +37,7 @@ namespace L2ScriptMaker.Parsers
 			}
 			else
 			{
+				logger.Write(LogLevel.Critical, $"Not supported parser for type {typeof(T)}");
 				throw new NotSupportedException($"Not supported parser for type {typeof(T)}");
 			}
 		}

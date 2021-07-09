@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using L2ScriptMaker.Core.Attributes;
+using L2ScriptMaker.Models.Common;
 using L2ScriptMaker.Parsers.Attributes;
 using L2ScriptMaker.Parsers.Core;
 using Xunit;

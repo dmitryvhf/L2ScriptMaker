@@ -68,7 +68,7 @@ namespace L2ScriptMaker
 
 		private void CheckAIHandlerButton_Click(object sender, EventArgs e)
 		{
-			new AIHandlersChecker().ShowDialog();
+			new Forms.Modules.AI.AIHandlersChecker().ShowDialog();
 		}
 
 		private void ButtonAiInjector_Click(object sender, EventArgs e)

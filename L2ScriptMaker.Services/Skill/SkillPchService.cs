@@ -29,6 +29,8 @@ namespace L2ScriptMaker.Services.Skill
 		{
 			_progress = progress;
 		}
+		public void Unbind() => _progress = null;
+
 		#endregion
 
 		#region IGenerateService implementation

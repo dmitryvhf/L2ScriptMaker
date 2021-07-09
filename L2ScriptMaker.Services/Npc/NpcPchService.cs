@@ -18,6 +18,8 @@ namespace L2ScriptMaker.Services.Npc
 		#region IProgressService implementation
 		private IProgress<int> _progress;
 		public void With(IProgress<int> progress) => _progress = progress;
+		public void Unbind() => _progress = null;
+
 		#endregion
 
 		#region INpcPchService implementation

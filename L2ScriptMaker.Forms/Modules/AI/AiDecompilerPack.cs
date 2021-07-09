@@ -13,6 +13,7 @@ using L2ScriptMaker.Core.Collections;
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Core.WinForms;
 using L2ScriptMaker.Forms.Models.AiDecompilerPack;
+using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Forms.Modules.AI
 {
@@ -43,7 +44,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 		#endregion
 
 		//private EnabledNotificator Busy { get; set; }
-		private readonly char[] _splitChars = new char[] { ' ', '\t' };
+		private readonly char[] _splitChars = Constants.SpaceSplitChars; //  new char[] { ' ', '\t' };
 
 		public AiDecompilerPack()
 		{

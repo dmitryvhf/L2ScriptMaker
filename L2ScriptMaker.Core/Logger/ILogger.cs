@@ -12,5 +12,12 @@
 		/// <param name="level">Attention record for logging message</param>
 		/// <param name="message">Logging message</param>
 		void Write(LogLevel level, string message);
+
+		/// <summary>
+		/// Write log record
+		/// </summary>
+		/// <param name="level">Attention record for logging message</param>
+		/// <param name="messages">Logging messages</param>
+		void Write(LogLevel level, string[] messages);
 	}
 }

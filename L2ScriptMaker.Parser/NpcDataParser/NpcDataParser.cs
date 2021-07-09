@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using L2ScriptMaker.Models.Common;
 using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Parsers.Core;
 using L2ScriptMaker.Parsers.Dto;

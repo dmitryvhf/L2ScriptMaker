@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using L2ScriptMaker.Core;
 using L2ScriptMaker.Core.Attributes;
+using L2ScriptMaker.Models.Common;
 using L2ScriptMaker.Parsers.Attributes;
 
 namespace L2ScriptMaker.Parsers.Core

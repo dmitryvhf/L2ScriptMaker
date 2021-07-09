@@ -1,5 +1,6 @@
 ﻿using L2ScriptMaker.Parsers.Core;
 using System;
+using L2ScriptMaker.Models.Common;
 using Xunit;
 
 namespace L2ScriptMaker.Parsers.Tests

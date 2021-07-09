@@ -9,10 +9,14 @@ namespace L2ScriptMaker.Core.Logger
 {
 	public class Logger : ILogger
 	{
-		private readonly string _serviceName;
-		private readonly string _logpath;
+		private readonly string _logfilePath;
 
-		private string LogfilePath => System.IO.Path.Combine(_logpath, "L2ScriptMaker.log");
+		/// <summary>
+		/// Default contructor for common Logger
+		/// </summary>
+		public Logger() : this("common")
+		{
+		}
 
 		/// <summary>
 		/// Contructor for Logger
@@ -20,22 +24,33 @@ namespace L2ScriptMaker.Core.Logger
 		/// <param name="serviceName">Name of logging service</param>
 		public Logger(string serviceName)
 		{
-			_serviceName = serviceName;
-			_logpath = SettingsUtils.Settings.LogsFolder;
+			_logfilePath = System.IO.Path.Combine(SettingsUtils.Settings.LogsFolder, serviceName + ".log");
 		}
 
 		/// <inheritdoc />
 		public void Write(LogLevel level, string message)
 		{
-			string prefix = $"{DateTime.Now:G}";
+			Write(level, new string[] { message });
+		}
 
-			string[] logStrings = new string[]
+		/// <inheritdoc />
+		public void Write(LogLevel level, string[] messages)
+		{
+			if (messages.Length == 0)
 			{
-				$"{prefix}\t[{level}]\t{_serviceName}",
-				new string(' ', prefix.Length) + '\t' + message
-			};
+				return;
+			}
 
-			System.IO.File.AppendAllLines(LogfilePath, logStrings, Encoding.UTF8);
+			string prefix = $"{DateTime.Now:G}\t[{level}]\t";
+
+			int shift = prefix.Length;
+			messages[0] = prefix + messages[0];
+			for (int i = 1; i < messages.Length; i++)
+			{
+				messages[i] = new string(' ', shift) + '\t' + messages[i];
+			}
+
+			System.IO.File.AppendAllLines(_logfilePath, messages, Encoding.UTF8);
 		}
 	}
 }
