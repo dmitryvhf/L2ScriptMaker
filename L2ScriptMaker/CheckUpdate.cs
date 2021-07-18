@@ -1,63 +1,93 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using L2ScriptMaker.Extensions.VbCompatibleHelper;
+using L2ScriptMaker.Core.Logger;
 
 namespace L2ScriptMaker
 {
 	public partial class CheckUpdate : Form
 	{
+		private const string SupportEmail = "DmitryVHF@outlook.com";
+		private const string BaseUrl = "http://dragon.ur.ru/l2sm/";
+
+		private readonly ILogger _logger;
+
 		public CheckUpdate()
 		{
 			InitializeComponent();
+
+			_logger = new Logger(nameof(CheckUpdate));
 		}
 
-		private void StartButton_Click(object sender, EventArgs e)
+		private async void StartButton_Click(object sender, EventArgs e)
 		{
-			string sUrlBase = "http://dragon.ur.ru/l2sm/";
-			// Dim sUrlBase As String = "http://server/l2sm/"
-			string l2tempver = System.IO.Path.GetTempFileName();
+			string l2Tempver = System.IO.Path.GetTempFileName();
 			string sVersion;
+			string sFile;
 			string sUrlFile;
 
-			if (GetFileFromHttp(sUrlBase + "l2scriptmaker.txt", l2tempver) == false)
+			_logger.Write(LogLevel.Information, "Check available update from [" + BaseUrl + "]");
+			_logger.Write(LogLevel.Information, "Current version [" + Application.ProductVersion + "]");
+
+			if (await GetFileFromHttp(BaseUrl + "l2scriptmaker.txt", l2Tempver) == false)
 			{
-				MessageBox.Show("Can't download version file from site.", "Can't read version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				_logger.Write(LogLevel.Error, "Check file not exists [l2scriptmaker.txt]");
+				MessageBox.Show("Can't download version file from site.", "Can't read version", MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
 				return;
 			}
-
-
-			var VerRead = new System.IO.StreamReader(l2tempver, System.Text.Encoding.Default, true, 1);
-			sVersion = VerRead.ReadLine();
-			sUrlFile = VerRead.ReadLine();
-			CheckStatLabel.Text = "Version detected: " + sVersion;
-			CheckStatLinkLabel.Text = VerRead.ReadLine();
-
-			VerRead.Close();
-			System.IO.File.Delete(l2tempver);
-
-			if ((Application.ProductVersion ?? "") == (sVersion ?? ""))
+			
+			using (System.IO.StreamReader verRead = new System.IO.StreamReader(l2Tempver, Encoding.Default, true, 1))
 			{
-				if ((int)MessageBox.Show("You have lastest release" + Constants.vbNewLine + "Want to download again?", "No new", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == (int)DialogResult.No)
+				sVersion = verRead.ReadLine();
+				sFile = verRead.ReadLine();
+				sUrlFile = verRead.ReadLine();
+
+				CheckStatLabel.Text = "Version detected: " + sVersion;
+				CheckStatLinkLabel.Text = sUrlFile;
+
+				verRead.Close();
+			}
+
+			System.IO.File.Delete(l2Tempver);
+
+			if (Application.ProductVersion == sVersion)
+			{
+				if (MessageBox.Show("You are already have latest release.\nWant to download again?",
+					"Already up-date",
+					MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+
 					return;
 			}
-			else if ((int)MessageBox.Show("Found new build! " + sVersion + Constants.vbNewLine + "Want to download new?", "Found update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == (int)DialogResult.No)
+			else if (MessageBox.Show("Found new build! " + sVersion + "\nWant to download new?",
+				"Found update",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
 				return;
 
-			if (GetFileFromHttp(sUrlBase + sUrlFile, sUrlFile) == false)
+			if (await GetFileFromHttp(sUrlFile, sFile) == false)
 			{
-				MessageBox.Show("Can't download file from site.", "Can't download", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				_logger.Write(LogLevel.Information, "Downloading file is failed");
+
+				MessageBox.Show("Can't download file from site.", "Can't download",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
-			MessageBox.Show("Download new update success. Last build is " + sVersion + Constants.vbNewLine + "Note: close tool, extract new build from file " + sUrlFile + " in your tool folder", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			_logger.Write(LogLevel.Information, new string[]
+			{
+				"Downloaded is successfully:",
+				"[" + sVersion + "][" + sFile + "]"
+			});
+
+			MessageBox.Show(
+				"Download new update success. Last build is " + sVersion
+				+ "\nNote: close tool, extract new build from file, your work folder",
+				"Success.",
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void QuitButton_Click(object sender, EventArgs e)
@@ -65,56 +95,102 @@ namespace L2ScriptMaker
 			this.Dispose();
 		}
 
-		private bool GetFileFromHttp(string FileUrl, string FileDisk)
+		private async Task<bool> GetFileFromHttp(string url, string file)
 		{
-			var fs = new System.Net.WebClient();
-
-			fs.Encoding = System.Text.Encoding.GetEncoding(1250);
-
-			var CachePol = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-			fs.CachePolicy = CachePol;
-
-			try
+			using (HttpClient httpClient = new HttpClient())
 			{
-				fs.DownloadFile(FileUrl, FileDisk);
-			}
-			catch (Exception ex)
-			{
-				if ((ex.Message ?? "") == "The remote server returned an error: (404) Not Found.")
-					// MessageBox.Show("Error on Lineage II Update system. Report to support.")
+				httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
+				{
+					NoCache = true
+				};
+
+				_logger.Write(LogLevel.Trace, "Downloading [" + url + "]");
+
+				var result = await httpClient.GetAsync(url);
+				try
+				{
+					result.EnsureSuccessStatusCode();
+				}
+				catch (Exception ex)
+				{
+					_logger.Write(LogLevel.Error, new string[]
+					{
+						"Downloaded is failed:",
+						"Remote file [" + url + "]",
+						ex.Message
+					});
 					return false;
-				// UpdStatus.Text = ex.Message
-				MessageBox.Show(ex.Message);
-				return false;
-			}
+				}
 
+
+				byte[] data = await result.Content.ReadAsByteArrayAsync();
+				try
+				{
+					await System.IO.File.WriteAllBytesAsync(file, data);
+					result.Content.Dispose();
+				}
+				catch (Exception ex)
+				{
+					_logger.Write(LogLevel.Error, new string[]
+					{
+						"Write file [" + file + "] error: ",
+						ex.Message
+					});
+
+					MessageBox.Show(ex.Message);
+					return false;
+				}
+			}
 
 			return true;
 		}
 
 		private void SendMailButton_Click(object sender, EventArgs e)
 		{
+			System.Net.Mail.MailMessage feedback = new System.Net.Mail.MailMessage(MailFromTextBox.Text, SupportEmail, SubjectTextBox.Text,
+				TextBox.Text);
+
 			try
 			{
-				var Feedback = new System.Net.Mail.MailMessage(MailFromTextBox.Text, "hellfire@reborn.ru", SubjectTextBox.Text, TextBox.Text);
-				var Mailclient = new System.Net.Mail.SmtpClient(MailSrvTextBox.Text);
-				Mailclient.UseDefaultCredentials = true;
-				Mailclient.Send(Feedback);
-				MessageBox.Show("Send complete.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				using (System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient(MailSrvTextBox.Text))
+				{
+					mailclient.UseDefaultCredentials = true;
+					mailclient.Send(feedback);
+				}
 			}
 			catch (FormatException ex)
 			{
+				_logger.Write(LogLevel.Error, new string[]
+				{
+					"Send mail failed:",
+					$"From [{MailFromTextBox.Text}]; To [{SupportEmail}]; Subject [{SubjectTextBox.Text}]",
+					$"Text: [{TextBox.Text}]",
+					ex.Message
+				});
+
 				MessageBox.Show(ex.Message);
 			}
 			catch (System.Net.Mail.SmtpException ex)
 			{
-				MessageBox.Show(ex.Message);
+				string exMessage = ex.Message
+					+ (ex.InnerException == null ? String.Empty : $": " + ex.InnerException.Message);
+
+				_logger.Write(LogLevel.Error, new string[]
+				{
+					"Send mail failed:",
+					$"From [{MailFromTextBox.Text}]; To [{SupportEmail}]; Subject [{SubjectTextBox.Text}]",
+					$"Text: [{TextBox.Text}]"
+				});
+				_logger.Write(LogLevel.Error, ex);
+
+				MessageBox.Show(exMessage);
 			}
+
+			MessageBox.Show("Send complete.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void CheckStatLinkLabel_Click(object sender, EventArgs e)
 		{
-			// Process.Start("iexplore.exe " & CheckStatLinkLabel.Text)
 			Process.Start("iexplore.exe", CheckStatLinkLabel.Text);
 		}
 	}

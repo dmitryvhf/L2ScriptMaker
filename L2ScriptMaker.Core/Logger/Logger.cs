@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using L2ScriptMaker.Core.Settings;
 
 namespace L2ScriptMaker.Core.Logger
@@ -34,6 +32,15 @@ namespace L2ScriptMaker.Core.Logger
 		}
 
 		/// <inheritdoc />
+		public void Write(LogLevel level, Exception ex)
+		{
+			string exMessage = ex.Message
+			                   + (ex.InnerException == null ? String.Empty : $": " + ex.InnerException.Message);
+
+			Write(level, new string[] { exMessage });
+		}
+
+		/// <inheritdoc />
 		public void Write(LogLevel level, string[] messages)
 		{
 			if (messages.Length == 0)
@@ -41,7 +48,8 @@ namespace L2ScriptMaker.Core.Logger
 				return;
 			}
 
-			string prefix = $"{DateTime.Now:G}\t[{level}]\t";
+			DateTime now = DateTime.Now;
+			string prefix = $"{now:G}.{now:fff}\t[{level}]\t";
 
 			int shift = prefix.Length;
 			messages[0] = prefix + messages[0];
