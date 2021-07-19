@@ -51,13 +51,19 @@ Documenting knowledge about the details of the server and file formats. This kno
   * Make new utilities.
 
 # Can i contribute?
-Sure.
-I always await your ideas and proposals about an improvement in the program. I am very pleased with me about errors and shortcomings.
-Working with a code base gives more representation of the file structure. You can automate your work.
-The more you learned, the more you will find the shortcomings in the work of the program.
+Sure.  
+I always await your ideas and proposals about an improvement in the program. I am very pleased with me about errors and shortcomings.  
+Working with a code base gives more representation of the file structure. You can automate your work.  
+The more you learned, the more you will find the shortcomings in the work of the program.  
 Together we can make it better, at the same time practicing in programming.
 
 # Requirements
 
 OS: Windows  
 Platform: .NET 6
+
+# Branches
+* **master** - stable branch. Old Vb.Net project convered to C#. Few fixes.  
+Use it for basic necessities.
+* **developing** - "hot" branch. Refactoring, fixing and impoving.  
+Use it if you need changes, better performance and etc.
