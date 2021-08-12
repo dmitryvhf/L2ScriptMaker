@@ -13,180 +13,182 @@ using L2ScriptMaker.Services.Ai;
 
 namespace L2ScriptMaker.Forms.Modules.AI
 {
-	public partial class AIHandlersChecker : Form
-	{
-		private readonly Logger _logger;
-		private readonly IAiService _aiService;
+    public partial class AIHandlersChecker : Form
+    {
+        private readonly Logger _logger;
+        private readonly IAiService _aiService;
 
 
-		public AIHandlersChecker()
-		{
-			InitializeComponent();
+        public AIHandlersChecker()
+        {
+            InitializeComponent();
 
-			_logger = new Logger(nameof(AIHandlersChecker));
-			_aiService = new AiService();
-		}
+            _logger = new Logger(nameof(AIHandlersChecker));
+            _aiService = new AiService();
+        }
 
-		private void btnCheckLines_Click(object sender, EventArgs e)
-		{
-			FileDialogService fileDialogService = new FileDialogService
-			{
-				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
-			};
-			if (!fileDialogService.OpenFileDialog()) return;
+        private void btnCheckLines_Click(object sender, EventArgs e)
+        {
+            FileDialogService fileDialogService = new FileDialogService
+            {
+                InitialDirectory = Environment.CurrentDirectory,
+                Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
+            };
+            if (!fileDialogService.OpenFileDialog()) return;
 
-			string aiFile = fileDialogService.FilePath;
-			progressBar1.Value = 0;
-			IProgress<int> progress = new Progress<int>(a => { progressBar1.Value = a; });
+            string aiFile = fileDialogService.FilePath;
+            progressBar1.Value = 0;
+            IProgress<int> progress = new Progress<int>(a => { progressBar1.Value = a; });
 
-			btnCheckLines.Enabled = false;
-			btnCheckVars.Enabled = false;
-			btnQuit.Enabled = false;
+            btnCheckLines.Enabled = false;
+            btnCheckVars.Enabled = false;
+            btnQuit.Enabled = false;
 
-			Task.Run(() =>
-			{
-				_logger.Write(LogLevel.Information, new string[]
-				{
-					"Handler lines checking started", "Input: " + aiFile
-				});
+            Task.Run(() =>
+            {
+                _logger.Write(LogLevel.Information, new string[]
+                {
+                    "Handler lines checking started", "Input: " + aiFile
+                });
 
-				CheckLinesAsync(aiFile, progress);
-			}).ContinueWith(task =>
-			{
-				this.Invoker(() =>
-				{
-					btnCheckLines.Enabled = true;
-					btnCheckVars.Enabled = true;
-					btnQuit.Enabled = true;
+                CheckLines(aiFile, progress);
+            }).ContinueWith(task =>
+            {
+                this.Invoker(() =>
+                {
+                    btnCheckLines.Enabled = true;
+                    btnCheckVars.Enabled = true;
+                    btnQuit.Enabled = true;
 
-					progressBar1.Value = 0;
-				});
+                    progressBar1.Value = 0;
+                });
 
-				_logger.Write(LogLevel.Information, "Handler lines checking started completed");
-				MessageBox.Show("Success", "Complete");
-			});
-		}
+                _logger.Write(LogLevel.Information, "Handler lines checking started completed");
+                MessageBox.Show("Success", "Complete");
+            });
+        }
 
-		private void CheckLinesAsync(string aiFile, IProgress<int> progress)
-		{
-			_aiService.With(progress);
-			foreach (AiClass aiClass in _aiService.GetClassess(aiFile))
-			{
-				foreach (AiHandler handler in aiClass.Handlers)
-				{
-					if (handler.Lines != handler.Code.Count)
-					{
-						_logger.Write(LogLevel.Warning, new string[]
-						{
-							"Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") +
-							$"]({handler.Type})",
-							$"Expected {handler.Lines} but has {handler.Code.Count}"
-						});
-					}
-				}
-			}
+        private void CheckLines(string aiFile, IProgress<int> progress)
+        {
+            _aiService.With(progress);
+            foreach (AiClass aiClass in _aiService.GetClassess(aiFile))
+            {
+                foreach (AiHandler handler in aiClass.Handlers)
+                {
+                    if (handler.Lines != handler.Code.Count)
+                    {
+                        _logger.Write(LogLevel.Warning, new string[]
+                        {
+                            "Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") + $"]({handler.Type})",
+                            $"Expected {handler.Lines} but has {handler.Code.Count}"
+                        });
+                    }
+                }
+            }
 
-			_aiService.Unbind();
-		}
+            _aiService.Unbind();
+        }
 
-		private void btnCheckVars_Click(object sender, EventArgs e)
-		{
-			FileDialogService fileDialogService = new FileDialogService
-			{
-				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
-			};
-			if (!fileDialogService.OpenFileDialog()) return;
+        private void btnCheckVars_Click(object sender, EventArgs e)
+        {
+            FileDialogService fileDialogService = new FileDialogService
+            {
+                InitialDirectory = Environment.CurrentDirectory,
+                Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
+            };
+            if (!fileDialogService.OpenFileDialog()) return;
 
-			string aiFile = fileDialogService.FilePath;
+            string aiFile = fileDialogService.FilePath;
 
-			progressBar1.Value = 0;
-			IProgress<int> progress = new Progress<int>(a => { progressBar1.Value = a; });
+            progressBar1.Value = 0;
+            IProgress<int> progress = new Progress<int>(a => { progressBar1.Value = a; });
 
-			btnCheckLines.Enabled = false;
-			btnCheckVars.Enabled = false;
-			btnQuit.Enabled = false;
+            btnCheckLines.Enabled = false;
+            btnCheckVars.Enabled = false;
+            btnQuit.Enabled = false;
 
-			Task.Run(() =>
-			{
-				_logger.Write(LogLevel.Information, new string[]
-				{
-					"Handler variables checking started", "Input: " + aiFile
-				});
+            Task.Run(() =>
+            {
+                _logger.Write(LogLevel.Information, new string[]
+                {
+                    "Handler variables checking started", "Input: " + aiFile
+                });
 
-				CheckVarsAsync(aiFile, progress);
-			}).ContinueWith(task =>
-			{
-				this.Invoker(() =>
-				{
-					btnCheckLines.Enabled = true;
-					btnCheckVars.Enabled = true;
-					btnQuit.Enabled = true;
+                CheckVars(aiFile, progress);
 
-					progressBar1.Value = 0;
-				});
+            }).ContinueWith(task =>
+            {
+                this.Invoker(() =>
+                {
+                    btnCheckLines.Enabled = true;
+                    btnCheckVars.Enabled = true;
+                    btnQuit.Enabled = true;
 
-				_logger.Write(LogLevel.Information, "Handler variables checking started completed");
-				MessageBox.Show("Success", "Complete");
-			});
-		}
+                    progressBar1.Value = 0;
+                });
 
-		private void CheckVarsAsync(string aiFile, IProgress<int> progress)
-		{
-			_aiService.With(progress);
+                _logger.Write(LogLevel.Information, "Handler variables checking started completed");
+                MessageBox.Show("Success", "Complete");
+            });
 
-			bool checkNoUse = chkNoUseLog.Checked;
 
-			foreach (AiClass aiClass in _aiService.GetClassess(aiFile))
-			{
-				foreach (AiHandler handler in aiClass.Handlers)
-				{
-					string[] varsList = handler.Variables
-						.Select(a => a.Trim('"'))
-						.ToArray();
+        }
 
-					string[] pushEventsList = handler.Code
-						.Select(AiParserUtils.ParseHandlerCode)
-						.Where(a => !a.IsNothing)
-						.Select(a => a.GetValue())
-						.Where(codeLine => !codeLine.IsEmpty && codeLine.Values[0] == "push_event" && codeLine.HasComment)
-						.Select(a => a.Comment)
-						.Where(a => !String.IsNullOrWhiteSpace(a) && a != "gg").Distinct().ToArray();
+        private void CheckVars(string aiFile, IProgress<int> progress)
+        {
+            _aiService.With(progress);
 
-					foreach (string varName in varsList)
-					{
-						if (checkNoUse && pushEventsList.Contains(varName) == false && !varName.StartsWith("_"))
-						{
-							_logger.Write(LogLevel.Information, new string[]
-							{
-								"Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") + $"]({handler.Type})",
-								$"Variable [{varName}] is never used"
-							});
-						}
-					}
+            bool checkNoUse = chkNoUseLog.Checked;
 
-					foreach (string pushEvent in pushEventsList)
-					{
-						if (varsList.Contains(pushEvent) == false)
-						{
-							_logger.Write(LogLevel.Warning, new string[]
-							{
-								"Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") +
-								$"]({handler.Type})",
-								$"PushEvent [{pushEvent}] is not defined into handler variables"
-							});
-						}
-					}
-				}
-			}
+            foreach (AiClass aiClass in _aiService.GetClassess(aiFile))
+            {
+                foreach (AiHandler handler in aiClass.Handlers)
+                {
+                    string[] varsList = handler.Variables
+                        .Select(a => a.Trim('"'))
+                        .ToArray();
 
-			_aiService.Unbind();
-		}
+                    string[] pushEventsList = handler.Code
+                        .Select(AiParserUtils.ParseHandlerCode)
+                        .Where(a => !a.IsNothing)
+                        .Select(a => a.GetValue())
+                        .Where(codeLine => !codeLine.IsEmpty && codeLine.Values[0] == "push_event" && codeLine.HasComment)
+                        .Select(a => a.Comment)
+                        .Where(a => !String.IsNullOrWhiteSpace(a) && a != "gg").Distinct().ToArray();
 
-		private void btnQuit_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
-	}
+                    foreach (string varName in varsList)
+                    {
+                        if (checkNoUse && pushEventsList.Contains(varName) == false && !varName.StartsWith("_"))
+                        {
+                            _logger.Write(LogLevel.Information, new string[]
+                            {
+                                "Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") + $"]({handler.Type})",
+                                $"Variable [{varName}] is never used"
+                            });
+                        }
+                    }
+
+                    foreach (string pushEvent in pushEventsList)
+                    {
+                        if (varsList.Contains(pushEvent) == false)
+                        {
+                            _logger.Write(LogLevel.Warning, new string[]
+                            {
+                                "Class [" + aiClass.Name + "]; Handler [" + (handler.HasName ? handler.Name : "-") +
+                                $"]({handler.Type})",
+                                $"PushEvent [{pushEvent}] is not defined into handler variables"
+                            });
+                        }
+                    }
+                }
+            }
+
+            _aiService.Unbind();
+        }
+
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
 }

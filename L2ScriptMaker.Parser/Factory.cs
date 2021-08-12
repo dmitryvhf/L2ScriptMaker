@@ -16,7 +16,6 @@ namespace L2ScriptMaker.Parsers
 
 		public ParserService()
 		{
-
 			ILogger logger = new Logger();
 
 			if (typeof(T) == typeof(AiClass))

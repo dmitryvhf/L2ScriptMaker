@@ -32,7 +32,7 @@ namespace L2ScriptMaker.Services.Ai
 			{
 				rawData = FileUtils.Read(dataFile, _progress);
 			}
-			
+
 			return _parser.Do(rawData);
 		}
 		#endregion
