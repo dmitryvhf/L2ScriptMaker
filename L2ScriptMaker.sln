@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29411.138
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker", "L2ScriptMaker\L2ScriptMaker.csproj", "{57B45535-EEC9-4734-8C4A-26824D28F4F2}"
 EndProject
@@ -19,12 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers", "L2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L2ScriptMaker.Parsers.Tests", "L2ScriptMaker.Parsers.Tests\L2ScriptMaker.Parsers.Tests.csproj", "{C2CB280A-033D-46B1-A115-7F15D52FCB3B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCFAA41F-1E59-44D9-B614-9BFA9AAF95AB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C155091-5472-4DB2-9CA0-AFBA67334A8A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C155091-5472-4DB2-9CA0-AFBA67334A8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

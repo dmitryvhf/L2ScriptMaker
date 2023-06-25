@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net6.0-windows7.0</TargetFramework>
-	  <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <None Remove="Models\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Models\**" />
+		<EmbeddedResource Remove="Models\**" />
+		<None Remove="Models\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\L2ScriptMaker.Parser\L2ScriptMaker.Parsers.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\L2ScriptMaker.Parser\L2ScriptMaker.Parsers.csproj" />
+	</ItemGroup>
 
 </Project>

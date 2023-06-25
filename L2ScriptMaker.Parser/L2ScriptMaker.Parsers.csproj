@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
-	<LangVersion>latest</LangVersion>
-    <AssemblyName>L2ScriptMaker.Parsers</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<AssemblyName>L2ScriptMaker.Parsers</AssemblyName>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
-    <ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\L2ScriptMaker.Core\L2ScriptMaker.Core.csproj" />
+		<ProjectReference Include="..\L2ScriptMaker.Models\L2ScriptMaker.Models.csproj" />
+	</ItemGroup>
 
 </Project>
