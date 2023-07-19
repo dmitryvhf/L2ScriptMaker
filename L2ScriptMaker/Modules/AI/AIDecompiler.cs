@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using L2ScriptMaker.Extensions.VbCompatibleHelper;
+using L2ScriptMaker.Forms.Services;
 
 namespace L2ScriptMaker.Modules.AI
 {
@@ -107,131 +102,131 @@ namespace L2ScriptMaker.Modules.AI
 			switch (sType)
 			{
 				case "handler":
-				{
-					iTemp = Array.IndexOf(AiHandlerTable, iId);
-					if (iTemp == -1)
-						goto ErrExit;
-					if ((AiHandlerTableParam[iTemp].handlerClassType ?? "") != (sLastClassType ?? ""))
 					{
-						iTemp = Array.IndexOf(AiHandlerTable, iId, iTemp + 1);
+						iTemp = Array.IndexOf(AiHandlerTable, iId);
 						if (iTemp == -1)
 							goto ErrExit;
-					}
+						if ((AiHandlerTableParam[iTemp].handlerClassType ?? "") != (sLastClassType ?? ""))
+						{
+							iTemp = Array.IndexOf(AiHandlerTable, iId, iTemp + 1);
+							if (iTemp == -1)
+								goto ErrExit;
+						}
 
-					sResult = AiHandlerTableParam[iTemp].handlerName;
-					break;
-				}
+						sResult = AiHandlerTableParam[iTemp].handlerName;
+						break;
+					}
 
 				case "function":
-				{
-					// 167837696|GetSpawnDefine,1,0
-					iTemp = Array.IndexOf(FuncTable, iId);
-					if (iTemp == -1)
-						goto ErrExit;
-					sResult = FuncTableParam[iTemp].FuncName;
-					break;
-				}
+					{
+						// 167837696|GetSpawnDefine,1,0
+						iTemp = Array.IndexOf(FuncTable, iId);
+						if (iTemp == -1)
+							goto ErrExit;
+						sResult = FuncTableParam[iTemp].FuncName;
+						break;
+					}
 
 				case "event":
-				{
-					// '40|default|talker
-
-					// 672|default|lparty
-					// 672|ON_NPC_DELETED|deleted_def
-					// MAX 2 variance
-
-					// If iId = "656" And sLastHandler = "ON_NPC_DELETED" Then
-					// Dim asd As Boolean = False
-					// End If
-
-					iTemp = Array.IndexOf(AiEventsTable, iId);
-					if (iTemp == -1)
-						goto ErrExit;
-					sResult = AiEventsTableParam[iTemp].eventName; // example "default" value
-
-					if ((AiEventsTableParam[iTemp].eventHandler ?? "") != "default" &
-					    (AiEventsTableParam[iTemp].eventHandler ?? "") != (sLastHandler ?? ""))
 					{
-						MessageBox.Show(
-							"Wrong record into push_event config. 'default' type not defined or placed on not in first position. Decompiling code maybe wrong!" + Constants
-								                                                                                                                                    .vbNewLine
-							                                                                                                                                    + "Found fetch '// " +
-							                                                                                                                                    sResult +
-							                                                                                                                                    "' for id:[" +
-							                                                                                                                                    iId +
-							                                                                                                                                    "] in handler: [" +
-							                                                                                                                                    sLastHandler +
-							                                                                                                                                    "]",
-							"Wrong config", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-						return sResult;
-						break;
-					}
+						// '40|default|talker
 
-					while (iTemp != -1)
-					{
-						if ((AiEventsTableParam[iTemp].eventHandler ?? "") == (sLastHandler ?? ""))
+						// 672|default|lparty
+						// 672|ON_NPC_DELETED|deleted_def
+						// MAX 2 variance
+
+						// If iId = "656" And sLastHandler = "ON_NPC_DELETED" Then
+						// Dim asd As Boolean = False
+						// End If
+
+						iTemp = Array.IndexOf(AiEventsTable, iId);
+						if (iTemp == -1)
+							goto ErrExit;
+						sResult = AiEventsTableParam[iTemp].eventName; // example "default" value
+
+						if ((AiEventsTableParam[iTemp].eventHandler ?? "") != "default" &
+							(AiEventsTableParam[iTemp].eventHandler ?? "") != (sLastHandler ?? ""))
 						{
-							sResult = AiEventsTableParam[iTemp].eventName;
+							MessageBox.Show(
+								"Wrong record into push_event config. 'default' type not defined or placed on not in first position. Decompiling code maybe wrong!" + Constants
+																																										.vbNewLine
+																																									+ "Found fetch '// " +
+																																									sResult +
+																																									"' for id:[" +
+																																									iId +
+																																									"] in handler: [" +
+																																									sLastHandler +
+																																									"]",
+								"Wrong config", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							return sResult;
 							break;
 						}
 
-						iTemp = Array.IndexOf(AiEventsTable, iId, iTemp + 1);
-					}
+						while (iTemp != -1)
+						{
+							if ((AiEventsTableParam[iTemp].eventHandler ?? "") == (sLastHandler ?? ""))
+							{
+								sResult = AiEventsTableParam[iTemp].eventName;
+								break;
+							}
 
-					break;
-				}
+							iTemp = Array.IndexOf(AiEventsTable, iId, iTemp + 1);
+						}
+
+						break;
+					}
 
 				case "fetch":
-				{
-					// ai_fetch_i.txt
-
-					// ai_fetch_i.txt
-					// 16|default|y
-					// 16|h0|creature
-
-					iTemp = Array.IndexOf(AiFetchTable, iId);
-					if (iTemp == -1)
-						goto ErrExit; // Exit Select 
-					sResult = AiFetchTableParam[iTemp].fetchName; // example "default" value
-					if ((AiFetchTableParam[iTemp].fetchEvent ?? "") != "default" &
-					    (AiFetchTableParam[iTemp].fetchEvent ?? "") != (sLastEvent ?? ""))
 					{
-						MessageBox.Show(
-							"Wrong record into fetch_i config. 'default' type not defined or placed on not in first position. Decompiling code maybe wrong!" + Constants
-								                                                                                                                                 .vbNewLine
-							                                                                                                                                 +
-							                                                                                                                                 "Found fetch '// " +
-							                                                                                                                                 sResult +
-							                                                                                                                                 "' for id:[" +
-							                                                                                                                                 iId +
-							                                                                                                                                 "] in handler: [" +
-							                                                                                                                                 sLastHandler +
-							                                                                                                                                 "] with last push_event: [" +
-							                                                                                                                                 sLastEvent +
-							                                                                                                                                 "].",
-							"Wrong config", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-						return sResult;
-						break;
-					}
+						// ai_fetch_i.txt
 
-					while (iTemp != -1)
-					{
-						if ((AiFetchTableParam[iTemp].fetchEvent ?? "") == (sLastEvent ?? ""))
+						// ai_fetch_i.txt
+						// 16|default|y
+						// 16|h0|creature
+
+						iTemp = Array.IndexOf(AiFetchTable, iId);
+						if (iTemp == -1)
+							goto ErrExit; // Exit Select 
+						sResult = AiFetchTableParam[iTemp].fetchName; // example "default" value
+						if ((AiFetchTableParam[iTemp].fetchEvent ?? "") != "default" &
+							(AiFetchTableParam[iTemp].fetchEvent ?? "") != (sLastEvent ?? ""))
 						{
-							sResult = AiFetchTableParam[iTemp].fetchName;
+							MessageBox.Show(
+								"Wrong record into fetch_i config. 'default' type not defined or placed on not in first position. Decompiling code maybe wrong!" + Constants
+																																									 .vbNewLine
+																																								 +
+																																								 "Found fetch '// " +
+																																								 sResult +
+																																								 "' for id:[" +
+																																								 iId +
+																																								 "] in handler: [" +
+																																								 sLastHandler +
+																																								 "] with last push_event: [" +
+																																								 sLastEvent +
+																																								 "].",
+								"Wrong config", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							return sResult;
 							break;
 						}
 
-						iTemp = Array.IndexOf(AiFetchTable, iId, iTemp + 1);
-					}
+						while (iTemp != -1)
+						{
+							if ((AiFetchTableParam[iTemp].fetchEvent ?? "") == (sLastEvent ?? ""))
+							{
+								sResult = AiFetchTableParam[iTemp].fetchName;
+								break;
+							}
 
-					break;
-				}
+							iTemp = Array.IndexOf(AiFetchTable, iId, iTemp + 1);
+						}
+
+						break;
+					}
 			}
 
 			return sResult;
 
-			ErrExit: ;
+		ErrExit:;
 			if ((sType ?? "") == "handler")
 				MessageBox.Show(
 					"Not found '" + sType + "' for id:[" + iId + "] for class type: [" + sLastClassType + "]",
@@ -250,7 +245,7 @@ namespace L2ScriptMaker.Modules.AI
 			int iForTemp = 0;
 			string sFolder;
 			string sConfigFile;
-			var aConfigs = new[] {"ai_functions.txt", "ai_handlers.txt", "ai_events.txt", "ai_fetch_i.txt"};
+			var aConfigs = new[] { "ai_functions.txt", "ai_handlers.txt", "ai_events.txt", "ai_fetch_i.txt" };
 			System.IO.StreamReader inFile;
 
 			sFolder = System.IO.Path.GetDirectoryName(FuncFileTextBox.Text);
@@ -289,71 +284,71 @@ namespace L2ScriptMaker.Modules.AI
 						switch (aConfigs[iForTemp])
 						{
 							case "ai_functions.txt":
-							{
-								// 167837696|GetSpawnDefine,1,0
-								if (AiVarsCheckBox.Checked == false)
-									FuncTable[iTemp] = aTemp[1];
-								else
-									FuncTable[iTemp] = aTemp[0];
-								FuncTableParam[iTemp].FuncId = aTemp[0];
-								FuncTableParam[iTemp].FuncName = aTemp[1];
-								FuncTableParam[iTemp].FuncInVar = Conversions.ToInteger(aTemp[2]);
-								// FuncTableParam(iTemp).FuncOutVar = CInt(aTemp(3))
+								{
+									// 167837696|GetSpawnDefine,1,0
+									if (AiVarsCheckBox.Checked == false)
+										FuncTable[iTemp] = aTemp[1];
+									else
+										FuncTable[iTemp] = aTemp[0];
+									FuncTableParam[iTemp].FuncId = aTemp[0];
+									FuncTableParam[iTemp].FuncName = aTemp[1];
+									FuncTableParam[iTemp].FuncInVar = Conversions.ToInteger(aTemp[2]);
+									// FuncTableParam(iTemp).FuncOutVar = CInt(aTemp(3))
 
-								iTemp += 1;
-								Array.Resize(ref FuncTable, iTemp + 1);
-								Array.Resize(ref FuncTableParam, iTemp + 1);
-								break;
-							}
+									iTemp += 1;
+									Array.Resize(ref FuncTable, iTemp + 1);
+									Array.Resize(ref FuncTableParam, iTemp + 1);
+									break;
+								}
 
 							case "ai_handlers.txt":
-							{
-								// 0|1|NO_DESIRE
-								// Dim AiHandlerTable(0) As String
-								// Dim AiHandlerTableParam(0) As AiHandler
+								{
+									// 0|1|NO_DESIRE
+									// Dim AiHandlerTable(0) As String
+									// Dim AiHandlerTableParam(0) As AiHandler
 
-								AiHandlerTable[iTemp] = aTemp[0];
-								AiHandlerTableParam[iTemp].handlerId = Conversions.ToInteger(aTemp[0]);
-								AiHandlerTableParam[iTemp].handlerClassType = aTemp[1];
-								AiHandlerTableParam[iTemp].handlerName = aTemp[2];
+									AiHandlerTable[iTemp] = aTemp[0];
+									AiHandlerTableParam[iTemp].handlerId = Conversions.ToInteger(aTemp[0]);
+									AiHandlerTableParam[iTemp].handlerClassType = aTemp[1];
+									AiHandlerTableParam[iTemp].handlerName = aTemp[2];
 
-								iTemp += 1;
-								Array.Resize(ref AiHandlerTable, iTemp + 1);
-								Array.Resize(ref AiHandlerTableParam, iTemp + 1);
-								break;
-							}
+									iTemp += 1;
+									Array.Resize(ref AiHandlerTable, iTemp + 1);
+									Array.Resize(ref AiHandlerTableParam, iTemp + 1);
+									break;
+								}
 
 							case "ai_events.txt":
-							{
-								// 40|default|talker
-								// Dim AiEventsTable(0) As String
-								// Dim AiEventsTableParam(0) As AiEvents
-								AiEventsTable[iTemp] = aTemp[0];
-								AiEventsTableParam[iTemp].eventId = Conversions.ToInteger(aTemp[0]);
-								AiEventsTableParam[iTemp].eventHandler = aTemp[1];
-								AiEventsTableParam[iTemp].eventName = aTemp[2];
+								{
+									// 40|default|talker
+									// Dim AiEventsTable(0) As String
+									// Dim AiEventsTableParam(0) As AiEvents
+									AiEventsTable[iTemp] = aTemp[0];
+									AiEventsTableParam[iTemp].eventId = Conversions.ToInteger(aTemp[0]);
+									AiEventsTableParam[iTemp].eventHandler = aTemp[1];
+									AiEventsTableParam[iTemp].eventName = aTemp[2];
 
-								iTemp += 1;
-								Array.Resize(ref AiEventsTable, iTemp + 1);
-								Array.Resize(ref AiEventsTableParam, iTemp + 1);
-								break;
-							}
+									iTemp += 1;
+									Array.Resize(ref AiEventsTable, iTemp + 1);
+									Array.Resize(ref AiEventsTableParam, iTemp + 1);
+									break;
+								}
 
 							case "ai_fetch_i.txt":
-							{
-								// 8|default|x
-								// Dim AiFetchTable(0) As String
-								// Dim AiFetchTableParam(0) As AiFetch
-								AiFetchTable[iTemp] = aTemp[0];
-								AiFetchTableParam[iTemp].fetchId = Conversions.ToInteger(aTemp[0]);
-								AiFetchTableParam[iTemp].fetchEvent = aTemp[1];
-								AiFetchTableParam[iTemp].fetchName = aTemp[2];
+								{
+									// 8|default|x
+									// Dim AiFetchTable(0) As String
+									// Dim AiFetchTableParam(0) As AiFetch
+									AiFetchTable[iTemp] = aTemp[0];
+									AiFetchTableParam[iTemp].fetchId = Conversions.ToInteger(aTemp[0]);
+									AiFetchTableParam[iTemp].fetchEvent = aTemp[1];
+									AiFetchTableParam[iTemp].fetchName = aTemp[2];
 
-								iTemp += 1;
-								Array.Resize(ref AiFetchTable, iTemp + 1);
-								Array.Resize(ref AiFetchTableParam, iTemp + 1);
-								break;
-							}
+									iTemp += 1;
+									Array.Resize(ref AiFetchTable, iTemp + 1);
+									Array.Resize(ref AiFetchTableParam, iTemp + 1);
+									break;
+								}
 						}
 					}
 				}
@@ -398,7 +393,7 @@ namespace L2ScriptMaker.Modules.AI
 				return true;
 
 			if ((OriginalCode[OriginalCodeFlag + 2] ?? "") ==
-			    (OriginalCode[OriginalCodeFlag].Replace("jump ", "") ?? ""))
+				(OriginalCode[OriginalCodeFlag].Replace("jump ", "") ?? ""))
 				return true;
 
 			return false;
@@ -547,7 +542,7 @@ namespace L2ScriptMaker.Modules.AI
 			if (RemoveComma == true)
 				Msg = Msg.Replace("//", "");
 
-			Msg = Msg.Replace((char) 9, (char) 32).Replace("  ", " ").Trim();
+			Msg = Msg.Replace((char)9, (char)32).Replace("  ", " ").Trim();
 			while (Strings.InStr(Msg, "  ") != 0)
 				Msg = Msg.Replace("  ", " ");
 			return Msg;
@@ -652,11 +647,11 @@ namespace L2ScriptMaker.Modules.AI
 						Saver(sTemp, "class", false);
 						Saver("{", "class", false);
 
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						sLastClassType = aTemp[1]; // keep class type - 1 or 2
 						SavedFileLabel.Text = "Load data from: " +
-						                      System.IO.Path.GetFileName(aGF_FileName[iGF_FileIndex]) +
-						                      " .... Decompilation class: " + aTemp[2];
+											  System.IO.Path.GetFileName(aGF_FileName[iGF_FileIndex]) +
+											  " .... Decompilation class: " + aTemp[2];
 
 						IsProperty = true;
 					}
@@ -668,7 +663,7 @@ namespace L2ScriptMaker.Modules.AI
 						// ----------- L02093 -----------
 
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 
 						// bebug breakpoint
 						if ((sTemp ?? "") == "L21278")
@@ -695,7 +690,7 @@ namespace L2ScriptMaker.Modules.AI
 								}
 
 								// --------- test labels db ----
-								aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char) 32);
+								aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char)32);
 
 								iTemp = Array.IndexOf(aLabelsDB, aTemp[0]);
 								if (iTemp != -1)
@@ -727,7 +722,7 @@ namespace L2ScriptMaker.Modules.AI
 								if (OriginalCode[OriginalCodeFlag + 1].StartsWith("jump"))
 								{
 									if ((OriginalCode[OriginalCodeFlag - 1].Replace("branch_false ", "") ?? "") ==
-									    (OriginalCode[OriginalCodeFlag + 2] ?? ""))
+										(OriginalCode[OriginalCodeFlag + 2] ?? ""))
 									{
 										// Empty block found
 										Saver("}", sTemp + "_EmptyCase_block", true);
@@ -741,7 +736,7 @@ namespace L2ScriptMaker.Modules.AI
 								Saver("{", sTemp + "IF_block_start", true);
 
 								// --------- test labels db ----
-								aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char) 32);
+								aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char)32);
 								Array.Resize(ref aLabelsDB, aLabelsDB.Length + 1);
 								aLabelsDB[aLabelsDB.Length - 1] = aTemp[1];
 							}
@@ -771,11 +766,11 @@ namespace L2ScriptMaker.Modules.AI
 							// End If
 
 							if (OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == false &
-							    OriginalCode[OriginalCodeFlag + 1].StartsWith("L") == false)
+								OriginalCode[OriginalCodeFlag + 1].StartsWith("L") == false)
 							{
 								// 100% filter - Prev and Next is not Label
 								if (OriginalCode[OriginalCodeFlag + 1].StartsWith("handler_end") == false &
-								    OriginalCode[OriginalCodeFlag + 2].StartsWith("handler_end") == false)
+									OriginalCode[OriginalCodeFlag + 2].StartsWith("handler_end") == false)
 								{
 									// 100% filter - Label in end of handler
 									Saver("}", sTemp + "_EndOfBlock_jumpcheck1_1(While,Select,Else3)", true);
@@ -783,7 +778,7 @@ namespace L2ScriptMaker.Modules.AI
 								}
 							}
 							else if (OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == false &
-							         OriginalCode[OriginalCodeFlag + 1].StartsWith("L") == true)
+									 OriginalCode[OriginalCodeFlag + 1].StartsWith("L") == true)
 							{
 								// Prev Null and Next is Branch
 								Saver("}", sTemp + "_EndOfBlock_jumpcheck1_1(While,Select,Else3)", true);
@@ -839,7 +834,7 @@ namespace L2ScriptMaker.Modules.AI
 						}
 
 						if (OriginalCode[OriginalCodeFlag - 2].StartsWith("shift_sp -1") == true &
-						    OriginalCode[OriginalCodeFlag - 1].StartsWith("jump ") == true)
+							OriginalCode[OriginalCodeFlag - 1].StartsWith("jump ") == true)
 						{
 							Saver("}", sTemp + "while_block_end", true);
 							goto EndOfL;
@@ -851,7 +846,7 @@ namespace L2ScriptMaker.Modules.AI
 						// ---------------- branch_true ------------------
 						AiCode = "";
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 
 						if (DecompiledCode[DecompiledCodeFlag - 1].StartsWith("WhileFor ( ") == true)
 						{
@@ -876,7 +871,7 @@ namespace L2ScriptMaker.Modules.AI
 						// ---------------- branch_false ------------------
 
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 
 						if ((sTemp ?? "") == "branch_false L118405")
 							AiCode = "";
@@ -902,7 +897,7 @@ namespace L2ScriptMaker.Modules.AI
 					{
 						// ----------- jump L207102 -----------
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 
 						// if ((sTemp ?? "") == "jump L21278") int aaa = 0;
 
@@ -921,7 +916,7 @@ namespace L2ScriptMaker.Modules.AI
 								// FIX 
 
 								AiCode = DecompiledCode[DecompiledCodeFlag - 2] + " ; " +
-								         DecompiledCode[DecompiledCodeFlag - 1].Replace(";", "") + " )";
+										 DecompiledCode[DecompiledCodeFlag - 1].Replace(";", "") + " )";
 								DecompiledCodeFlag -= 2;
 								// AiCode = AiCode & " ; " & StackCache(0).ToString & " )"
 								Saver(AiCode, sTemp + "_FOR_define_finished", true);
@@ -939,7 +934,7 @@ namespace L2ScriptMaker.Modules.AI
 							OriginalCodeFlag += 1;
 						}
 						else if (OriginalCode[OriginalCodeFlag - 1].StartsWith("branch_false") &
-						         OriginalCode[OriginalCodeFlag + 1].StartsWith("L"))
+								 OriginalCode[OriginalCodeFlag + 1].StartsWith("L"))
 						{
 							// And FOR block
 							if (FromStack(-1) == false)
@@ -949,7 +944,7 @@ namespace L2ScriptMaker.Modules.AI
 							}
 
 							// --------- test labels db ----
-							aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char) 32);
+							aTemp = OriginalCode[OriginalCodeFlag - 1].Split((char)32);
 							Array.Resize(ref aLabelsDB, aLabelsDB.Length + 1);
 							aLabelsDB[aLabelsDB.Length - 1] = aTemp[1];
 							// --------- test labels db ----
@@ -989,7 +984,7 @@ namespace L2ScriptMaker.Modules.AI
 							if (OriginalCode[OriginalCodeFlag + 2].StartsWith("L") == true)
 							{
 								if ((OriginalCode[OriginalCodeFlag].Replace("jump ", "") ?? "") ==
-								    (OriginalCode[OriginalCodeFlag + 2] ?? ""))
+									(OriginalCode[OriginalCodeFlag + 2] ?? ""))
 								{
 								}
 							}
@@ -997,7 +992,7 @@ namespace L2ScriptMaker.Modules.AI
 							// -------- ELSE FIX v1 ----------
 							// If IsLastElse(OriginalCode(OriginalCodeFlag)) = True Then
 							// --------- test labels db ----
-							aTemp = OriginalCode[OriginalCodeFlag + 1].Split((char) 32);
+							aTemp = OriginalCode[OriginalCodeFlag + 1].Split((char)32);
 							iTemp = Array.IndexOf(aLabelsDB, aTemp[0]);
 							if (iTemp != -1)
 							{
@@ -1006,7 +1001,7 @@ namespace L2ScriptMaker.Modules.AI
 									MessageBox.Show("WoW");
 							}
 
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							Array.Resize(ref aLabelsDB, aLabelsDB.Length + 1);
 							aLabelsDB[aLabelsDB.Length - 1] = aTemp[1];
 							// ------------------------------
@@ -1020,7 +1015,7 @@ namespace L2ScriptMaker.Modules.AI
 							OriginalCodeFlag += 1;
 						}
 						else if (OriginalCode[OriginalCodeFlag + 1].StartsWith("L") == true &
-						         OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == true)
+								 OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == true)
 						{
 							// -- Empty Case fix ---
 							// branch_false L22408
@@ -1032,7 +1027,7 @@ namespace L2ScriptMaker.Modules.AI
 							// jump L22410 <----
 							// L22406 (branch_false)
 							if (FindJump("jump " + OriginalCode[OriginalCodeFlag - 1]) != -1 &
-							    FindJump("branch_false " + OriginalCode[OriginalCodeFlag + 1]) != -1)
+								FindJump("branch_false " + OriginalCode[OriginalCodeFlag + 1]) != -1)
 							{
 								if (Array.IndexOf(aLabelsDB, OriginalCode[OriginalCodeFlag + 1]) != -1)
 								{
@@ -1041,7 +1036,7 @@ namespace L2ScriptMaker.Modules.AI
 									if (IsLastElse(OriginalCode[OriginalCodeFlag]) == true)
 									{
 										// --------- test labels db ----
-										aTemp = OriginalCode[OriginalCodeFlag + 1].Split((char) 32);
+										aTemp = OriginalCode[OriginalCodeFlag + 1].Split((char)32);
 										iTemp = Array.IndexOf(aLabelsDB, aTemp[0]);
 										if (iTemp != -1)
 										{
@@ -1050,7 +1045,7 @@ namespace L2ScriptMaker.Modules.AI
 												MessageBox.Show("WoW");
 										}
 
-										aTemp = sTemp.Split((char) 32);
+										aTemp = sTemp.Split((char)32);
 										Array.Resize(ref aLabelsDB, aLabelsDB.Length + 1);
 										aLabelsDB[aLabelsDB.Length - 1] = aTemp[1];
 									}
@@ -1063,7 +1058,7 @@ namespace L2ScriptMaker.Modules.AI
 								}
 							}
 							else if (FindJump("branch_false " + OriginalCode[OriginalCodeFlag - 1]) != -1 &
-							         FindJump("branch_false " + OriginalCode[OriginalCodeFlag + 1]) != -1)
+									 FindJump("branch_false " + OriginalCode[OriginalCodeFlag + 1]) != -1)
 							{
 							}
 						}
@@ -1092,12 +1087,12 @@ namespace L2ScriptMaker.Modules.AI
 							}
 
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							ToStack(aTemp[1]);
 							sLastEvent = aTemp[1];
 
 							if (DataFromDebugCheckBox.Checked == false & Array.IndexOf(sVarTable, aTemp[1]) == -1 &
-							    (aTemp[1] ?? "") != "gg")
+								(aTemp[1] ?? "") != "gg")
 							{
 								ErrorStat(
 									"[Aver] Event '" + aTemp[1] + "' is not defined in variable list for this handler",
@@ -1121,7 +1116,7 @@ namespace L2ScriptMaker.Modules.AI
 							// GoTo EndOfL
 							// End If
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							sTemp = GetAiVar(aTemp[1], "event");
 							if (sTemp == null)
 							{
@@ -1140,10 +1135,10 @@ namespace L2ScriptMaker.Modules.AI
 
 
 						if (Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const") > 0 &
-						    (OriginalCode[OriginalCodeFlag + 2] ?? "") == "add")
+							(OriginalCode[OriginalCodeFlag + 2] ?? "") == "add")
 						{
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							sTemp = aTemp[1]; // var name for NoAIVarConfig mode
 
 							if (AiVarsCheckBox.Checked == false)
@@ -1153,7 +1148,7 @@ namespace L2ScriptMaker.Modules.AI
 								OriginalCodeFlag += 1;
 								sTemp = Loader();
 								sTemp = StringPrecompile(sTemp, true);
-								aTemp = sTemp.Split((char) 32);
+								aTemp = sTemp.Split((char)32);
 								sTemp = GetAiVar(aTemp[1], "fetch");
 								if (sTemp == null)
 								{
@@ -1190,11 +1185,11 @@ namespace L2ScriptMaker.Modules.AI
 							if (Strings.InStr(sTemp, "//") != 0)
 							{
 								if (Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const") > 0 &
-								    Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const 0") == 0 |
-								    Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_event") > 0)
+									Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const 0") == 0 |
+									Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_event") > 0)
 								{
 									sTemp = StringPrecompile(sTemp, true);
-									aTemp = sTemp.Split((char) 32);
+									aTemp = sTemp.Split((char)32);
 									sTemp = aTemp[0];
 								}
 							}
@@ -1203,7 +1198,7 @@ namespace L2ScriptMaker.Modules.AI
 						if (Strings.InStr(sTemp, "//") != 0 & AiVarsCheckBox.Checked == false)
 						{
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 
 
 							if ((OriginalCode[OriginalCodeFlag + 2] ?? "") == "add")
@@ -1238,7 +1233,7 @@ namespace L2ScriptMaker.Modules.AI
 							if (FreyaAITempFixCheckBox.Checked == true)
 							{
 								if (Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const") > 0 |
-								    Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_parameter 0") > 0)
+									Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_parameter 0") > 0)
 								{
 									OriginalCodeFlag += 1;
 									sTemp = Loader();
@@ -1249,7 +1244,7 @@ namespace L2ScriptMaker.Modules.AI
 								OriginalCodeFlag += 1;
 								sTemp = Loader();
 								if (Strings.InStr(sTemp, "push_const") == 0 &
-								    Strings.InStr(sTemp, "push_parameter") == 0)
+									Strings.InStr(sTemp, "push_parameter") == 0)
 								{
 									// DEBUG
 									ErrorStat("Required 'push_const' next after 'fetch_i'", "fetch_i");
@@ -1259,7 +1254,7 @@ namespace L2ScriptMaker.Modules.AI
 							}
 						}
 						else if (AiVarsCheckBox.Checked == true &
-						         Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const") > 0)
+								 Strings.InStr(OriginalCode[OriginalCodeFlag + 1], "push_const") > 0)
 						{
 							// sLastEvent
 							// ai_fetch_i.txt
@@ -1278,13 +1273,13 @@ namespace L2ScriptMaker.Modules.AI
 							// fetch_i4
 
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							if ((aTemp[0] ?? "") != "fetch_i")
 								goto EndOfL;
 							OriginalCodeFlag += 1;
 							sTemp = Loader();
 							sTemp = StringPrecompile(sTemp, true);
-							aTemp = sTemp.Split((char) 32);
+							aTemp = sTemp.Split((char)32);
 							if ((OriginalCode[OriginalCodeFlag + 1].Trim() ?? "") == "add")
 							{
 								sTemp = GetAiVar(aTemp[1], "fetch");
@@ -1338,7 +1333,7 @@ namespace L2ScriptMaker.Modules.AI
 						// push_const 40
 
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						ToStack(aTemp[1]);
 					}
 					else if (Strings.InStr(sTemp, "fetch_d") != 0)
@@ -1400,7 +1395,7 @@ namespace L2ScriptMaker.Modules.AI
 							if (OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == true)
 							{
 								if (FindJump("jump " + OriginalCode[OriginalCodeFlag - 1]) != -1 &
-								    FindJump("jump " + OriginalCode[OriginalCodeFlag - 1]) < OriginalCodeFlag)
+									FindJump("jump " + OriginalCode[OriginalCodeFlag - 1]) < OriginalCodeFlag)
 								{
 									Saver("}",
 										OriginalCode[OriginalCodeFlag - 1] + "_before_shift_sp -1_EndSelectCase_Block",
@@ -1442,7 +1437,7 @@ namespace L2ScriptMaker.Modules.AI
 							// shift_sp -1
 							// push_reg_sp
 							if ((DecompiledCode[DecompiledCodeFlag - 2] ?? "") != "break;" &
-							    DecompiledCode[DecompiledCodeFlag - 2].StartsWith("case ") == false)
+								DecompiledCode[DecompiledCodeFlag - 2].StartsWith("case ") == false)
 							{
 								// If StackFlag > -1 Then
 								if (FromStack(-1) == false)
@@ -1466,7 +1461,7 @@ namespace L2ScriptMaker.Modules.AI
 						}
 
 						if (OriginalCode[OriginalCodeFlag - 1].StartsWith("L") == true &
-						    OriginalCode[OriginalCodeFlag - 2].StartsWith("jump ") == true)
+							OriginalCode[OriginalCodeFlag - 2].StartsWith("jump ") == true)
 						{
 							Saver("case :", "SelectCase_start_block_(push_reg_sp check)", true);
 							goto EndOfL;
@@ -1493,12 +1488,12 @@ namespace L2ScriptMaker.Modules.AI
 						if (OriginalCodeFlag + 9 < OriginalCode.Length)
 						{
 							if (OriginalCode[OriginalCodeFlag + 1].StartsWith("fetch_") == true &
-							    OriginalCode[OriginalCodeFlag + 2].StartsWith("push_reg_sp") == true &
-							    OriginalCode[OriginalCodeFlag + 3].StartsWith("fetch_i") == true &
-							    OriginalCode[OriginalCodeFlag + 5].StartsWith("push_const 1") == true &
-							    OriginalCode[OriginalCodeFlag + 6].StartsWith("add") == true &
-							    OriginalCode[OriginalCodeFlag + 7].StartsWith("assign") == true &
-							    OriginalCode[OriginalCodeFlag + 9].StartsWith("shift_sp -1") == true)
+								OriginalCode[OriginalCodeFlag + 2].StartsWith("push_reg_sp") == true &
+								OriginalCode[OriginalCodeFlag + 3].StartsWith("fetch_i") == true &
+								OriginalCode[OriginalCodeFlag + 5].StartsWith("push_const 1") == true &
+								OriginalCode[OriginalCodeFlag + 6].StartsWith("add") == true &
+								OriginalCode[OriginalCodeFlag + 7].StartsWith("assign") == true &
+								OriginalCode[OriginalCodeFlag + 9].StartsWith("shift_sp -1") == true)
 							{
 								if (FromStack(-1) == false)
 								{
@@ -1514,7 +1509,7 @@ namespace L2ScriptMaker.Modules.AI
 						}
 
 						if (OriginalCode[OriginalCodeFlag + 1].StartsWith("fetch_") == true &
-						    OriginalCode[OriginalCodeFlag + 2].StartsWith("fetch_") == true)
+							OriginalCode[OriginalCodeFlag + 2].StartsWith("fetch_") == true)
 						{
 							if (FromStack(-1) == false)
 							{
@@ -1539,7 +1534,7 @@ namespace L2ScriptMaker.Modules.AI
 
 						int ParamAmount;
 						sTemp = StringPrecompile(sTemp, true);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 
 						// AIVARConfig Method
 						if (AiVarsCheckBox.Checked == false)
@@ -1571,9 +1566,9 @@ namespace L2ScriptMaker.Modules.AI
 						// Dim test As Integer = 1
 						// End If
 
-//#if DEBUG
-//						if ((sFuncName ?? "") == "GetTimeOfDay") bool asdsa = false;
-//#endif
+						//#if DEBUG
+						//						if ((sFuncName ?? "") == "GetTimeOfDay") bool asdsa = false;
+						//#endif
 						// 'shift_sp -2
 						// '167837696|GetSpawnDefine,1,0
 
@@ -1698,7 +1693,7 @@ namespace L2ScriptMaker.Modules.AI
 					{
 						// If InStr(sLastLine, "push_const") <> 0 Or InStr(sLastLine, "push_parameter") <> 0 Or InStr(sLastLine, "fetch_") <> 0 Or InStr(sLastLine, "shift_sp") <> 0 Or InStr(sLastLine, "negate") <> 0 Then
 						if (DecompiledCode[DecompiledCodeFlag - 1].StartsWith("case :") == false &
-						    DecompiledCode[DecompiledCodeFlag - 2].StartsWith("break;") == false)
+							DecompiledCode[DecompiledCodeFlag - 2].StartsWith("break;") == false)
 						{
 							if (FromStack(-2) == false)
 							{
@@ -1759,9 +1754,9 @@ namespace L2ScriptMaker.Modules.AI
 						// fetch_i
 						// branch_true L22455
 						if ((OriginalCode[OriginalCodeFlag + 1] ?? "") == "push_reg_sp" &
-						    (OriginalCode[OriginalCodeFlag + 2] ?? "") == "fetch_i" &
-						    OriginalCode[OriginalCodeFlag + 3].StartsWith("branch_true ") == true &
-						    OriginalCode[OriginalCodeFlag + 4].StartsWith("L") == false)
+							(OriginalCode[OriginalCodeFlag + 2] ?? "") == "fetch_i" &
+							OriginalCode[OriginalCodeFlag + 3].StartsWith("branch_true ") == true &
+							OriginalCode[OriginalCodeFlag + 4].StartsWith("L") == false)
 						{
 						}
 						else
@@ -1794,9 +1789,9 @@ namespace L2ScriptMaker.Modules.AI
 						// fetch_i
 						// branch_true L22455
 						if ((OriginalCode[OriginalCodeFlag + 1] ?? "") == "push_reg_sp" &
-						    (OriginalCode[OriginalCodeFlag + 2] ?? "") == "fetch_i" &
-						    OriginalCode[OriginalCodeFlag + 3].StartsWith("branch_true ") == true &
-						    OriginalCode[OriginalCodeFlag + 4].StartsWith("L") == false)
+							(OriginalCode[OriginalCodeFlag + 2] ?? "") == "fetch_i" &
+							OriginalCode[OriginalCodeFlag + 3].StartsWith("branch_true ") == true &
+							OriginalCode[OriginalCodeFlag + 4].StartsWith("L") == false)
 						{
 						}
 						else
@@ -1913,11 +1908,11 @@ namespace L2ScriptMaker.Modules.AI
 
 						// Or InStr(OriginalCode(OriginalCodeFlag - 1), "func_call ") <> 0
 						if (Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "func_call ") != 0 |
-						    AiVarsCheckBox.Checked == false &
-						    Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "//") == 0 |
-						    AiVarsCheckBox.Checked == true &
-						    Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "push_event") == 0 &
-						    Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "fetch_i") == 0)
+							AiVarsCheckBox.Checked == false &
+							Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "//") == 0 |
+							AiVarsCheckBox.Checked == true &
+							Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "push_event") == 0 &
+							Strings.InStr(OriginalCode[OriginalCodeFlag - 2], "fetch_i") == 0)
 						{
 							if (FromStack(-2) == false)
 							{
@@ -2051,7 +2046,7 @@ namespace L2ScriptMaker.Modules.AI
 						// push_string S964
 
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						iTemp = Array.IndexOf(sSTable, aTemp[1] + ".");
 
 						if (iTemp == -1)
@@ -2070,7 +2065,7 @@ namespace L2ScriptMaker.Modules.AI
 						// add_string 1025
 
 						sTemp = StringPrecompile(sTemp, true);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						if (FromStack(-2) == false)
 						{
 							iGF_ErrorFlag = true;
@@ -2085,7 +2080,7 @@ namespace L2ScriptMaker.Modules.AI
 						// ---------- push_parameter ----------
 						// push_parameter fnNoFeudInfo
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						ToStack(aTemp[1]);
 					}
 					else if (sTemp.StartsWith("push_property") == true)
@@ -2093,7 +2088,7 @@ namespace L2ScriptMaker.Modules.AI
 						// ---------- push_parameter ----------
 						// push_parameter fnNoFeudInfo
 						sTemp = StringPrecompile(sTemp, false);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						ToStack(aTemp[1]);
 					}
 					else if (sTemp.StartsWith("class_end") == true)
@@ -2120,7 +2115,7 @@ namespace L2ScriptMaker.Modules.AI
 							if (!string.IsNullOrEmpty(sTemp.Trim()))
 							{
 								sTemp = StringPrecompile(sTemp, true).Replace("{", "").Replace("}", "");
-								aTemp = sTemp.Split((char) 32);
+								aTemp = sTemp.Split((char)32);
 								// int	MoveAroundSocial2 = 0;
 								if ((aTemp[0] ?? "") == "waypointstype" | (aTemp[0] ?? "") == "waypointdelaystype")
 								{
@@ -2186,7 +2181,7 @@ namespace L2ScriptMaker.Modules.AI
 								}
 
 								if (sTemp.StartsWith("buyselllist_") == false &
-								    sTemp.StartsWith("telposlist_") == false)
+									sTemp.StartsWith("telposlist_") == false)
 								{
 									if (PropertyType == 1)
 									{
@@ -2223,7 +2218,7 @@ namespace L2ScriptMaker.Modules.AI
 						}
 
 						sTemp = StringPrecompile(sTemp, true);
-						aTemp = sTemp.Split((char) 32);
+						aTemp = sTemp.Split((char)32);
 						Saver("", "EventHandler", false);
 						// sauron fix -- AiCode = aTemp(0) & " " & aTemp(3)
 
@@ -2328,7 +2323,7 @@ namespace L2ScriptMaker.Modules.AI
 					{
 					}
 
-					EndOfL: ;
+				EndOfL:;
 					if (iGF_ErrorFlag == true)
 						return;
 
@@ -2345,7 +2340,7 @@ namespace L2ScriptMaker.Modules.AI
 			GlobalProgressBar.Value = 0;
 			return;
 
-			errorDef: ;
+		errorDef:;
 			iGF_ErrorFlag = true;
 			ErrorStat("Unkwnown error", "Unkwnown error");
 		}
@@ -2462,7 +2457,7 @@ namespace L2ScriptMaker.Modules.AI
 			{
 				if (DecompiledCode[iTemp].StartsWith("class "))
 				{
-					aTemp = DecompiledCode[iTemp].Split((char) 32);
+					aTemp = DecompiledCode[iTemp].Split((char)32);
 					// If SplitClassCheckBox.Checked = True Or iGF_ErrorFlag = True Then
 					SavedFileLabel.Text = aTemp[2] + ".txt";
 					if (iGF_ErrorFlag == true)
@@ -2481,7 +2476,7 @@ namespace L2ScriptMaker.Modules.AI
 						outFile.WriteLine("// L2ScriptMaker: Lineage II Cronicles 4 AI.obj Decompiler");
 						outFile.WriteLine("//---------------------------------------------------------");
 						outFile.WriteLine("// Decompiling: " + Conversions.ToString(DateAndTime.Now));
-						outFile.WriteLine("// Decompiler build is: " + MyAssemblyInfo.Version);
+						outFile.WriteLine("// Decompiler build is: " + AssemblyInfoUtil.Version);
 						outFile.WriteLine("//---------------------------------------------------------");
 						outFile.WriteLine();
 					}
@@ -2613,16 +2608,16 @@ namespace L2ScriptMaker.Modules.AI
 			AIDstCodeTextBox.SuspendLayout();
 
 			AIDstCodeTextBox.AppendText("//---------------------------------------------------------" +
-			                            Constants.vbNewLine);
+										Constants.vbNewLine);
 			AIDstCodeTextBox.AppendText("// L2ScriptMaker: Lineage II Cronicles 4 AI.obj Decompiler" +
-			                            Constants.vbNewLine);
+										Constants.vbNewLine);
 			AIDstCodeTextBox.AppendText("//---------------------------------------------------------" +
-			                            Constants.vbNewLine);
+										Constants.vbNewLine);
 			AIDstCodeTextBox.AppendText(
 				"// Decompiling: " + Conversions.ToString(DateAndTime.Now) + Constants.vbNewLine);
-			AIDstCodeTextBox.AppendText("// Decompiler build is: " + MyAssemblyInfo.Version + Constants.vbNewLine);
+			AIDstCodeTextBox.AppendText("// Decompiler build is: " + AssemblyInfoUtil.Version + Constants.vbNewLine);
 			AIDstCodeTextBox.AppendText("//---------------------------------------------------------" +
-			                            Constants.vbNewLine);
+										Constants.vbNewLine);
 			AIDstCodeTextBox.AppendText(Constants.vbNewLine);
 			var loopTo = DecompiledCode.Length - 1;
 			for (iTemp = 0; iTemp <= loopTo; iTemp++)
@@ -2689,7 +2684,7 @@ namespace L2ScriptMaker.Modules.AI
 			}
 
 			if (SplitClassCheckBox.Checked == true & (string.IsNullOrEmpty(DecompiledPathTextBox.Text) |
-			                                          System.IO.Directory.Exists(DecompiledPathTextBox.Text) == false))
+													  System.IO.Directory.Exists(DecompiledPathTextBox.Text) == false))
 			{
 				MessageBox.Show("Must be define target path name for saving results. Define and try again.",
 					"No target path", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2755,8 +2750,8 @@ namespace L2ScriptMaker.Modules.AI
 			{
 				if (System.IO.File.Exists(outAiTextBox.Text) == true)
 				{
-					if ((int) MessageBox.Show("You sure to overwrite target file?", "Overwrite file?",
-						    MessageBoxButtons.YesNo, MessageBoxIcon.Stop) == (int) DialogResult.No)
+					if ((int)MessageBox.Show("You sure to overwrite target file?", "Overwrite file?",
+							MessageBoxButtons.YesNo, MessageBoxIcon.Stop) == (int)DialogResult.No)
 						return;
 					System.IO.File.Delete(outAiTextBox.Text);
 				}
@@ -2773,7 +2768,7 @@ namespace L2ScriptMaker.Modules.AI
 			MessageBox.Show("Decompilation complete" + Constants.vbNewLine + "I'm finding work in NCSoft. =)",
 				"Complete", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 			if (ShowFileCheckBox.Checked == true && SplitClassCheckBox.Checked == false &&
-			    DataFromDebugCheckBox.Checked == false && iGF_ErrorFlag == false)
+				DataFromDebugCheckBox.Checked == false && iGF_ErrorFlag == false)
 			{
 				Process.Start("notepad.exe", outAiTextBox.Text);
 				// Interaction.Shell("notepad " + outAiTextBox.Text, AppWinStyle.NormalFocus, false);
@@ -2886,7 +2881,7 @@ namespace L2ScriptMaker.Modules.AI
 		{
 			MessageBox.Show(
 				"L2ScriptMaker: Lineage II Cronicles 4 AI.obj Decompiler" + Constants.vbNewLine +
-				MyAssemblyInfo.Version, "About", MessageBoxButtons.OK,
+				AssemblyInfoUtil.Version, "About", MessageBoxButtons.OK,
 				MessageBoxIcon.Information);
 		}
 	}

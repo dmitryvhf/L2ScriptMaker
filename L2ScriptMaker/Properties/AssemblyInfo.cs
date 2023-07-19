@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("L2ScriptMaker (C# rewrite)")]
-[assembly: AssemblyDescription("Tool for generate Lineage II server configuraion files. Contact: mailto:hellfire@reborn.ru Subject: L2ScriptMaker. Official site: http://l2scriptmaker.spaces.live.com/  Donation page: http://dragon.ur.ru/l2sm")]
+[assembly: AssemblyDescription("Tool for generate Lineage II server configuraion scripts (support C4+).\r\nContact: DmitryVHF@outlook.com Subject: L2ScriptMaker.\r\nSupport: https://github.com/dmitryvhf/L2ScriptMaker\r\nHomepage: http://dragon.ur.ru/l2sm")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HellFire Lair")]
-[assembly: AssemblyProduct("L2ScriptMaker (C4 Support)")]
-[assembly: AssemblyCopyright("Copyright © HellFire 2019")]
+[assembly: AssemblyProduct("L2ScriptMaker")]
+[assembly: AssemblyCopyright("Copyright © HellFire 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
