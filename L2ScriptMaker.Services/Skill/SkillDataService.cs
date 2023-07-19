@@ -8,7 +8,7 @@ namespace L2ScriptMaker.Services.Skill
 {
 	public class SkillDataService : ISkillDataService
 	{
-		private readonly ParserService<SkillData> _parser = new ParserService<SkillData>();
+		private readonly IParserService<SkillData> _parser = ParserFactory.Get<SkillData>();
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;

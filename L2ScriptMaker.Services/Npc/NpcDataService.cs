@@ -1,14 +1,15 @@
-﻿using L2ScriptMaker.Core.Files;
-using L2ScriptMaker.Models.Npc;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Services.Npc
 {
 	public class NpcDataService : INpcDataService
 	{
-		private readonly ParserService<NpcData> _parser = new ParserService<NpcData>();
+		private readonly IParserService<NpcData> _parser = ParserFactory.Get<NpcData>();
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;

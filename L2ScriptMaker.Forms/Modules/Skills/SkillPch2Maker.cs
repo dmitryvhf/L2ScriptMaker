@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using L2ScriptMaker.Core.Logger;
 using L2ScriptMaker.Core.WinForms;
 using L2ScriptMaker.Forms.Services;
 using L2ScriptMaker.Services.Manual;
@@ -18,7 +16,9 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 	public partial class SkillPch2Maker : Form
 	{
 		private readonly FileDialogService _fileDialogService;
+
 		private ISkillPchService _skillPchService;
+		private readonly ILogger _logger;
 		// private readonly ISkillCacheService _skillCacheService;
 
 		private readonly SkillPchOptions _options;
@@ -28,6 +28,8 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 			InitializeComponent();
 
 			_options = new SkillPchOptions();
+
+			_logger = new Logger(nameof(SkillPch2Maker));
 
 			_fileDialogService = new FileDialogService();
 			// _skillPchService = new SkillPchService(_options);
@@ -43,7 +45,7 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 				_fileDialogService.Filter = "Lineage II ManualPch config|" + manualPchFile + "|All files (*.*)|*.*";
 				if (!_fileDialogService.OpenFileDialog()) return;
 
-				manualPchFile = _fileDialogService.FileName;
+				manualPchFile = _fileDialogService.FilePath;
 			}
 
 			_options.ManualPchFile = manualPchFile;
@@ -52,15 +54,17 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		private void StartButton_Click(object sender, EventArgs e)
 		{
 			_fileDialogService.InitialDirectory = Environment.CurrentDirectory;
-			_fileDialogService.Filter = "Lineage II SkillData config|" + SkillContants.SkillDataFileName + "|All files (*.*)|*.*";
+			_fileDialogService.Filter = "Lineage II SkillData config|" + SkillContants.SkillDataFileName +
+										"|All files (*.*)|*.*";
 			if (!_fileDialogService.OpenFileDialog()) return;
 
-			string SkillDataFile = _fileDialogService.FileName;
-			string SkillDataDir = _fileDialogService.FileDirectory;
+			string skillDataFile = _fileDialogService.FileName;
+			string skillDataDir = _fileDialogService.FileDirectory;
 
-			if (File.Exists(SkillDataDir + "\\" + SkillContants.SkillPchFileName))
+			if (File.Exists(skillDataDir + "\\" + SkillContants.SkillPchFileName))
 			{
-				if (MessageBox.Show($"File {SkillContants.SkillPchFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				if (MessageBox.Show($"File {SkillContants.SkillPchFileName} exist. Overwrite?",
+						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 					return;
 			}
 
@@ -77,32 +81,46 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 
 			Task.Run(() =>
 				{
+					_logger.Write(LogLevel.Information, new string[]
+					{
+						"SkillPch generation started", "Output: " + SkillContants.SkillPchFileName
+					});
+
 					_skillPchService.With(progress);
-					return _skillPchService.Generate(SkillDataDir, SkillDataFile);
+					return _skillPchService.Generate(skillDataDir, skillDataFile);
 				})
 				.ContinueWith(task =>
-			{
-				this.Invoker(() =>
 				{
-					StartButton.Enabled = true;
-					SkillCacheScriptButton.Enabled = true;
-					ProgressBar.Value = 0;
+					this.Invoker(() =>
+					{
+						StartButton.Enabled = true;
+						SkillCacheScriptButton.Enabled = true;
+						ProgressBar.Value = 0;
+					});
+
+
+					if (task.IsFaulted)
+					{
+						_logger.Write(LogLevel.Error, "Crash with unhandled exception.");
+						_logger.Write(LogLevel.Error, task.Exception);
+
+						MessageBox.Show("Crash with unhandled exception.", "Crash");
+					}
+					else if (task.Result.HasErrors)
+					{
+						_logger.Write(LogLevel.Error, "Complete finished with errors.");
+						_logger.Write(LogLevel.Error, task.Result.Errors.ToArray());
+
+						MessageBox.Show("Complete finished with errors.\n" + String.Join(";", task.Result.Errors),
+							"Failed completition");
+					}
+					else
+					{
+						_logger.Write(LogLevel.Information, "SkillPch generation completed");
+
+						MessageBox.Show("Success.", "Success completition");
+					}
 				});
-
-
-				if (task.IsFaulted)
-				{
-					MessageBox.Show("Crash with unhandled exception." , "Crash");
-				}
-				else if (task.Result.HasErrors)
-				{
-					MessageBox.Show("Complete finished with errors.\n" + String.Join(";", task.Result.Errors), "Failed completition");
-				}
-				else
-				{
-					MessageBox.Show("Success.", "Success completition");
-				}
-			});
 		}
 
 		private void SkillCacheScript_Click(object sender, EventArgs e)
@@ -116,6 +134,7 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		}
 
 		#region Private methods
+
 		//private void FillManualData(string FileName)
 		//{
 		//	IEnumerable<string> manualPchData = FileUtils.Read(FileName).Where(FilterSkillAttributes);
@@ -131,6 +150,7 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		//{
 		//	return a.StartsWith("[ab_") || a.StartsWith("[attr_") || a.StartsWith("[trait") || a.StartsWith("[STGT_");
 		//}
+
 		#endregion
 	}
 }

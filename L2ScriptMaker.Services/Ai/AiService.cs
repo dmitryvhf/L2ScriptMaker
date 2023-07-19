@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Models.Ai;
 using L2ScriptMaker.Parsers;
@@ -11,7 +9,7 @@ namespace L2ScriptMaker.Services.Ai
 {
 	public class AiService : IAiService
 	{
-		private readonly ParserService<AiClass> _parser = new ParserService<AiClass>();
+		private readonly IParserService<AiClass> _parser = ParserFactory.Get<AiClass>();
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;

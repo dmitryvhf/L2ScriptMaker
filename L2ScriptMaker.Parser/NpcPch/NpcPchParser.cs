@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using L2ScriptMaker.Core;
-using L2ScriptMaker.Models.Npc;
 using L2ScriptMaker.Parsers.Core;
 using L2ScriptMaker.Parsers.Dto;
 
-namespace L2ScriptMaker.Parsers
+namespace L2ScriptMaker.Parsers.NpcPch
 {
-	internal class NpcPchParser : IParserService<NpcPch>
+	internal class NpcPchParser : IParserService<Models.Npc.NpcPch>
 	{
 		// private readonly ModelMapper<NpcPchDto> _mapper = new ModelMapper<NpcPchDto>();
 
-		public IEnumerable<NpcPch> Do(IEnumerable<string> rawData)
+		public IEnumerable<Models.Npc.NpcPch> Do(IEnumerable<string> rawData)
 		{
 			List<NpcPchDto> dtoData = Parse(rawData).ToList();
-			return AutoMapService.Map<NpcPchDto, NpcPch>(dtoData);
+			return AutoMapService.Map<NpcPchDto, Models.Npc.NpcPch>(dtoData);
 		}
 
 		private NpcPchDto Parse(string record)

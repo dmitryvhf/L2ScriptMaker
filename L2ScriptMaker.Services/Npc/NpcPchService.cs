@@ -1,19 +1,21 @@
-﻿using L2ScriptMaker.Core.Files;
-using L2ScriptMaker.Core.WinForms;
-using L2ScriptMaker.Models.Npc;
-using L2ScriptMaker.Parsers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
+using L2ScriptMaker.Core.Files;
+using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.Models.Npc;
+using L2ScriptMaker.Parsers;
+
 namespace L2ScriptMaker.Services.Npc
 {
+	/// <inheritdoc />
 	public class NpcPchService : INpcPchService
 	{
 		private readonly INpcDataService _npcDataService = new NpcDataService();
-		private readonly ParserService<NpcPch> _parser = new ParserService<NpcPch>();
+		private readonly IParserService<NpcPch> _parser = ParserFactory.Get<NpcPch>();
 
 		#region IProgressService implementation
 		private IProgress<int> _progress;
@@ -23,6 +25,8 @@ namespace L2ScriptMaker.Services.Npc
 		#endregion
 
 		#region INpcPchService implementation
+
+		/// <inheritdoc />
 		public IEnumerable<NpcPch> Get(string dataFile)
 		{
 			IEnumerable<string> rawData;
@@ -37,6 +41,7 @@ namespace L2ScriptMaker.Services.Npc
 			return _parser.Do(rawData);
 		}
 
+		/// <inheritdoc />
 		public List<ListItem> GetListItems(string fileName)
 		{
 			return Get(fileName)
@@ -46,11 +51,11 @@ namespace L2ScriptMaker.Services.Npc
 		#endregion
 
 		#region IGenerateService implementation
-		public ServiceResult Generate(string NpcDataDir, string NpcDataFile)
+		public ServiceResult Generate(string dataDir, string dataFile)
 		{
-			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
-			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcPchFileName);
-			string outPch2File = Path.Combine(NpcDataDir, NpcContants.NpcPch2FileName);
+			string inNpcdataFile = Path.Combine(dataDir, dataFile);
+			string outPchFile = Path.Combine(dataDir, NpcContants.NpcPchFileName);
+			string outPch2File = Path.Combine(dataDir, NpcContants.NpcPch2FileName);
 
 			List<NpcData> npcData = _npcDataService.Get(inNpcdataFile).ToList();
 

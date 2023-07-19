@@ -20,10 +20,10 @@ namespace L2ScriptMaker.Services.CachedScript
 		#endregion
 
 		#region WinForms service
-		public ServiceResult Generate(string NpcDataDir, string NpcDataFile)
+		public ServiceResult Generate(string dataDir, string dataFile)
 		{
-			string inNpcdataFile = Path.Combine(NpcDataDir, NpcDataFile);
-			string outPchFile = Path.Combine(NpcDataDir, NpcContants.NpcCacheFileName);
+			string inNpcdataFile = Path.Combine(dataDir, dataFile);
+			string outPchFile = Path.Combine(dataDir, NpcContants.NpcCacheFileName);
 
 			_npcDataService.With(_progress);
 			List<NpcData> npcDatas = _npcDataService.Get(inNpcdataFile).ToList();

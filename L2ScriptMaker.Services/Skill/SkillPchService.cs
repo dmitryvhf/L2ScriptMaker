@@ -34,12 +34,12 @@ namespace L2ScriptMaker.Services.Skill
 		#endregion
 
 		#region IGenerateService implementation
-		public ServiceResult Generate(string SkillDataDir, string SkillDataFile)
+		public ServiceResult Generate(string dataDir, string dataFile)
 		{
-			string inSkillDataFile = Path.Combine(SkillDataDir, SkillDataFile);
-			string outPchFile = Path.Combine(SkillDataDir, SkillContants.SkillPchFileName);
-			string outPch2File = Path.Combine(SkillDataDir, SkillContants.SkillPch2FileName);
-			string outPch3File = Path.Combine(SkillDataDir, SkillContants.SkillPch3FileName);
+			string inSkillDataFile = Path.Combine(dataDir, dataFile);
+			string outPchFile = Path.Combine(dataDir, SkillContants.SkillPchFileName);
+			string outPch2File = Path.Combine(dataDir, SkillContants.SkillPch2FileName);
+			string outPch3File = Path.Combine(dataDir, SkillContants.SkillPch3FileName);
 
 			_skillDataService.With(_progress);
 			List<SkillData> skillDatas = _skillDataService.Get(inSkillDataFile).ToList();

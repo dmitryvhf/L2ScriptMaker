@@ -2,6 +2,9 @@
 
 namespace L2ScriptMaker.Services
 {
+	/// <summary>
+	///		Service can notificate of progress status
+	/// </summary>
 	public interface IProgressService
 	{
 		/// <summary>
