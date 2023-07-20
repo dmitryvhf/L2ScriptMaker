@@ -9,7 +9,7 @@ namespace L2ScriptMaker.Models.Skill
 		public int Id { get; set; }
 		public int CastRange { get; set; }
 		public int HpConsume { get; set; }
-		public int MpConsume2 { get; set; }
+		public int MpConsume { get; set; }
 		public int TargetTypeId { get; set; }
 		public int EffectPoint { get; set; }
 		public int AttributeId { get; set; }

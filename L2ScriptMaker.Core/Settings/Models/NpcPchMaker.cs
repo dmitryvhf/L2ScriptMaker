@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L2ScriptMaker.Core.Settings.Models
 {
-	public class NpcPchMaker
+	public class NpcPchMakerSettings
 	{
 		public bool StopOnError { get; set; }
 	}

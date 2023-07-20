@@ -144,7 +144,7 @@ namespace L2ScriptMaker
 		private void NpcPchMakerButton_Click(object sender, EventArgs e)
 		{
 			// new NpcPchMaker().ShowDialog();
-			new Forms.Modules.Npc.NpcPchMaker().ShowDialog();
+			new Forms.Modules.Npc.NpcPchMakerForm().ShowDialog();
 		}
 
 		private void NpcC4toC5IdsConversionButton_Click(object sender, EventArgs e)
@@ -319,7 +319,7 @@ namespace L2ScriptMaker
 		private void ButtonSkillPch2Maker_Click(object sender, EventArgs e)
 		{
 			// new SkillPch2Maker().ShowDialog();
-			new Forms.Modules.Skills.SkillPch2Maker().ShowDialog();
+			new Forms.Modules.Skills.SkillPch2MakerForm().ShowDialog();
 		}
 		#endregion
 

@@ -1,6 +1,6 @@
 ﻿namespace L2ScriptMaker.Forms.Modules.Npc
 {
-	partial class NpcPchMaker
+	partial class NpcPchMakerForm
 	{
 		/// <summary>
 		/// Required designer variable.

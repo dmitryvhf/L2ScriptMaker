@@ -10,20 +10,20 @@ using L2ScriptMaker.Core.Logger;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {
-	public partial class NpcPchMaker : Form
+	public partial class NpcPchMakerForm : Form
 	{
 		private readonly INpcPchService _npcPchService;
 		private readonly INpcCacheService _npcCacheService;
 		private readonly ILogger _logger;
 
-		public NpcPchMaker()
+		public NpcPchMakerForm()
 		{
 			InitializeComponent();
 
 			_npcPchService = new NpcPchService();
 			_npcCacheService = new NpcCacheService();
 
-			_logger = new Logger(nameof(NpcPchMaker));
+			_logger = new Logger("NpcPchMaker");
 		}
 
 		private void StartButton_Click(object sender, EventArgs e)
@@ -40,8 +40,11 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcPchFileName))
 			{
-				if (MessageBox.Show($"File {NpcContants.NpcPchFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				if (MessageBox.Show($"File {NpcContants.NpcPchFileName} exist. Overwrite?",
+						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				{
 					return;
+				}
 			}
 
 			IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });
@@ -63,7 +66,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 					StartButton.Enabled = true;
 					ProgressBar.Value = 0;
 				});
-				
+
 				_logger.Write(LogLevel.Information, "NpcPch generation completed");
 				MessageBox.Show("Success.", "Complete");
 			});
@@ -83,8 +86,11 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcCacheFileName))
 			{
-				if (MessageBox.Show($"File {NpcContants.NpcCacheFileName} exist. Overwrite?", "Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				if (MessageBox.Show($"File {NpcContants.NpcCacheFileName} exist. Overwrite?",
+						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+				{
 					return;
+				}
 			}
 
 			IProgress<int> progress = new Progress<int>(a => { ProgressBar.Value = a; });

@@ -1,5 +1,6 @@
 ﻿using L2ScriptMaker.Models.Skill;
 using L2ScriptMaker.Services.Manual;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,6 +90,7 @@ namespace L2ScriptMaker.Services.Skill
 		#region Private methods Pch2
 		private SkillPch2 MapPch2(SkillData data)
 		{
+			int mpConsume = CalculateMpConsume(data.MpConsume1, data.MpConsume2);
 			int hitTime = CalculateHitTime(data.HitTime, data.CoolTime);
 			int cooldownTime = CalculateReuseCooldown(data.ReuseDelay, data.HitTime, data.HitCancelTime, data.CoolTime);
 
@@ -101,7 +103,7 @@ namespace L2ScriptMaker.Services.Skill
 				Id = data.SkillId * SkillContants.SkillIdMultiplierV1 + data.Level,
 				CastRange = data.CastRange,
 				HpConsume = data.HpConsume,
-				MpConsume2 = data.MpConsume2,
+				MpConsume = mpConsume,
 				TargetTypeId = targetTypeId,
 				EffectPoint = data.EffectPoint,
 				AttributeId = attributeId,
@@ -113,24 +115,49 @@ namespace L2ScriptMaker.Services.Skill
 			};
 		}
 
-		private static int CalculateHitTime(double HitTime, double CoolTime)
+		/// <summary>
+		///		Calculate mana consume
+		/// </summary>
+		/// <param name="mpConsume1">Activate using mana consume</param>
+		/// <param name="mpConsume2">Next casting mana consume</param>
+		/// <returns>Full mana consume</returns>
+		private static int CalculateMpConsume(int mpConsume1, int mpConsume2)
 		{
-			if (HitTime == 0)
+			return Convert.ToInt32(mpConsume1 + mpConsume2);
+		}
+
+		/// <summary>
+		///		Calculate skill hit time
+		/// </summary>
+		/// <param name="hitTime">Skill cast time</param>
+		/// <param name="coolTime">No cancel casting time</param>
+		/// <returns>Full hit casting time</returns>
+		private static int CalculateHitTime(double hitTime, double coolTime)
+		{
+			if (hitTime == 0)
 			{
 				return 0;
 			}
 
-			double result = Math.Round((HitTime + CoolTime), MidpointRounding.AwayFromZero);
+			double result = Math.Round((hitTime + coolTime), MidpointRounding.AwayFromZero);
 
 			return Convert.ToInt32(result);
 		}
 
-		private static int CalculateReuseCooldown(double ReuseDelay, double HitTime, double hitCancelTime, double CoolTime)
+		/// <summary>
+		///		Calculate skill cooldown time
+		/// </summary>
+		/// <param name="reuseDelay">Skill reuse delay</param>
+		/// <param name="hitTime">Skill cast time</param>
+		/// <param name="hitCancelTime">Time for available cancelling</param>
+		/// <param name="coolTime">Cooldown time</param>
+		/// <returns></returns>
+		private static int CalculateReuseCooldown(double reuseDelay, double hitTime, double hitCancelTime, double coolTime)
 		{
 			// double result = Math.Round((ReuseDelay - (HitTime - hitCancelTime) - CoolTime), MidpointRounding.AwayFromZero);
 			// double result = Math.Round((ReuseDelay - HitTime - CoolTime), MidpointRounding.AwayFromZero);
 			// double result = (ReuseDelay - (HitTime - hitCancelTime));
-			double result = Math.Round((ReuseDelay - HitTime - CoolTime), MidpointRounding.AwayFromZero);
+			double result = Math.Round((reuseDelay - hitTime - coolTime), MidpointRounding.AwayFromZero);
 
 			return Convert.ToInt32(result);
 		}
@@ -143,7 +170,7 @@ namespace L2ScriptMaker.Services.Skill
 				model.Id.ToString(),
 				model.CastRange.ToString(),
 				model.HpConsume.ToString(),
-				model.MpConsume2.ToString(),
+				model.MpConsume.ToString(),
 				model.TargetTypeId.ToString(),
 				model.EffectPoint.ToString(),
 				model.AttributeId.ToString(),

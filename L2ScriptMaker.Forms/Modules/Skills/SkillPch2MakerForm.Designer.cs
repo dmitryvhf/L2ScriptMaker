@@ -1,6 +1,6 @@
 ﻿namespace L2ScriptMaker.Forms.Modules.Skills
 {
-	partial class SkillPch2Maker
+	partial class SkillPch2MakerForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SkillPch2Maker));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SkillPch2MakerForm));
 			this.La2GuardAttrCheckBox = new System.Windows.Forms.CheckBox();
 			this.CheckBoxAsIs = new System.Windows.Forms.CheckBox();
 			this.CheckBoxKamaelIDStandart = new System.Windows.Forms.CheckBox();

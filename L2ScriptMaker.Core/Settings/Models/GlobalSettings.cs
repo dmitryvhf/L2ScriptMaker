@@ -5,11 +5,11 @@
 		public string WorkFolder { get; set; }
 		public string LogsFolder { get; set; }
 
-		public NpcPchMaker NpcPchMaker { get; set; }
+		public NpcPchMakerSettings NpcPchMakerSettings { get; set; }
 
 		public GlobalSettings()
 		{
-			NpcPchMaker = new NpcPchMaker();
+			NpcPchMakerSettings = new NpcPchMakerSettings();
 		}
 	}
 }

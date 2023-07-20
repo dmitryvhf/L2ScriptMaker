@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+
 using L2ScriptMaker.Core;
 using L2ScriptMaker.Models.Common;
 
@@ -35,6 +36,8 @@ namespace L2ScriptMaker.Parsers.Core
 				{
 					continue;
 				}
+
+				current = current.Trim();
 
 				if (String.IsNullOrWhiteSpace(completeRecord))
 				{
