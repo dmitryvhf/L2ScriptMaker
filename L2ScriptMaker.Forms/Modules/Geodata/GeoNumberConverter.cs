@@ -1,7 +1,8 @@
-﻿using L2ScriptMaker.Services.Geodata;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
+using L2ScriptMaker.Services.Scripts.Geodata;
 
 namespace L2ScriptMaker.Forms.Modules.Geodata
 {

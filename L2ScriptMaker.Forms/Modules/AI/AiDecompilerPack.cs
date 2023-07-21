@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using L2ScriptMaker.Core.Collections;
 using L2ScriptMaker.Core.Files;
 using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.DomainObjects.Constants;
 using L2ScriptMaker.Forms.Models.AiDecompilerPack;
-using L2ScriptMaker.Parsers;
 
 namespace L2ScriptMaker.Forms.Modules.AI
 {
@@ -44,7 +43,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 		#endregion
 
 		//private EnabledNotificator Busy { get; set; }
-		private readonly char[] _splitChars = Constants.SpaceSplitChars; //  new char[] { ' ', '\t' };
+		private readonly char[] _splitChars = ParseConstants.SpaceSplitChars; //  new char[] { ' ', '\t' };
 
 		public AiDecompilerPack()
 		{

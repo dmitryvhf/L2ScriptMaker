@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 using L2ScriptMaker.Core.Logger;
 using L2ScriptMaker.Core.WinForms;
+using L2ScriptMaker.DomainObjects.Constants;
 using L2ScriptMaker.Forms.Services;
-using L2ScriptMaker.Services.Manual;
-using L2ScriptMaker.Services.Skill;
+using L2ScriptMaker.Services.Scripts.Skill;
 
 namespace L2ScriptMaker.Forms.Modules.Skills
 {
@@ -39,7 +39,7 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		private void SkillPch2Maker_Load(object sender, EventArgs e)
 		{
 			// Select ManualPch File
-			string manualPchFile = ManualPchContants.ManualPchFileName;
+			string manualPchFile = ManualPchConstants.ManualPchFileName;
 			if (File.Exists(manualPchFile) == false)
 			{
 				_fileDialogService.Filter = "Lineage II ManualPch config|" + manualPchFile + "|All files (*.*)|*.*";
@@ -54,16 +54,16 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 		private void StartButton_Click(object sender, EventArgs e)
 		{
 			_fileDialogService.InitialDirectory = Environment.CurrentDirectory;
-			_fileDialogService.Filter = "Lineage II SkillData config|" + SkillContants.SkillDataFileName +
+			_fileDialogService.Filter = "Lineage II SkillData config|" + SkillConstants.SkillDataFileName +
 										"|All files (*.*)|*.*";
 			if (!_fileDialogService.OpenFileDialog()) return;
 
 			string skillDataFile = _fileDialogService.FileName;
 			string skillDataDir = _fileDialogService.FileDirectory;
 
-			if (File.Exists(skillDataDir + "\\" + SkillContants.SkillPchFileName))
+			if (File.Exists(skillDataDir + "\\" + SkillConstants.SkillPchFileName))
 			{
-				if (MessageBox.Show($"File {SkillContants.SkillPchFileName} exist. Overwrite?",
+				if (MessageBox.Show($"File {SkillConstants.SkillPchFileName} exist. Overwrite?",
 						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 					return;
 			}
@@ -83,7 +83,7 @@ namespace L2ScriptMaker.Forms.Modules.Skills
 				{
 					_logger.Write(LogLevel.Information, new string[]
 					{
-						"SkillPch generation started", "Output: " + SkillContants.SkillPchFileName
+						"SkillPch generation started", "Output: " + SkillConstants.SkillPchFileName
 					});
 
 					_skillPchService.With(progress);
