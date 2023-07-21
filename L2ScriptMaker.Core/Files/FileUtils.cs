@@ -10,18 +10,16 @@ namespace L2ScriptMaker.Core.Files
 	public static class FileUtils
 	{
 		private static readonly Func<string, bool> IsReadableData =
-			([NotNull] s) =>
-			{
-				string trimmed = s.Trim();
-				return !String.IsNullOrWhiteSpace(trimmed) && !trimmed.StartsWith("//");
-			};
+			([NotNull] s) => !String.IsNullOrWhiteSpace(s) && !s.StartsWith("//");
 
 		/// <summary>
 		/// Opening file for reading as enumerable records.
 		/// </summary>
 		public static IEnumerable<string> Read(string path)
 		{
-			return File.ReadLines(path).Where(IsReadableData);
+			return File.ReadLines(path)
+				.Select(x => x.Trim())
+				.Where(IsReadableData);
 		}
 
 		/// <summary>
@@ -35,7 +33,7 @@ namespace L2ScriptMaker.Core.Files
 
 				while (!sr.EndOfStream)
 				{
-					string current = sr.ReadLine();
+					string current = sr.ReadLine()?.Trim();
 					int currentProgress = (int)(sr.BaseStream.Position * 100 / dataLenght);
 					progress.Report(currentProgress);
 

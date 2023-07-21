@@ -1,12 +1,13 @@
 ﻿using L2ScriptMaker.Core.WinForms;
 using L2ScriptMaker.Forms.Services;
-using L2ScriptMaker.Services.CachedScript;
-using L2ScriptMaker.Services.Npc;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using L2ScriptMaker.Core.Logger;
+using L2ScriptMaker.Services.Scripts.Npc;
+using L2ScriptMaker.DomainObjects;
+using L2ScriptMaker.DomainObjects.Constants;
 
 namespace L2ScriptMaker.Forms.Modules.Npc
 {
@@ -31,16 +32,16 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			FileDialogService fileDialogService = new FileDialogService
 			{
 				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II NpcData config|" + NpcContants.NpcDataFileName + "|All files (*.*)|*.*"
+				Filter = "Lineage II NpcData config|" + NpcConstants.NpcDataFileName + "|All files (*.*)|*.*"
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 
 			string npcDataFile = fileDialogService.FileName;
 			string npcDataDir = fileDialogService.FileDirectory;
 
-			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcPchFileName))
+			if (File.Exists(npcDataDir + "\\" + NpcConstants.NpcPchFileName))
 			{
-				if (MessageBox.Show($"File {NpcContants.NpcPchFileName} exist. Overwrite?",
+				if (MessageBox.Show($"File {NpcConstants.NpcPchFileName} exist. Overwrite?",
 						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 				{
 					return;
@@ -54,7 +55,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			{
 				_logger.Write(LogLevel.Information, new string[]
 				{
-					"NpcPch generation started", "Output: " + NpcContants.NpcPchFileName
+					"NpcPch generation started", "Output: " + NpcConstants.NpcPchFileName
 				});
 
 				_npcPchService.With(progress);
@@ -84,9 +85,9 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 			string npcCacheFile = fileDialogService.FileName;
 			string npcDataDir = fileDialogService.FileDirectory;
 
-			if (File.Exists(npcDataDir + "\\" + NpcContants.NpcCacheFileName))
+			if (File.Exists(npcDataDir + "\\" + NpcConstants.NpcCacheFileName))
 			{
-				if (MessageBox.Show($"File {NpcContants.NpcCacheFileName} exist. Overwrite?",
+				if (MessageBox.Show($"File {NpcConstants.NpcCacheFileName} exist. Overwrite?",
 						"Overwrite?", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
 				{
 					return;
@@ -98,7 +99,7 @@ namespace L2ScriptMaker.Forms.Modules.Npc
 
 			_logger.Write(LogLevel.Information, new string[]
 			{
-				"NpcCache generation started", "Output: " + NpcContants.NpcCacheFileName
+				"NpcCache generation started", "Output: " + NpcConstants.NpcCacheFileName
 			});
 
 			Task.Run(() =>

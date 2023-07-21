@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using L2ScriptMaker.Core;
 using L2ScriptMaker.Core.WinForms;
-using L2ScriptMaker.Services.Item;
-using L2ScriptMaker.Services.Npc;
+using L2ScriptMaker.DomainObjects.Constants;
+using L2ScriptMaker.Services.Scripts.Npc;
 
 namespace L2ScriptMaker.Forms.Modules.AI
 {
@@ -32,7 +28,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 
 		private bool ItemPchLoad()
 		{
-			string fileName = ItemContants.ItemPchFileName;
+			string fileName = ItemConstants.ItemPchFileName;
 
 			if (System.IO.File.Exists(fileName) == false)
 			{
@@ -93,14 +89,14 @@ namespace L2ScriptMaker.Forms.Modules.AI
 
 					sTempStr = StringUtils.CutBrackets(sTempStr);
 					var aTemp = sTempStr.Split(';');
-					if(aTemp.Length != 4) continue;
+					if (aTemp.Length != 4) continue;
 
 					ListItem item = _itemsPch.FirstOrDefault(a => a.Value == aTemp[0]);
 					if (item == null)
 					{
 						MessageBox.Show("No exist item with number '" + aTemp[0] + "' in server script\n",
 							"Import error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						
+
 						DataGridView.Rows.Clear();
 						return;
 					}

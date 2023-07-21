@@ -4,8 +4,9 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
+using L2ScriptMaker.DomainObjects.Constants;
 using L2ScriptMaker.Forms.Services;
-using L2ScriptMaker.Services.Ai;
 
 namespace L2ScriptMaker.Forms.Modules.AI
 {
@@ -29,15 +30,15 @@ namespace L2ScriptMaker.Forms.Modules.AI
 			FileDialogService fileDialogService = new FileDialogService
 			{
 				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
+				Filter = "Lineage II server AI script|" + AiConstants.AiFileName + "|All files (*.*)|*.*"
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 
 			string aiFile = fileDialogService.FileName;
-			string aiExportFile = Path.Combine(Path.GetDirectoryName(aiFile), AiContants.AiExport);
+			string aiExportFile = Path.Combine(Path.GetDirectoryName(aiFile), AiConstants.AiExport);
 			if (File.Exists(aiExportFile))
 			{
-				MessageBox.Show($"Export file '{AiContants.AiExport}' exist. Delete and try again", "File exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show($"Export file '{AiConstants.AiExport}' exist. Delete and try again", "File exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
@@ -66,7 +67,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 			FileDialogService fileDialogService = new FileDialogService
 			{
 				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II server AI script|" + AiContants.AiFileName + "|All files (*.*)|*.*"
+				Filter = "Lineage II server AI script|" + AiConstants.AiFileName + "|All files (*.*)|*.*"
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 			string aiFile = fileDialogService.FileName;
@@ -74,7 +75,7 @@ namespace L2ScriptMaker.Forms.Modules.AI
 			fileDialogService = new FileDialogService
 			{
 				InitialDirectory = Environment.CurrentDirectory,
-				Filter = "Lineage II Sxxx import file|" + AiContants.AiExport + "|All files (*.*)|*.*"
+				Filter = "Lineage II Sxxx import file|" + AiConstants.AiExport + "|All files (*.*)|*.*"
 			};
 			if (!fileDialogService.OpenFileDialog()) return;
 

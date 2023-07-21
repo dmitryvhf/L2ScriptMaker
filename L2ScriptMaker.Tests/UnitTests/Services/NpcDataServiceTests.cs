@@ -1,9 +1,9 @@
 ﻿using System;
 using L2ScriptMaker.Models.Npc;
-using L2ScriptMaker.Services.Npc;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using L2ScriptMaker.Services.Scripts.Npc;
 
 namespace L2ScriptMaker.Tests.UnitTests.Services
 {
